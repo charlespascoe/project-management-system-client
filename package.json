@@ -1,0 +1,19 @@
+{
+  "name": "project-management-system-client",
+  "version": "0.0.1",
+  "description": "Client for the Project Management System",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cpascoe95/project-management-system-client.git"
+  },
+  "author": "Charles Pascoe",
+  "license": "GNU GPL V3",
+  "bugs": {
+    "url": "https://github.com/cpascoe95/project-management-system-client/issues"
+  },
+  "homepage": "https://github.com/cpascoe95/project-management-system-client#readme"
+}
