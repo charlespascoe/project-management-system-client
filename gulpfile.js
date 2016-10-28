@@ -50,7 +50,7 @@ gulp.task('build-dev', ['build'], function () {
       .pipe(babel({plugins: ['transform-async-to-generator', 'transform-es2015-modules-commonjs']}))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(outputDir + '/server')),
-    gulp.src(outputDir + '/public/*')
+    gulp.src(outputDir + '/public/**/*')
       .pipe(gulp.dest(outputDir + '/server/public/'))
   );
 });
