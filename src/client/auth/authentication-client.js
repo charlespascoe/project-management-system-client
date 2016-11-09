@@ -1,7 +1,7 @@
 import RestClient from 'client/rest/rest-client';
 import RestResponse from 'client/rest/rest-response';
 import Response from 'client/apis/response';
-import tokenStore from 'client/apis/token-store';
+import tokenStore from 'client/auth/token-store';
 import authenticationApi from 'client/apis/authentication-api';
 import config from 'client/config';
 import {
@@ -19,9 +19,11 @@ export class AuthenticatedClient {
   initialise() {
     var tokens = this.tokenStore.loadTokens();
     if (tokens == null) {
-      this.clearTokens()
+      this.clearTokens();
+      return false;
     } else {
       this.setTokens(tokens);
+      return true;
     }
   }
 

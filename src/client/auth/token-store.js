@@ -1,6 +1,10 @@
 export class TokenStore {
   saveTokens(tokens) {
-    localStorage.setItem('tokens', JSON.stringify(tokens));
+    if (tokens) {
+      localStorage.setItem('tokens', JSON.stringify(tokens));
+    } else {
+      localStorage.removeItem('tokens');
+    }
   }
 
   loadTokens() {
