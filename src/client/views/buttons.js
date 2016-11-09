@@ -15,9 +15,7 @@ class Button extends Component {
   onClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    console.log(this.props);
     if (!this.props.onClick) return;
-    console.log('Button click!');
     this.props.onClick();
   }
 
