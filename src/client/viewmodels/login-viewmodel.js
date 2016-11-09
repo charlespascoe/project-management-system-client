@@ -1,5 +1,5 @@
 import Viewmodel from 'client/viewmodels/viewmodel';
-import authenticatedClient from 'client/apis/authenticated-client';
+import authenticationClient from 'client/auth/authentication-client';
 import {
   SuccessStatus,
   UnauthenticatedStatus
@@ -51,15 +51,12 @@ export default class LoginViewmodel extends Viewmodel {
     var response = await this.authClient.login(this.username, this.password);
 
     if (response.status instanceof SuccessStatus) {
-      // Navigate
-      console.log('Successful login!');
+      await this.done();
       return;
     }
 
     this.username = '';
     this.password = '';
-
-    console.log(response);
 
     if (response.status instanceof UnauthenticatedStatus) {
       this.errorMessage = 'Incorrect username or password';
@@ -71,6 +68,6 @@ export default class LoginViewmodel extends Viewmodel {
   }
 
   static createDefault() {
-    return new LoginViewmodel(authenticatedClient);
+    return new LoginViewmodel(authenticationClient);
   }
 }
