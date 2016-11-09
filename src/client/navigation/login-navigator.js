@@ -1,12 +1,15 @@
 import router from 'client/navigation/router';
-import homeNavigator from 'client/navigation/home-navigator';
 
 export class LoginNavigator {
-  constructor(router, navigators) {
+  constructor(router) {
     this.router = router;
+
+    this.router.view('login').onDoneGoTo('home');
   }
 
-  startApp() {
-    this.router.navigate('login');
+  async goToLogin() {
+    await this.router.navigate('login');
   }
 }
+
+export default new LoginNavigator(router);
