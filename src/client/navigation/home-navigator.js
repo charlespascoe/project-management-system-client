@@ -16,6 +16,11 @@ export class HomeNavigator {
       await this.loginNavigator.goToLogin();
     }
   }
+
+  async logout() {
+    this.authClient.clearTokens();
+    await this.loginNavigator.goToLogin();
+  }
 }
 
 export default new HomeNavigator(router, loginNavigator, authenticationClient);

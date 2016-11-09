@@ -9,6 +9,7 @@ export class LoginNavigator {
 
   async goToLogin() {
     await this.router.navigate('login');
+    this.router.clearHistory();
   }
 }
 
