@@ -33,6 +33,10 @@ export default class View extends Component {
     }
   }
 
+  componentDidMount() {
+    this.viewmodel.onEnter(this.props.nav);
+  }
+
   onChange() {
     this.setState({ viewmodel: this.viewmodel });
   }
