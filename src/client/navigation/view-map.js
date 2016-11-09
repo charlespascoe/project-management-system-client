@@ -8,6 +8,10 @@ export class ViewMap {
   }
 
   getView(viewId) {
+    if (!(viewId in this.views)) {
+      throw new Error('View not found: ' + viewId);
+    }
+
     return this.views[viewId];
   }
 
