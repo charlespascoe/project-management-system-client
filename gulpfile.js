@@ -40,6 +40,7 @@ function buildClient(watch, out = outputDir) {
   bundler.transform(babelify, {presets: ['react', 'es2015'], plugins: ['transform-async-to-generator'], sourceMaps: !prod})
 
   function rebundle() {
+    console.log('Rebundle!');
     return bundler.bundle()
       .pipe(source('app.js'))
       .pipe(buffer())
@@ -96,7 +97,7 @@ gulp.task('style-dev', function () {
   return buildStyle(true);
 });
 
-gulp.task('nodemon', function () {
+gulp.task('nodemon', ['build-server'], function () {
   livereload.listen();
   return nodemon({
     script: outputDir + '/server/index.js',
