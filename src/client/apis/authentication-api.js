@@ -1,5 +1,7 @@
 import RestClient from 'client/rest/rest-client';
 import Response from 'client/apis/response';
+import Utils from 'client/utils';
+import config from 'client/config';
 
 import {
   defaultStatus
@@ -11,20 +13,23 @@ export class AuthenticationApi {
   }
 
   async login(username, password) {
-    var restResponse = await this.client.post('/login', {
-      username: username,
-      password: password
-    });
+    this.client.headers = {
+      'Authorization': 'Basic ' + Utils.textToBase64(`${username}:${password}`)
+    };
+
+    var restResponse = await this.client.get('/auth-token');
 
     return new Response(defaultStatus(restResponse.statusCode), restResponse.data);
   }
 
   async refreshToken(refreshToken) {
-    var restResponse = await this.client.post('/refresh', {
-      refreshToken: refreshToken
-    });
+    this.client.headers = {
+      'Authorization': 'Bearer ' + refreshToken
+    };
+    var restResponse = await this.client.get('/auth-token');
 
     return new Response(defaultStatus(restResponse.statusCode), restResponse.data);
   }
-
 }
+
+export default new AuthenticationApi((config.host || '') + '/auth');

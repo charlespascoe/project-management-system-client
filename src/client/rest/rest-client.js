@@ -3,7 +3,7 @@ import Utils from 'client/utils';
 
 export default class RestClient {
   constructor(baseUrl, headers = {}) {
-    this.baseUrl = baseUrl;
+    this.baseUrl = baseUrl || '';
     this.headers = headers;
   }
 
@@ -11,20 +11,30 @@ export default class RestClient {
     var fullUrl = this.baseUrl + url;
 
     try {
-      var response = await fetch(fullUrl, {
+      var opts = {
         method: method,
         headers: Utils.defaults({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }, this.headers),
-        body: JSON.stringify(data)
-      });
+          'Accept': 'application/json'
+        }, this.headers)
+      };
 
-      var json = await response.json();
+      if (data) {
+        opts.headers['Content-Type'] = 'application/json';
+        body: JSON.stringify(data);
+      }
 
-      return new RestResponse(response.status, JSON.parse(json));
+      var response = await fetch(fullUrl, opts);
+
+      var responseData;
+
+      try {
+        responseData = await response.json();
+      } catch (e) { }
+
+      return new RestResponse(response.status, responseData);
     } catch (e) {
       // Handle exception
+      console.error(e);
 
       return new RestResponse(-1, null);
     }

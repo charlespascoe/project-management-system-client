@@ -6,4 +6,8 @@ export default class Utils {
   static copy(obj) {
     return Object.assign({}, obj);
   }
+
+  static textToBase64(text) {
+    return btoa(text);
+  }
 }
