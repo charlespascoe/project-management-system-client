@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import homeNavigator from 'client/navigation/home-navigator';
+import userManager from 'client/managers/user-manager';
 
 export default class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuOpen: false
+      menuOpen: false,
+      user: null
     };
+    userManager.onUserChanged = (user) => {
+      this.setState({user: user});
+    }
   }
 
   toggleMenu() {
@@ -32,8 +37,8 @@ export default class NavBar extends Component {
           </div>
           <div className={'collapse navbar-collapse' + (this.state.menuOpen ? ' visible' : '')}>
             <ul className='nav navbar-nav navbar-right'>
-              <li><p className='navbar-text'>Logged in as Bob</p></li>
-              <li><a href='#' onClick={this.logout.bind(this)}>Logout</a></li>
+              {this.state.user ? <li><p className='navbar-text'>Logged in as {this.state.user.name}</p></li> : ''}
+              {this.state.user ? <li><a href='#' onClick={this.logout.bind(this)}>Logout</a></li> : ''}
             </ul>
           </div>
         </div>

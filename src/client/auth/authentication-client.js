@@ -65,6 +65,14 @@ export class AuthenticatedClient {
     return response;
   }
 
+  async logout() {
+    if (!this.tokens) return;
+    var { id, accessToken } = this.tokens;
+    // Clear the tokens before making the API call, to prevent other API calls
+    this.clearTokens();
+    await this.authApi.logout(id, accessToken);
+  }
+
   async request(method, url, data = null) {
     if (this.tokens == null) return new RestResponse(401);
 

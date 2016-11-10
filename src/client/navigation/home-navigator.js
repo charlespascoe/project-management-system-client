@@ -1,16 +1,16 @@
 import router from 'client/navigation/router';
-import authenticationClient from 'client/auth/authentication-client';
+import userManager from 'client/managers/user-manager';
 import loginNavigator from 'client/navigation/login-navigator';
 
 export class HomeNavigator {
-  constructor(router, loginNavigator, authClient) {
+  constructor(router, loginNavigator, userManager) {
     this.router = router;
     this.loginNavigator = loginNavigator;
-    this.authClient = authClient;
+    this.userManager = userManager;
   }
 
   async startApp() {
-    if (this.authClient.initialise()) {
+    if (await this.userManager.initialise()) {
       await this.router.navigate('home');
     } else {
       await this.loginNavigator.goToLogin();
@@ -18,9 +18,9 @@ export class HomeNavigator {
   }
 
   async logout() {
-    this.authClient.clearTokens();
     await this.loginNavigator.goToLogin();
+    await this.userManager.logout();
   }
 }
 
-export default new HomeNavigator(router, loginNavigator, authenticationClient);
+export default new HomeNavigator(router, loginNavigator, userManager);

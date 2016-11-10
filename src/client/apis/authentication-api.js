@@ -30,6 +30,15 @@ export class AuthenticationApi {
 
     return new Response(defaultStatus(restResponse.statusCode), restResponse.data);
   }
+
+  async logout(tokenId, accessToken) {
+    this.client.headers = {
+      'Authorization': 'Bearer ' + accessToken
+    };
+    var restResponse = await this.client.delete('/auth-token/' + tokenId);
+
+    return new Response(defaultStatus(restResponse.statusCode), restResponse.data);
+  }
 }
 
 export default new AuthenticationApi((config.host || '') + '/auth');
