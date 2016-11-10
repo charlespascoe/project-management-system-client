@@ -1,5 +1,5 @@
 import Viewmodel from 'client/viewmodels/viewmodel';
-import authenticationClient from 'client/auth/authentication-client';
+import userManager from 'client/managers/user-manager';
 import {
   SuccessStatus,
   UnauthenticatedStatus
@@ -31,14 +31,21 @@ export default class LoginViewmodel extends Viewmodel {
   get errorMessage() { return this._errorMessage; }
   set errorMessage(value) { this._errorMessage = value; }
 
-  constructor(authClient) {
+  get rememberMe() { return this._rememberMe; }
+  set rememberMe(value) {
+    this._rememberMe = value;
+    this.changed();
+  }
+
+  constructor(userManager) {
     super();
 
     this.username = '';
     this.password = '';
     this.errorMessage = '';
     this.loading = false;
-    this.authClient = authClient;
+    this.rememberMe = false;
+    this.userManager = userManager;
   }
 
   checkValid() {
@@ -46,11 +53,13 @@ export default class LoginViewmodel extends Viewmodel {
   }
 
   async login() {
+    if (!this.isValid || this.loading) return;
+
     this.loading = true;
 
-    var response = await this.authClient.login(this.username, this.password);
+    var response = await this.userManager.login(this.username, this.password, this.rememberMe);
 
-    if (response.status instanceof SuccessStatus) {
+    if (response.isOk) {
       await this.done();
       return;
     }
@@ -68,6 +77,6 @@ export default class LoginViewmodel extends Viewmodel {
   }
 
   static createDefault() {
-    return new LoginViewmodel(authenticationClient);
+    return new LoginViewmodel(userManager);
   }
 }

@@ -1,6 +1,6 @@
 import View from 'client/views/view';
 import React from 'react';
-import { bindValue } from 'client/views/bind';
+import { bindValue, bindChecked } from 'client/views/bind';
 import LoginViewmodel from 'client/viewmodels/login-viewmodel';
 import { LoadingAlert, DangerAlert } from 'client/views/alerts';
 import { PrimaryButton } from 'client/views/buttons';
@@ -53,6 +53,16 @@ export default class LoginView extends View {
             value={this.viewmodel.password}
             onChange={bindValue(this.viewmodel, 'password')}
           />
+
+          <div id='remember-me-container'>
+            <input
+              type='checkbox'
+              id='remember-me'
+              checked={this.viewmodel.rememberMe}
+              onChange={bindChecked(this.viewmodel, 'rememberMe')}
+            />
+            <label htmlFor='remember-me'>Remember Me</label>
+          </div>
 
           <PrimaryButton text='Log in' disabled={!this.viewmodel.isValid || this.viewmodel.loading} onClick={this.login.bind(this)} />
           {this.viewmodel.loading ? <LoadingAlert message='Signing in...' /> : ''}

@@ -12,12 +12,12 @@ export class AuthenticationApi {
     this.client = new RestClient(baseUrl);
   }
 
-  async login(username, password) {
+  async login(username, password, longExpiry) {
     this.client.headers = {
       'Authorization': 'Basic ' + Utils.textToBase64(`${username}:${password}`)
     };
 
-    var restResponse = await this.client.get('/auth-token');
+    var restResponse = await this.client.get('/auth-token' + (longExpiry ? '?long-expiry=true' : ''));
 
     return new Response(defaultStatus(restResponse.statusCode), restResponse.data);
   }

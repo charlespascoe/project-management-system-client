@@ -41,9 +41,9 @@ export class AuthenticatedClient {
     this.client.headers = {};
   }
 
-  async login(username, password) {
+  async login(username, password, longExpiry) {
     this.clearTokens();
-    var response = await this.authApi.login(username, password);
+    var response = await this.authApi.login(username, password, longExpiry);
 
     if (response.status instanceof SuccessStatus) {
       this.setTokens(response.data);
