@@ -23,12 +23,12 @@ export default class LoginView extends View {
 
   render() {
     return (
-      <div>
+      <div className='container'>
         <header>
           <h1 className='text-center'>Login</h1>
         </header>
 
-        <form className="form-signin" id="signin" onSubmit={this.onSubmit.bind(this)}>
+        <form className='form-signin' id='signin' onSubmit={this.onSubmit.bind(this)}>
           <label htmlFor='inputUsername' className='sr-only'>Username</label>
           <input
             type='text'
