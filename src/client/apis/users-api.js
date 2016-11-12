@@ -10,6 +10,16 @@ export class UsersApi {
     this.client = client;
   }
 
+  async getAllUsers() {
+    var restResponse = await this.client.get('/users/');
+
+    var response = new Response(defaultStatus(restResponse.statusCode));
+
+    if (response.isOk) response.data = restResponse.data.map(item => new User(item));
+
+    return response;
+  }
+
   async getUser(idOrEmail) {
     var restResponse = await this.client.get(`/users/${encodeURIComponent(idOrEmail)}`);
 
