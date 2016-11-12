@@ -1,5 +1,5 @@
 import authenticationClient from 'client/auth/authentication-client';
-import userApi from 'client/apis/user-api';
+import usersApi from 'client/apis/user-api';
 
 export class UserManager {
   get user() { return this._user; }
@@ -8,9 +8,9 @@ export class UserManager {
     if (this.onUserChanged) this.onUserChanged(value);
   }
 
-  constructor(authClient, userApi) {
+  constructor(authClient, usersApi) {
     this.authClient = authClient;
-    this.userApi = userApi;
+    this.usersApi = usersApi;
     this.user = null;
   }
 
@@ -45,7 +45,7 @@ export class UserManager {
   async getUser() {
     if (!this.userId) return null;
 
-    var response = await this.userApi.getUser(this.userId);
+    var response = await this.usersApi.getUser(this.userId);
 
     if (response.isOk) {
       this.user = response.data;
@@ -62,4 +62,4 @@ export class UserManager {
   }
 }
 
-export default new UserManager(authenticationClient, userApi);
+export default new UserManager(authenticationClient, usersApi);

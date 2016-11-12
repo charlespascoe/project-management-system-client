@@ -5,7 +5,7 @@ import {
   defaultStatus
 } from 'client/apis/statuses';
 
-export class UserApi {
+export class UsersApi {
   constructor(client) {
     this.client = client;
   }
@@ -21,4 +21,4 @@ export class UserApi {
   }
 }
 
-export default new UserApi(authenticationClient);
+export default new UsersApi(authenticationClient);
