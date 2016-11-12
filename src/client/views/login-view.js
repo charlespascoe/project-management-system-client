@@ -40,6 +40,7 @@ export default class LoginView extends View {
             autoComplete='off'
             value={this.viewmodel.username}
             onChange={bindValue(this.viewmodel, 'username')}
+            disabled={this.viewmodel.loading}
           />
 
           <label htmlFor='inputPassword' className='sr-only'>Password</label>
@@ -52,6 +53,7 @@ export default class LoginView extends View {
             autoComplete='off'
             value={this.viewmodel.password}
             onChange={bindValue(this.viewmodel, 'password')}
+            disabled={this.viewmodel.loading}
           />
 
           <div id='remember-me-container'>
@@ -60,6 +62,7 @@ export default class LoginView extends View {
               id='remember-me'
               checked={this.viewmodel.rememberMe}
               onChange={bindChecked(this.viewmodel, 'rememberMe')}
+              disabled={this.viewmodel.loading}
             />
             <label htmlFor='remember-me'>Remember Me</label>
           </div>
