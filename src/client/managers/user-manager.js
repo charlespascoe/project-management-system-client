@@ -16,6 +16,8 @@ export class UserManager {
 
   async initialise() {
     if (!this.authClient.initialise()) return false;
+    this.userId = localStorage.getItem('userId');
+
     var response = await this.getUser();
 
     if (!response.isOk) {
@@ -27,17 +29,23 @@ export class UserManager {
   }
 
   async login(username, password, longExpiry) {
+    this.username = null;
+
     var response = await this.authClient.login(username, password, longExpiry);
 
     if (!response.isOk) return response;
 
-    this.username = username;
+    this.userId = response.data.userId;
+
+    localStorage.setItem('userId', this.userId);
 
     return await this.getUser();
   }
 
   async getUser() {
-    var response = await this.userApi.getUser();
+    if (!this.userId) return null;
+
+    var response = await this.userApi.getUser(this.userId);
 
     if (response.isOk) {
       this.user = response.data;

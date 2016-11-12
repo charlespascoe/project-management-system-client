@@ -11,11 +11,6 @@ export class UserApi {
   }
 
   async getUser(idOrEmail) {
-    return new Response(defaultStatus(200), new User({
-      firstName: 'Bob',
-      otherNames: 'Smith'
-    }));
-
     var restResponse = await this.client.get(`/users/${encodeURIComponent(idOrEmail)}`);
 
     var response = new Response(defaultStatus(restResponse.statusCode));
