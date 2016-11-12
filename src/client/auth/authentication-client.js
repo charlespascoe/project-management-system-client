@@ -53,8 +53,9 @@ export class AuthenticatedClient {
   }
 
   async refresh() {
+    var refreshToken = this.tokens.refreshToken;
     this.clearTokens();
-    var response = await this.authApi.refreshToken(this.tokens.refreshToken);
+    var response = await this.authApi.refreshToken(refreshToken);
 
     if (response.status instanceof SuccessStatus) {
       this.setTokens(response.data);
