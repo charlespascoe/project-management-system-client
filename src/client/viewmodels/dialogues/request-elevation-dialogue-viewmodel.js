@@ -1,7 +1,8 @@
 import DialogueViewmodel from 'client/viewmodels/dialogues/dialogue-viewmodel';
 import userManager from 'client/managers/user-manager';
 import {
-  UnauthorisedStatus
+  UnauthorisedStatus,
+  UnauthenticatedStatus
 } from 'client/apis/statuses';
 
 export default class RequestElevationDialogueViewmodel extends DialogueViewmodel {
@@ -34,18 +35,20 @@ export default class RequestElevationDialogueViewmodel extends DialogueViewmodel
     var response = await this.userManager.requestElevation(this.password);
 
     this.password = '';
+    this.loading = false;
 
     if (response.isOk) {
       this.dismiss();
       return;
     }
 
-    if (response.status instanceof UnauthorisedStatus) {
+    if (response.status instanceof UnauthenticatedStatus) {
+      // Token pair has expired; dismiss the dialogue in order to go to the login screen
+      this.dismiss();
+    } else if (response.status instanceof UnauthorisedStatus) {
       this.errorMessage = 'Incorrect password';
     } else {
       this.errorMessage = 'Something went wrong - please try again later';
     }
-
-    this.loading = false;
   }
 }
