@@ -65,7 +65,7 @@ export class AuthenticationApi {
 
     var restResponse = await this.client.delete('/elevation');
 
-    return new Response(defaultStatus(restResponse));
+    return new Response(defaultStatus(restResponse.statusCode));
   }
 }
 
