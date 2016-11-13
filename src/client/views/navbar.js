@@ -5,13 +5,15 @@ import userManager from 'client/managers/user-manager';
 export default class NavBar extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       menuOpen: false,
       user: null
     };
-    userManager.onUserChanged = (user) => {
-      this.setState({user: user});
-    }
+
+    userManager.onUserChanged = () => {
+      this.setState({user: userManager.user});
+    };
   }
 
   toggleMenu() {
@@ -22,12 +24,20 @@ export default class NavBar extends Component {
     await homeNavigator.logout();
   }
 
+  async requestElevation() {
+    await homeNavigator.requestElevationDialogue();
+  }
+
+  async dropElevation() {
+    await userManager.dropElevation();
+  }
+
   render() {
     return (
       <nav className='navbar navbar-default navbar-fixed-top'>
         <div className='container'>
           <div className='navbar-header'>
-            <div className='navbar-toggle collapsed pull-left' id='toggle-menu' aria-expanded='false' onClick={this.toggleMenu.bind(this)}>
+            <div className='navbar-toggle collapsed pull-left' id='toggle-menu' aria-expanded='false' onClick={() => this.toggleMenu()}>
               <span className='sr-only'>Toggle navigation</span>
               <span className='icon-bar'></span>
               <span className='icon-bar'></span>
@@ -39,6 +49,8 @@ export default class NavBar extends Component {
             <ul className='nav navbar-nav navbar-right'>
               {this.state.user ? <li><p className='navbar-text'>Logged in as {this.state.user.name}</p></li> : ''}
               {this.state.user ? <li><a onClick={this.logout.bind(this)}>Logout</a></li> : ''}
+              {this.state.user && this.state.user.sysadmin && !this.state.user.isSysadminElevated ? <li><a onClick={() => this.requestElevation()}>Elevate to Admin</a></li> : ''}
+              {this.state.user && this.state.user.sysadmin && this.state.user.isSysadminElevated ? <li><a onClick={() => this.dropElevation()}>Drop Admin Elevation</a></li> : ''}
             </ul>
           </div>
         </div>
