@@ -32,6 +32,7 @@ export default class RequestElevationDialogue extends Dialogue {
             value={this.viewmodel.password}
             onChange={bindValue(this.viewmodel, 'password')}
             disabled={this.viewmodel.loading}
+            autoFocus
           />
         </form>
         {this.viewmodel.loading ? <LoadingAlert message='Verifying...' /> : ''}
