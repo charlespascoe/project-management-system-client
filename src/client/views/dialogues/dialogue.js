@@ -1,6 +1,8 @@
 import React from 'react';
 import View from 'client/views/view';
 
+const ANIMATION_DURATION = 150;
+
 export default class Dialogue extends View {
   constructor(props, viewmodel) {
     super(props, viewmodel);
@@ -14,16 +16,18 @@ export default class Dialogue extends View {
     this.viewmodel.onDismiss = this.dismiss;
 
     setTimeout(function () {
-      this.setState({visible: !this.state.visible});
-    }.bind(this), 1000);
+      this.setState({visible: true});
+    }.bind(this), 0);
   }
 
   dismiss(result = null) {
+    if (!this.state.visible) return;
+
     this.setState({visible: false});
 
     setTimeout(function () {
-      if (this.onDismiss) this.onDismiss(result);
-    }.bind(this), 150); // 150ms is duration of fade out transition
+      if (this.props.onDismiss) this.props.onDismiss(result);
+    }.bind(this), ANIMATION_DURATION); // 150ms is duration of fade out transition
   }
 
   renderFooter() {
