@@ -6,6 +6,7 @@ import viewMap from 'client/navigation/view-map';
 import homeNavigator from 'client/navigation/home-navigator';
 import NavBar from 'client/views/navbar';
 import notificationQueue from 'client/notification-queue';
+import dialogueManager from 'client/managers/dialogue-manager';
 
 class App extends Component {
   componentDidMount() {
@@ -16,10 +17,12 @@ class App extends Component {
     super();
     this.state = {
       view: null,
-      notification: null
+      notification: null,
+      dialogue: null
     };
     router.changeView = this.changeView.bind(this);
     notificationQueue.onNotificationChange = this.changeNotification.bind(this);
+    dialogueManager.onDialogueChange = this.changeDialogue.bind(this);
   }
 
   changeView(nav) {
@@ -30,11 +33,16 @@ class App extends Component {
     this.setState({notification: notificationQueue.renderNotification()});
   }
 
+  changeDialogue() {
+    this.setState({dialogue: dialogueManager.renderDialogue()});
+  }
+
   render() {
     return (
       <div>
         <NavBar />
         {this.state.view ? <this.state.view nav={this.state.nav} /> : ''}
+        {this.state.dialogue}
         {this.state.notification}
       </div>
     );
