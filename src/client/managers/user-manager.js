@@ -1,32 +1,40 @@
 import authenticationClient from 'client/auth/authentication-client';
 import usersApi from 'client/apis/users-api';
 import authApi from 'client/apis/authentication-api';
+import notificationQueue from 'client/notification-queue';
 import {
-  UnauthorisedStatus
+  UnauthorisedStatus,
+  UnauthenticatedStatus
 } from 'client/apis/statuses';
 
 export class UserManager {
   get user() { return this._user; }
   set user(value) {
     this._user = value;
-    if (this.onUserChanged) this.onUserChanged(value);
+    if (this.onUserChanged) this.onUserChanged();
   }
 
-  constructor(authClient, usersApi, authApi) {
+  constructor(authClient, usersApi, authApi, notificationQueue) {
     this.authClient = authClient;
     this.usersApi = usersApi;
     this.authApi = authApi;
+    this.notificationQueue = notificationQueue;
     this.user = null;
+    this.authApi.onUnauthenticated = this.loginExpired.bind(this);
   }
 
   async initialise() {
-    if (!this.authClient.initialise()) return false;
+    if (!this.authClient.initialise()) {
+      this.loginExpired(false);
+      return false;
+    }
+
     this.userId = localStorage.getItem('userId');
 
     var response = await this.getUser();
 
     if (!response.isOk) {
-      await this.logout();
+      this.loginExpired();
       return false;
     }
 
@@ -61,16 +69,29 @@ export class UserManager {
     return response;
   }
 
+  loginExpired(showMessage = true) {
+    this.user = null;
+    localStorage.removeItem('userId');
+    this.authClient.clearTokens();
+    if (showMessage) this.notificationQueue.showDangerNotification('Sorry, your login has expired. Please enter you username and password again.');
+    if (this.onLogout) this.onLogout();
+  }
+
   async logout() {
     this.user = null;
+    localStorage.removeItem('userId');
     await this.authClient.logout();
+    if (this.onLogout) this.onLogout();
   }
 
   async requestElevation(password) {
     // Force a token refresh
     var refreshResponse = await this.authClient.refresh();
 
-    if (!refreshResponse.isOk) return refreshResponse;
+    if (!refreshResponse.isOk) {
+      if (refreshResponse.status instanceof UnauthenticatedStatus) this.loginExpired();
+      return refreshResponse;
+    }
 
     var response = await this.authApi.requestElevation(this.authClient.tokens.accessToken, password);
 
@@ -83,18 +104,33 @@ export class UserManager {
     if (!this.user.isSysadminElevated) return new Response(new UnauthorisedStatus());
 
     if (this.onUserChanged) this.onUserChanged();
+    this.notificationQueue.showInfoNotification('You now have administrator priviledges');
 
     return response;
   }
 
   async dropElevation() {
+    if (this.isDroppingElevation) return new Response(new SuccessStatus());
+
+    this.isDroppingElevation = true;
     var response = await this.authApi.dropElevation(this.authClient.tokens.accessToken);
+    this.isDroppingElevation = false;
+
+    if (response.status instanceof UnauthenticatedStatus) {
+      this.loginExpired();
+      return response;
+    }
+
+    this.notificationQueue.showInfoNotification('You have dropped your administrator priviledges');
 
     // Unauthorised response (403) if the user isn't a sysadmin, which although it shouldn't happen, is fine
     if (response.status instanceof UnauthorisedStatus) response.status = new SuccessStatus();
+
+    this.user.sysadminElevationExpires = null;
+    if (this.onUserChanged) this.onUserChanged();
 
     return response;
   }
 }
 
-export default new UserManager(authenticationClient, usersApi, authApi);
+export default new UserManager(authenticationClient, usersApi, authApi, notificationQueue);
