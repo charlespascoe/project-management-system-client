@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import router from 'client/navigation/router';
 import viewMap from 'client/navigation/view-map';
+import { LoadingAlert } from 'client/views/alerts';
 import homeNavigator from 'client/navigation/home-navigator';
 import NavBar from 'client/views/navbar';
 import notificationQueue from 'client/notification-queue';
@@ -41,7 +42,15 @@ class App extends Component {
     return (
       <div>
         <NavBar />
-        {this.state.view ? <this.state.view nav={this.state.nav} /> : ''}
+        {this.state.view ?
+          <this.state.view nav={this.state.nav} />
+        :
+          <div className='container'>
+            <div className='loading-container'>
+              <LoadingAlert message='Loading...' />
+            </div>
+          </div>
+        }
         {this.state.dialogue}
         {this.state.notification}
       </div>
