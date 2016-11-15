@@ -3,6 +3,8 @@ export default class User {
   get isSysadminElevated() { return this.sysadmin && this.sysadminElevationExpires && this.sysadminElevationExpires > Date.now(); }
 
   constructor(data) {
+    this.id = data.id;
+    this.email = data.email;
     this.firstName = data.firstName || '';
     this.otherNames = data.otherNames || '';
     this.sysadmin = data.sysadmin;
