@@ -20,7 +20,7 @@ export default class RestClient {
 
       if (data) {
         opts.headers['Content-Type'] = 'application/json';
-        body: JSON.stringify(data);
+        opts.body = JSON.stringify(data);
       }
 
       var response = await fetch(fullUrl, opts);
