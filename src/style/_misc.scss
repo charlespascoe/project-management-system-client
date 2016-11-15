@@ -42,3 +42,31 @@ footer {
   margin: 40px auto;
   width: 100px;
 }
+
+.no-padding {
+  padding: 0;
+}
+
+@media (max-width: $screen-sm-max) {
+  .panel .panel-heading {
+    cursor: pointer;
+  }
+
+  .panel.panel-collapse {
+    overflow: hidden;
+
+    .panel-heading {
+      border-bottom: none;
+    }
+
+    .panel-body {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  .panel .toggle-icon {
+    display: none;
+  }
+}
