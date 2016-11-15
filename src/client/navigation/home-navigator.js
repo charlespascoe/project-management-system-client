@@ -9,7 +9,16 @@ export class HomeNavigator {
     this.loginNavigator = loginNavigator;
     this.userManager = userManager;
     this.dialogueManager = dialogueManager;
-    this.userManager.onLogout = this.onLogout.bind(this);
+
+    this.userManager.onLogout = async () => {
+      await this.loginNavigator.goToLogin();
+    };
+
+    this.userManager.onElevationDropped = async () => {
+      if (this.router.currentNav.viewId != 'home') {
+        await this.goHome();
+      }
+    };
   }
 
   async requestElevationDialogue() {
@@ -18,16 +27,16 @@ export class HomeNavigator {
 
   async startApp() {
     if (await this.userManager.initialise()) {
-      await this.router.navigate('home');
+      await this.goHome();
     }
+  }
+
+  async goHome() {
+    await this.router.navigate('home');
   }
 
   async logout() {
     await this.userManager.logout();
-  }
-
-  async onLogout() {
-    await this.loginNavigator.goToLogin();
   }
 }
 
