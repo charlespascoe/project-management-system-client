@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import homeNavigator from 'client/navigation/home-navigator';
+import adminNavtigator from 'client/navigation/admin-navigator';
 import userManager from 'client/managers/user-manager';
 
 export default class NavBar extends Component {
@@ -50,7 +51,8 @@ export default class NavBar extends Component {
               {this.state.user ? <li><p className='navbar-text'>Logged in as {this.state.user.name}</p></li> : ''}
               {this.state.user ? <li><a onClick={this.logout.bind(this)}>Logout</a></li> : ''}
               {this.state.user && this.state.user.sysadmin && !this.state.user.isSysadminElevated ? <li><a onClick={() => this.requestElevation()}>Elevate to Admin</a></li> : ''}
-              {this.state.user && this.state.user.sysadmin && this.state.user.isSysadminElevated ? <li><a onClick={() => this.dropElevation()}>Drop Admin Elevation</a></li> : ''}
+              {this.state.user && this.state.user.isSysadminElevated ? <li><a onClick={async () => await adminNavtigator.goToAdmin()}>Administration</a></li> : ''}
+              {this.state.user && this.state.user.isSysadminElevated ? <li><a onClick={() => this.dropElevation()}>Drop Admin Elevation</a></li> : ''}
             </ul>
           </div>
         </div>
