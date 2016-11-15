@@ -12,15 +12,19 @@ class DialogueManager {
     this.currentDialogue = null;
   }
 
-  showRequestElevationDialogue() {
+  showDialogue(elm) {
     if (this.currentDialogue != null) return;
 
     this.currentDialogue = {
-      elm: RequestElevationDialogue,
+      elm: elm,
       props: {
         onDismiss: this.dialogueDismissed.bind(this)
       }
     };
+  }
+
+  showRequestElevationDialogue() {
+    this.showDialogue(RequestElevationDialogue);
   }
 
   dialogueDismissed(result) {
