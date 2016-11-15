@@ -10,6 +10,12 @@ export class UsersApi {
     this.client = client;
   }
 
+  async addUser(data) {
+    var restResponse = await this.client.post('/users/', data);
+
+    return new Response(defaultStatus(restResponse.statusCode), restResponse.data);
+  }
+
   async getAllUsers() {
     var restResponse = await this.client.get('/users/');
 
