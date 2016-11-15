@@ -126,10 +126,17 @@ export class UserManager {
     // Unauthorised response (403) if the user isn't a sysadmin, which although it shouldn't happen, is fine
     if (response.status instanceof UnauthorisedStatus) response.status = new SuccessStatus();
 
-    this.user.sysadminElevationExpires = null;
-    if (this.onUserChanged) this.onUserChanged();
+    this.elevationExpired(false);
 
     return response;
+  }
+
+  async elevationExpired(showMessage = true) {
+    if (!this.user || !this.user.isSysadminElevated) return;
+    this.user.sysadminElevationExpires = null;
+    if (showMessage) this.notificationQueue.showDangerNotification('Your administrator priviledges have expired');
+    if (this.onUserChanged) this.onUserChanged();
+    if (this.onElevationDropped) this.onElevationDropped();
   }
 }
 
