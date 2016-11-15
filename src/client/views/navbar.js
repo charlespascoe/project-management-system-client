@@ -46,7 +46,7 @@ export default class NavBar extends Component {
             </div>
             <a className='navbar-brand'>Jeera</a>
           </div>
-          <div className={'collapse navbar-collapse' + (this.state.menuOpen ? ' visible' : '')}>
+          <div className={'collapse navbar-collapse' + (this.state.menuOpen ? ' visible' : '')} onClick={() => this.setState({menuOpen: false})}>
             <ul className='nav navbar-nav navbar-right'>
               {this.state.user ? <li><p className='navbar-text'>Logged in as {this.state.user.name}</p></li> : ''}
               {this.state.user ? <li><a onClick={this.logout.bind(this)}>Logout</a></li> : ''}
