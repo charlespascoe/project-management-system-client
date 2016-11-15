@@ -82,7 +82,7 @@ export class AuthenticatedClient {
   async request(method, url, data = null) {
     if (this.tokens == null) return new RestResponse(401);
 
-    var restResponse = await this.client.makeRequest(method, url);
+    var restResponse = await this.client.makeRequest(method, url, data);
 
     if (restResponse.statusCode == 401) {
       var refreshResponse = await this.refresh();
