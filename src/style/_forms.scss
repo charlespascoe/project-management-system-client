@@ -1,0 +1,13 @@
+.space-controls {
+  .form-control {
+    margin-bottom: 10px;
+  }
+
+  .form-control:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.invalid {
+  border-color: $state-danger-border;
+}
