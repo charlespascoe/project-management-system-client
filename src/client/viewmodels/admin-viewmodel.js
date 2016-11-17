@@ -12,9 +12,11 @@ import {
 class UserViewmodel extends Viewmodel {
   get id() { return this.model.id; }
 
-  get isCurrentUser() { return this.id == this.userManager.user.id }
+  get isCurrentUser() { return this.id == this.userManager.user.id; }
 
   get fullName() { return this.model.name; }
+
+  get email() { return this.model.email; }
 
   get model() { return this._model; }
   set model(value) { this._model = value; this.changed(); }

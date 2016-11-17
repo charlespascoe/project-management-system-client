@@ -1,0 +1,34 @@
+.admin-users-table {
+  .name-col {
+    width: 40%;
+
+  }
+
+
+  .delete-col {
+    width: 14px;
+  }
+
+  .user {
+    .name .you {
+      font-style: italic;
+      color: #666666;
+      margin-left: 5px;
+    }
+
+    .delete {
+      cursor: pointer;
+      color: #666666;
+
+      &:hover {
+        background-color: $brand-danger;
+        color: #FFFFFF;
+      }
+    }
+  }
+}
+
+.add-user {
+  border-radius: 0;
+  width: 100%;
+}

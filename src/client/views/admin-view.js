@@ -11,8 +11,17 @@ class UserItem extends View {
 
   render() {
     return (
-      <tr>
-        <td>{this.viewmodel.fullName}</td>
+      <tr className='user'>
+        <td className='name'>{this.viewmodel.fullName}{this.viewmodel.isCurrentUser ? <span className='you'>(You)</span> : ''}</td>
+        <td>{this.viewmodel.email}</td>
+        {this.viewmodel.isCurrentUser ?
+            <td></td>
+          :
+            this.viewmodel.loading ?
+              <td><span className='glyphicon glyphicon-cog rotating'></span></td>
+            :
+              <td className='delete' onClick={() => this.viewmodel.delete()}><span className='glyphicon glyphicon-remove'></span></td>
+        }
       </tr>
     );
   }
@@ -27,13 +36,25 @@ export default class AdminView extends View {
     return (
       <div className='container'>
         <h1>Admin</h1>
-        <CollapsiblePanel title='Test' padding={false}>
-          <table className='table table-striped'>
+        <CollapsiblePanel title='Users' padding={false}>
+          <table className='admin-users-table table table-striped no-margin'>
+            <colgroup>
+              <col className='name-col' />
+              <col className='email-col' />
+              <col className='delete-col'/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th></th>
+              </tr>
+            </thead>
             <tbody>
               {this.viewmodel.users.map(userVm => <UserItem viewmodel={userVm} key={userVm.id} />)}
             </tbody>
           </table>
-          <button className='btn btn-primary' onClick={() => this.viewmodel.addUser()}>Add User</button>
+          <button className='btn btn-primary add-user' onClick={() => this.viewmodel.addUser()}>Add User</button>
         </CollapsiblePanel>
       </div>
     );
