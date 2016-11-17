@@ -16,6 +16,12 @@ export class UsersApi {
     return new Response(defaultStatus(restResponse.statusCode), restResponse.data);
   }
 
+  async deleteUser(id) {
+    var restResponse = await this.client.delete(`/users/${id}`);
+
+    return new Response(defaultStatus(restResponse.statusCode));
+  }
+
   async getAllUsers() {
     var restResponse = await this.client.get('/users/');
 
