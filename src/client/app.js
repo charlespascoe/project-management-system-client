@@ -46,7 +46,7 @@ class App extends Component {
           <this.state.view nav={this.state.nav} />
         :
           <div className='container'>
-            <div className='loading-container'>
+            <div className='loading-container absolute-center'>
               <LoadingAlert message='Loading...' />
             </div>
           </div>

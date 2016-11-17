@@ -20,7 +20,7 @@ class UserItem extends View {
             this.viewmodel.loading ?
               <td><span className='glyphicon glyphicon-cog rotating'></span></td>
             :
-              <td className='delete' onClick={() => this.viewmodel.delete()}><span className='glyphicon glyphicon-remove'></span></td>
+              <td className='delete' onClick={() => this.viewmodel.delete()}><span className='glyphicon glyphicon-remove absolute-center'></span></td>
         }
       </tr>
     );
@@ -47,7 +47,7 @@ export default class AdminView extends View {
               <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th></th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
