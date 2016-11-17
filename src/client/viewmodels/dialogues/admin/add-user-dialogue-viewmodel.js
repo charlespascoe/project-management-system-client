@@ -1,13 +1,21 @@
-import Viewmodel from 'client/viewmodels/viewmodel';
+import DialogueViewmodel from 'client/viewmodels/dialogues/dialogue-viewmodel';
+import userManager from 'client/managers/user-manager';
 import usersManager from 'client/managers/users-manager';
+import notificationQueue from 'client/notification-queue';
 import User from 'client/models/user';
 
-export default class AddUserDialogueViewmodel extends Viewmodel {
+import {
+  UnauthenticatedStatus,
+  UnauthorisedStatus,
+  ConflictErrorStatus
+} from 'client/apis/statuses';
+
+export default class AddUserDialogueViewmodel extends DialogueViewmodel {
   get firstName() { return this._firstName; }
   set firstName(value) {
     this._firstName = value;
     this.firstNameVaild = true;
-    this.changed();
+    this.errorMessage = '';
   }
 
   get firstNameVaild() { return this._firstNameValid; }
@@ -17,7 +25,7 @@ export default class AddUserDialogueViewmodel extends Viewmodel {
   set otherNames(value) {
     this._otherNames = value;
     this.otherNamesVaild = true;
-    this.changed();
+    this.errorMessage = '';
   }
 
   get otherNamesVaild() { return this._otherNamesValid; }
@@ -27,7 +35,7 @@ export default class AddUserDialogueViewmodel extends Viewmodel {
   set email(value) {
     this._email = value;
     this.emailVaild = true;
-    this.changed();
+    this.errorMessage = '';
   }
 
   get emailVaild() { return this._emailValid; }
@@ -41,16 +49,26 @@ export default class AddUserDialogueViewmodel extends Viewmodel {
     );
   }
 
-  constructor(usersManager) {
+  get errorMessage() { return this._errorMessage; }
+  set errorMessage(value) { this._errorMessage = value; this.changed(); }
+
+  get loading() { return this._loading; }
+  set loading(value) { this._loading = value; this.changed(); }
+
+  constructor(userManager, usersManager, notificationQueue) {
     super();
+    this.userManager = userManager;
     this.usersManager = usersManager;
+    this.notificationQueue = notificationQueue;
     this.firstName = '';
     this.otherNames = '';
     this.email = '';
+    this.loading = false;
+    this.errorMessage = '';
   }
 
   static createDefault() {
-    return new AddUserDialogueViewmodel(usersManager);
+    return new AddUserDialogueViewmodel(userManager, usersManager, notificationQueue);
   }
 
   firstNameEntered() {
@@ -66,7 +84,10 @@ export default class AddUserDialogueViewmodel extends Viewmodel {
   }
 
   async addUser() {
-    if (!this.allValid) return;
+    if (!this.allValid || this.loading) return;
+
+    this.loading = true;
+    this.errorMessage = '';
 
     var response = await this.usersManager.addUser({
       email: this.email.toLowerCase(),
@@ -74,9 +95,27 @@ export default class AddUserDialogueViewmodel extends Viewmodel {
       otherNames: this.otherNames
     });
 
-    if (!response.isOk) {
-
+    if (response.isOk) {
+      this.dismiss();
+      this.notificationQueue.showSuccessNotification(`Successfully added ${this.firstName} ${this.otherNames} as a user`);
+      return;
     }
-  }
 
+    if (response.status instanceof UnauthenticatedStatus) {
+      // Login expired - hide dialogue
+      this.dismiss();
+      return;
+    } else if (response.status instanceof UnauthorisedStatus) {
+      // Elevation revoked or expired
+      this.userManager.elevationExpired();
+      this.dismiss();
+      return;
+    } else if (response.status instanceof ConflictErrorStatus) {
+      this.errorMessage = `A user with the email '${this.email}' already exists`;
+    } else {
+      this.errorMessage = 'An unknown error occurred';
+    }
+
+    this.loading = false;
+  }
 }
