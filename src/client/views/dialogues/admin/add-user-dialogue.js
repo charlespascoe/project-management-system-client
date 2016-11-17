@@ -22,7 +22,7 @@ export default class AddUserDialogue extends Dialogue {
           <label htmlFor='inputFirstName' className='sr-only'>First Name</label>
           <input
             id='inputFirstName'
-            className={`form-control ${this.viewmodel.firstNameVaild ? '' : 'invalid'}`}
+            className={`form-control ${this.viewmodel.firstNameValid ? '' : 'invalid'}`}
             placeholder='First Name'
             required
             autoComplete='off'
@@ -36,7 +36,7 @@ export default class AddUserDialogue extends Dialogue {
           <label htmlFor='inputOtherNames' className='sr-only'>Other Names</label>
           <input
             id='inputOtherNames'
-            className={`form-control ${this.viewmodel.otherNamesVaild ? '' : 'invalid'}`}
+            className={`form-control ${this.viewmodel.otherNamesValid ? '' : 'invalid'}`}
             placeholder='Other Names'
             required
             autoComplete='off'
@@ -49,7 +49,7 @@ export default class AddUserDialogue extends Dialogue {
           <label htmlFor='inputEmail' className='sr-only'>Email</label>
           <input
             id='inputEmail'
-            className={`form-control ${this.viewmodel.emailVaild ? '' : 'invalid'}`}
+            className={`form-control ${this.viewmodel.emailValid ? '' : 'invalid'}`}
             placeholder='Email'
             required
             autoComplete='off'
@@ -73,7 +73,7 @@ export default class AddUserDialogue extends Dialogue {
         <button
           type='button'
           className='btn btn-success'
-          onClick={async () => this.viewmodel.addUser()}
+          onClick={() => this.viewmodel.addUser()}
           disabled={this.viewmodel.loading || !this.viewmodel.allValid}>
             Create User
         </button>

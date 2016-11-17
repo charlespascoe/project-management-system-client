@@ -13,32 +13,32 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
   get firstName() { return this._firstName; }
   set firstName(value) {
     this._firstName = value;
-    this.firstNameVaild = true;
+    this.firstNameValid = true;
     this.errorMessage = '';
   }
 
-  get firstNameVaild() { return this._firstNameValid; }
-  set firstNameVaild(value) { this._firstNameValid = value; this.changed(); }
+  get firstNameValid() { return this._firstNameValid; }
+  set firstNameValid(value) { this._firstNameValid = value; this.changed(); }
 
   get otherNames() { return this._otherNames; }
   set otherNames(value) {
     this._otherNames = value;
-    this.otherNamesVaild = true;
+    this.otherNamesValid = true;
     this.errorMessage = '';
   }
 
-  get otherNamesVaild() { return this._otherNamesValid; }
-  set otherNamesVaild(value) { this._otherNamesValid = value; this.changed(); }
+  get otherNamesValid() { return this._otherNamesValid; }
+  set otherNamesValid(value) { this._otherNamesValid = value; this.changed(); }
 
   get email() { return this._email; }
   set email(value) {
     this._email = value;
-    this.emailVaild = true;
+    this.emailValid = true;
     this.errorMessage = '';
   }
 
-  get emailVaild() { return this._emailValid; }
-  set emailVaild(value) { this._emailValid = value; this.changed(); }
+  get emailValid() { return this._emailValid; }
+  set emailValid(value) { this._emailValid = value; this.changed(); }
 
   get allValid() {
     return (
@@ -70,15 +70,15 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
   }
 
   firstNameEntered() {
-    this.firstNameVaild = User.schema.firstName.validate(this.firstName);
+    this.firstNameValid = User.schema.firstName.validate(this.firstName);
   }
 
   otherNamesEntered() {
-    this.otherNamesVaild = User.schema.otherNames.validate(this.otherNames);
+    this.otherNamesValid = User.schema.otherNames.validate(this.otherNames);
   }
 
   emailEntered() {
-    this.emailVaild = User.schema.email.validate(this.email);
+    this.emailValid = User.schema.email.validate(this.email);
   }
 
   async addUser() {
