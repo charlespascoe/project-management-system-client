@@ -69,7 +69,7 @@ export default class AddUserDialogue extends Dialogue {
   renderFooter() {
     return (
       <div className='modal-footer'>
-        <button type='button' className='btn btn-default' onClick={this.dismiss}>Cancel</button>
+        <button type='button' className='btn btn-default' onClick={() => this.dismiss()}>Cancel</button>
         <button
           type='button'
           className='btn btn-success'
