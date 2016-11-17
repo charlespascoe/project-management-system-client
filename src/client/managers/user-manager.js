@@ -132,7 +132,7 @@ export class UserManager {
   }
 
   async elevationExpired(showMessage = true) {
-    if (!this.user || !this.user.isSysadminElevated) return;
+    if (!this.user) return;
     this.user.sysadminElevationExpires = null;
     if (showMessage) this.notificationQueue.showDangerNotification('Your administrator priviledges have expired');
     if (this.onUserChanged) this.onUserChanged();
