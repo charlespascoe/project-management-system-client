@@ -12,6 +12,8 @@ export function defaultStatus(statusCode) {
       return new UnauthenticatedStatus();
     case 403:
       return new UnauthorisedStatus();
+    case 409:
+      return new ConflictErrorStatus();
     default:
       return new UnknownErrorStatus();
   }
@@ -30,6 +32,8 @@ export class UnauthorisedStatus extends ErrorStatus { }
 export class UnknownErrorStatus extends ErrorStatus { }
 
 export class FatalErrorStatus extends ErrorStatus { }
+
+export class ConflictErrorStatus extends ErrorStatus { }
 
 export class RequestFailedStatus extends FatalErrorStatus { }
 
