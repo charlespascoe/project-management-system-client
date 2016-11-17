@@ -20,7 +20,7 @@ export class UserManager {
     this.authApi = authApi;
     this.notificationQueue = notificationQueue;
     this.user = null;
-    this.authApi.onUnauthenticated = this.loginExpired.bind(this);
+    this.authClient.onUnauthenticated = this.loginExpired.bind(this);
   }
 
   async initialise() {
