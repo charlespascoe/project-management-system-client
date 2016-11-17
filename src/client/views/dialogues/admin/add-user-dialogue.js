@@ -2,6 +2,7 @@ import React from 'react';
 import { bindValue } from 'client/views/bind';
 import Dialogue from 'client/views/dialogues/dialogue';
 import AddUserDialogueViewmodel from 'client/viewmodels/dialogues/admin/add-user-dialogue-viewmodel';
+import { LoadingAlert, DangerAlert } from 'client/views/alerts';
 
 export default class AddUserDialogue extends Dialogue {
   constructor(props) {
@@ -9,14 +10,15 @@ export default class AddUserDialogue extends Dialogue {
     this.title = 'Create User';
   }
 
-  async addUser(e) {
-
+  addUser(e) {
+    e.preventDefault();
+    this.viewmodel.addUser();
   }
 
   renderBody() {
     return (
       <div className='modal-body'>
-        <form onSubmit={async (e) => await this.addUser(e)} className='space-controls'>
+        <form onSubmit={this.addUser.bind(this)} className='space-controls'>
           <label htmlFor='inputFirstName' className='sr-only'>First Name</label>
           <input
             id='inputFirstName'
@@ -28,6 +30,7 @@ export default class AddUserDialogue extends Dialogue {
             maxLength='64'
             onChange={bindValue(this.viewmodel, 'firstName')}
             onBlur={() => this.viewmodel.firstNameEntered()}
+            disabled={this.viewmodel.loading}
             autoFocus
           />
           <label htmlFor='inputOtherNames' className='sr-only'>Other Names</label>
@@ -41,6 +44,7 @@ export default class AddUserDialogue extends Dialogue {
             maxLength='128'
             onChange={bindValue(this.viewmodel, 'otherNames')}
             onBlur={() => this.viewmodel.otherNamesEntered()}
+            disabled={this.viewmodel.loading}
           />
           <label htmlFor='inputEmail' className='sr-only'>Email</label>
           <input
@@ -53,8 +57,11 @@ export default class AddUserDialogue extends Dialogue {
             maxLength='128'
             onChange={bindValue(this.viewmodel, 'email')}
             onBlur={() => this.viewmodel.emailEntered()}
+            disabled={this.viewmodel.loading}
           />
         </form>
+        {this.viewmodel.loading ? <LoadingAlert message='Creating user...' /> : ''}
+        {this.viewmodel.errorMessage ? <DangerAlert message={this.viewmodel.errorMessage} /> : ''}
       </div>
     );
   }
