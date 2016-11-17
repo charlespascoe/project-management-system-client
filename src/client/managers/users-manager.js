@@ -26,6 +26,20 @@ export class UsersManager {
     return response;
   }
 
+  async deleteUser(id) {
+    var response;
+
+    if (!this.userManager.user || !this.userManager.user.isSysadminElevated) {
+      response = new Response(new UnauthorisedStatus());
+    } else {
+      response = await this.usersApi.deleteUser(id);
+    }
+
+    if (response.status instanceof UnauthorisedStatus) this.userManager.elevationExpired();
+
+    return response;
+  }
+
   async getAllUsers() {
     var response;
 
