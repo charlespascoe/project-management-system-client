@@ -1,5 +1,6 @@
 import router from 'client/navigation/router';
 import AddUserDialogue from 'client/views/dialogues/admin/add-user-dialogue';
+import ConfirmDeleteUserDialogue from 'client/views/dialogues/admin/confirm-delete-user-dialogue';
 import dialogueManager from 'client/managers/dialogue-manager';
 
 class AdminNavigator {
@@ -12,6 +13,10 @@ class AdminNavigator {
 
   async showAddUserDialogue() {
     await this.dialogueManager.showDialogue(AddUserDialogue);
+  }
+
+  async showConfirmDeleteUser(name) {
+    return await this.dialogueManager.showDialogue(ConfirmDeleteUserDialogue, {name: name});
   }
 
   async goToAdmin() {
