@@ -1,5 +1,4 @@
 import DialogueViewmodel from 'client/viewmodels/dialogues/dialogue-viewmodel';
-import userManager from 'client/managers/user-manager';
 import usersManager from 'client/managers/users-manager';
 import notificationQueue from 'client/notification-queue';
 import User from 'client/models/user';
@@ -55,9 +54,8 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
   get loading() { return this._loading; }
   set loading(value) { this._loading = value; this.changed(); }
 
-  constructor(userManager, usersManager, notificationQueue) {
+  constructor(usersManager, notificationQueue) {
     super();
-    this.userManager = userManager;
     this.usersManager = usersManager;
     this.notificationQueue = notificationQueue;
     this.firstName = '';
@@ -68,7 +66,7 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
   }
 
   static createDefault() {
-    return new AddUserDialogueViewmodel(userManager, usersManager, notificationQueue);
+    return new AddUserDialogueViewmodel(usersManager, notificationQueue);
   }
 
   firstNameEntered() {
@@ -101,13 +99,8 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
       return;
     }
 
-    if (response.status instanceof UnauthenticatedStatus) {
-      // Login expired - hide dialogue
-      this.dismiss();
-      return;
-    } else if (response.status instanceof UnauthorisedStatus) {
-      // Elevation revoked or expired
-      this.userManager.elevationExpired();
+    if (response.status instanceof UnauthenticatedStatus || response.status instanceof UnauthorisedStatus) {
+      // Login expired, or elevation revoked or expired - hide dialogue
       this.dismiss();
       return;
     } else if (response.status instanceof ConflictErrorStatus) {
