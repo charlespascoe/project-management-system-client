@@ -34,7 +34,9 @@ export default class View extends Component {
   }
 
   componentDidMount() {
-    this.viewmodel.onEnter(this.props.nav);
+    if (this.viewmodel) {
+      this.viewmodel.onEnter(this.props.nav);
+    }
   }
 
   onChange() {

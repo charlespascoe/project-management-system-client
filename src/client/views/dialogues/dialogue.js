@@ -13,7 +13,9 @@ export default class Dialogue extends View {
 
     this.dismiss = this.dismiss.bind(this);
 
-    this.viewmodel.onDismiss = this.dismiss;
+    if (this.viewmodel) {
+      this.viewmodel.onDismiss = this.dismiss;
+    }
 
     setTimeout(function () {
       this.setState({visible: true});
