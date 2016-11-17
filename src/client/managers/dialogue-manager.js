@@ -12,14 +12,14 @@ class DialogueManager {
     this.currentDialogue = null;
   }
 
-  showDialogue(elm) {
+  showDialogue(elm, props = {}) {
     if (this.currentDialogue != null) return;
+
+    props.onDismiss = this.dialogueDismissed.bind(this);
 
     this.currentDialogue = {
       elm: elm,
-      props: {
-        onDismiss: this.dialogueDismissed.bind(this)
-      }
+      props: props
     };
 
     return new Promise(fulfill => this.currentDialogue.fulfill = fulfill);
