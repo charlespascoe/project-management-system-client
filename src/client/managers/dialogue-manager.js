@@ -21,6 +21,8 @@ class DialogueManager {
         onDismiss: this.dialogueDismissed.bind(this)
       }
     };
+
+    return new Promise(fulfill => this.currentDialogue.fulfill = fulfill);
   }
 
   showRequestElevationDialogue() {
@@ -28,6 +30,7 @@ class DialogueManager {
   }
 
   dialogueDismissed(result) {
+    this.currentDialogue.fulfill(result);
     this.currentDialogue = null;
   }
 
