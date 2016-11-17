@@ -47,8 +47,9 @@ export default class AdminViewmodel extends Viewmodel {
     this.refresh();
   }
 
-  addUser() {
-    this.adminNavigator.showAddUserDialogue();
+  async addUser() {
+    await this.adminNavigator.showAddUserDialogue();
+    await this.refresh();
   }
 
   async refresh() {
