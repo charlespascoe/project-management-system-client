@@ -13,15 +13,29 @@ export class UsersManager {
   }
 
   async addUser(data) {
-    if (!this.userManager.user || !this.userManager.user.isSysadminElevated) return new Response(new UnauthorisedStatus());
+    var response;
 
-    return await this.usersApi.addUser(data);
+    if (!this.userManager.user || !this.userManager.user.isSysadminElevated) {
+      response = new Response(new UnauthorisedStatus());
+    } else {
+      response = await this.usersApi.addUser(data);
+    }
+
+    if (response.status instanceof UnauthorisedStatus) this.userManager.elevationExpired();
+
+    return response;
   }
 
   async getAllUsers() {
-    if (!this.userManager.user || !this.userManager.user.isSysadminElevated) return new Response(new UnauthorisedStatus());
+    var response;
 
-    var response = await this.usersApi.getAllUsers();
+    if (!this.userManager.user || !this.userManager.user.isSysadminElevated) {
+      response = new Response(new UnauthorisedStatus());
+    } else {
+      response = await this.usersApi.getAllUsers();
+    }
+
+    if (response.status instanceof UnauthorisedStatus) this.userManager.elevationExpired();
 
     if (response.isOk) this.users = response.data;
 
