@@ -10,8 +10,8 @@ class AdminNavigator {
     this.router.view('admin').onDoneGoTo('home');
   }
 
-  showAddUserDialogue() {
-    this.dialogueManager.showDialogue(AddUserDialogue);
+  async showAddUserDialogue() {
+    await this.dialogueManager.showDialogue(AddUserDialogue);
   }
 
   async goToAdmin() {
