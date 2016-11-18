@@ -108,6 +108,8 @@ export default class AdminViewmodel extends Viewmodel {
 
   onEnter(nav) {
     super.onEnter(nav);
+    this.users = this.usersManager.users.map(user => UserViewmodel.createDefault(user, () => this.refreshUsers()));
+    this.projects = this.projectsManager.projects.map(proj => ProjectViewmodel.createDefault(proj));
     this.refreshUsers();
     this.refreshProjects();
   }
