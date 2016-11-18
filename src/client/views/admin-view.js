@@ -27,6 +27,22 @@ class UserItem extends View {
   }
 }
 
+class ProjectItem extends View {
+  constructor(props) {
+    super(props, props.viewmodel);
+  }
+
+  render() {
+    return (
+      <tr>
+        <td>{this.viewmodel.id}</td>
+        <td>{this.viewmodel.name}</td>
+        <td>{this.viewmodel.memberCount}</td>
+      </tr>
+    );
+  }
+}
+
 export default class AdminView extends View {
   constructor(props) {
     super(props, AdminViewmodel.createDefault());
@@ -54,7 +70,28 @@ export default class AdminView extends View {
               {this.viewmodel.users.map(userVm => <UserItem viewmodel={userVm} key={userVm.id} />)}
             </tbody>
           </table>
-          <button className='btn btn-primary add-user' onClick={() => this.viewmodel.addUser()}>Add User</button>
+          <button className='btn btn-primary panel-button' onClick={() => this.viewmodel.addUser()}>Add User</button>
+        </CollapsiblePanel>
+
+        <CollapsiblePanel title='Projects' padding={false}>
+          <table className='table table-striped no-margin'>
+            <colgroup>
+              <col className='key-col' />
+              <col className='name-col' />
+              <col className='members-col' />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Project Key</th>
+                <th>Project Name</th>
+                <th># of Members</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.viewmodel.projects.map(projVm => <ProjectItem viewmodel={projVm} key={projVm.id} />)}
+            </tbody>
+          </table>
+          <button className='btn btn-primary panel-button' onClick={() => this.viewmodel.addProject()}>Add Project</button>
         </CollapsiblePanel>
       </div>
     );

@@ -1,6 +1,7 @@
 import Viewmodel from 'client/viewmodels/viewmodel';
 import userManager from 'client/managers/user-manager';
 import usersManager from 'client/managers/users-manager';
+import projectsManager from 'client/managers/projects-manager';
 import adminNavigator from 'client/navigation/admin-navigator';
 import notificationQueue from 'client/notification-queue';
 import Utils from 'client/utils';
@@ -60,6 +61,23 @@ class UserViewmodel extends Viewmodel {
   }
 }
 
+class ProjectViewmodel extends Viewmodel {
+  get id() { return this.model.id; }
+
+  get name() { return this.model.name; }
+
+  get memberCount() { return 12; }
+
+  constructor(project) {
+    super();
+    this.model = project;
+  }
+
+  static createDefault(project) {
+    return new ProjectViewmodel(project);
+  }
+}
+
 export default class AdminViewmodel extends Viewmodel {
   get users() { return this._users; }
   set users(value) { this._users = value; this.changed(); }
@@ -67,12 +85,17 @@ export default class AdminViewmodel extends Viewmodel {
   get projects() { return this._projects; }
   set projects(value) { this._projects = value; this.changed(); }
 
-  get loading() { return this._loading; }
-  set loading(value) { this._loading = value; this.changed(); }
+  get loadingUsers() { return this._loadingUsers; }
+  set loadingUsers(value) { this._loadingUsers = value; this.changed(); }
 
-  constructor(usersManager, adminNavigator, notificationQueue) {
+  get loadingProjects() { return this._loadingProjects; }
+  set loadingProjects(value) { this._loadingProjects = value; this.changed(); }
+
+
+  constructor(usersManager, projectsManager, adminNavigator, notificationQueue) {
     super();
     this.usersManager = usersManager;
+    this.projectsManager = projectsManager;
     this.adminNavigator = adminNavigator;
     this.notificationQueue = notificationQueue;
     this.users = [];
@@ -80,23 +103,29 @@ export default class AdminViewmodel extends Viewmodel {
   }
 
   static createDefault() {
-    return new AdminViewmodel(usersManager, adminNavigator, notificationQueue);
+    return new AdminViewmodel(usersManager, projectsManager, adminNavigator, notificationQueue);
   }
 
   onEnter(nav) {
     super.onEnter(nav);
-    this.refresh();
+    this.refreshUsers();
+    this.refreshProjects();
   }
 
   async addUser() {
     await this.adminNavigator.showAddUserDialogue();
-    await this.refresh();
+    await this.refreshUsers();
   }
 
-  async refresh() {
-    if (this.loading) return;
+  async addProject() {
+    await this.adminNavigator.showAddProjectDialogue();
+    await this.refreshProjects();
+  }
 
-    this.loading = true;
+  async refreshUsers() {
+    if (this.loadingUsers) return;
+
+    this.loadingUsers = true;
 
     var usersResponse = await this.usersManager.getAllUsers();
 
@@ -105,14 +134,34 @@ export default class AdminViewmodel extends Viewmodel {
 
     if (!usersResponse.isOk) {
       this.notificationQueue.showDangerNotification('Something when wrong when contacting the server');
-      this.loading = false;
+      this.loadingUsers = false;
       return;
     }
 
-    Utils.updateArray(usersResponse.data.map(user => UserViewmodel.createDefault(user, () => this.refresh())), this.users, (user1, user2) => user1.id - user2.id, (newVm, oldVm) => oldVm.model = newVm.model);
+    Utils.updateArray(usersResponse.data.map(user => UserViewmodel.createDefault(user, () => this.refreshUsers())), this.users, (user1, user2) => user1.id - user2.id, (newVm, oldVm) => oldVm.model = newVm.model);
     this.changed();
 
-    this.loading = false;
+    this.loadingUsers = false;
   }
 
+  async refreshProjects() {
+    if (this.loadingProjects) return;
+
+    this.loadingProjects = true;
+
+    var projectsResponse = await this.projectsManager.getAllProjects();
+
+    // Unauthenticated and Unauthorised responses already handled by ProjectsManager
+    if (projectsResponse.status instanceof UnauthorisedStatus || projectsResponse.status instanceof UnauthenticatedStatus) return;
+
+    if (!projectsResponse.isOk) {
+      this.notificationQueue.showDangerNotification('Something when wrong when contacting the server');
+      this.loadingProjects = false;
+      return;
+    }
+
+    this.projects = projectsResponse.data.map(proj => ProjectViewmodel.createDefault(proj));
+
+    this.loadingProjects = false;
+  }
 }
