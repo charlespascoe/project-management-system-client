@@ -9,7 +9,7 @@ class Alert extends Component {
           <Icon type={this.icon} />
         </div>
         <span className='sr-only'>{this.type}:</span>
-        <div>{this.props.message}</div>
+        <div className='message'>{this.props.message}</div>
       </div>
     );
   }
@@ -52,5 +52,15 @@ export class DangerAlert extends Alert {
     super(props);
     this.type = 'danger';
     this.icon = 'exclamation-sign';
+  }
+}
+
+export class AlertContainer extends Component {
+  render() {
+    return (
+      <div className={`alert-container ${this.props.collapsed ? 'alert-container-collapsed' : ''}`}>
+        {this.props.children}
+      </div>
+    );
   }
 }

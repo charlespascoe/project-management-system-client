@@ -2,7 +2,7 @@ import React from 'react';
 import { bindValue } from 'client/views/bind';
 import Dialogue from 'client/views/dialogues/dialogue';
 import AddProjectDialogueViewmodel from 'client/viewmodels/dialogues/admin/add-project-dialogue-viewmodel';
-import { LoadingAlert, DangerAlert } from 'client/views/alerts';
+import { LoadingAlert, WarningAlert, DangerAlert } from 'client/views/alerts';
 
 export default class AddProjectDialogue extends Dialogue {
   constructor(props) {
@@ -49,6 +49,7 @@ export default class AddProjectDialogue extends Dialogue {
         </form>
         {this.viewmodel.loading ? <LoadingAlert message='Creating project...' /> : ''}
         {this.viewmodel.errorMessage ? <DangerAlert message={this.viewmodel.errorMessage} /> : ''}
+        {this.viewmodel.warningMessage ? <WarningAlert message={this.viewmodel.warningMessage} /> : ''}
       </div>
     );
   }

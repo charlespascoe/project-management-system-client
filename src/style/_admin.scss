@@ -1,7 +1,6 @@
 .admin-users-table {
   .name-col {
     width: 40%;
-
   }
 
 
@@ -25,6 +24,10 @@
         background-color: $brand-danger;
         color: #FFFFFF;
       }
+    }
+
+    .loading {
+      position: relative;
     }
   }
 }

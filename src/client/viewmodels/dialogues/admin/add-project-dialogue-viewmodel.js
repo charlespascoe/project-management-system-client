@@ -5,7 +5,8 @@ import Project from 'client/models/project';
 import {
   UnauthenticatedStatus,
   UnauthorisedStatus,
-  ConflictErrorStatus
+  ConflictErrorStatus,
+  NoInternetStatus
 } from 'client/apis/statuses';
 
 export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
@@ -13,7 +14,7 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
   set projectID(value) {
     this._projectID = value;
     this.projectIDValid = true;
-    this.errorMessage = '';
+    this.clearMessages();
   }
 
   get projectIDValid() { return this._projectIDValid; }
@@ -23,7 +24,7 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
   set projectName(value) {
     this._projectName = value;
     this.projectNameValid = true;
-    this.errorMessage = '';
+    this.clearMessages();
   }
 
   get projectNameValid() { return this._projectNameValid; }
@@ -40,7 +41,18 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
   set loading(value) { this._loading = value; this.changed(); }
 
   get errorMessage() { return this._errorMessage; }
-  set errorMessage(value) { this._errorMessage = value; this.changed(); }
+  set errorMessage(value) {
+    if (value) this.clearMessages();
+    this._errorMessage = value;
+    this.changed();
+  }
+
+  get warningMessage() { return this._warningMessage; }
+  set warningMessage(value) {
+    if (value) this.clearMessages();
+    this._warningMessage = value;
+    this.changed();
+  }
 
   constructor(projectsManager, notificationQueue) {
     super();
@@ -52,6 +64,11 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
 
   static createDefault() {
     return new AddProjectDialogueViewmodel(projectsManager, notificationQueue);
+  }
+
+  clearMessages() {
+    this.warningMessage = '';
+    this.errorMessage = '';
   }
 
   projectIDEntered() {
@@ -66,7 +83,7 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
     if (!this.allValid || this.loading) return;
 
     this.loading = true;
-    this.errorMessage = '';
+    this.clearMessages();
 
     var response = await this.projectsManager.createProject({
       id: this.projectID,
@@ -75,7 +92,7 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
 
     if (response.isOk) {
       this.dismiss();
-      this.notificationQueue.showSuccessNotification(`Successfully created the ${this.projectName} project`);
+      this.notificationQueue.showSuccessNotification(`Successfully created ${this.projectName} project`);
       return;
     }
 
@@ -84,7 +101,9 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
       this.dismiss();
       return;
     } else if (response.status instanceof ConflictErrorStatus) {
-      this.errorMessage = `A project with the ID '${this.projectID}' already exists`;
+      this.warningMessage = `A project with the ID '${this.projectID}' already exists`;
+    } else if (response.status instanceof NoInternetStatus) {
+      this.errorMessage = 'No Internet Connection';
     } else {
       this.errorMessage = 'An unknown error occurred';
     }

@@ -3,7 +3,7 @@ import React from 'react';
 import Icon from 'client/views/icon';
 import AdminViewmodel from 'client/viewmodels/admin-viewmodel';
 import CollapsiblePanel from 'client/views/collapsible-panel';
-import { LoadingAlert, DangerAlert } from 'client/views/alerts';
+import { LoadingAlert, AlertContainer } from 'client/views/alerts';
 
 class UserItem extends View {
   constructor(props) {
@@ -19,7 +19,7 @@ class UserItem extends View {
             <td></td>
           :
             this.viewmodel.loading ?
-              <td><span className='glyphicon glyphicon-cog rotating'></span></td>
+              <td className='loading'><div className='icon-container absolute-center'><span className='glyphicon glyphicon-cog rotating'></span></div></td>
             :
               <td className='delete' onClick={() => this.viewmodel.delete()}><span className='glyphicon glyphicon-remove absolute-center'></span></td>
         }
@@ -56,6 +56,9 @@ export default class AdminView extends View {
           <h1 className='text-center'>Admin</h1>
         </div>
         <div className='container'>
+          <AlertContainer collapsed={!this.viewmodel.loading}>
+            <LoadingAlert message='Loading...' />
+          </AlertContainer>
           <CollapsiblePanel title='Users' type='primary' padding={false}>
             <table className='admin-users-table table table-striped no-margin'>
               <colgroup>

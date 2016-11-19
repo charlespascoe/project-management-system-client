@@ -7,7 +7,8 @@ import notificationQueue from 'client/notification-queue';
 import Utils from 'client/utils';
 import {
   UnauthorisedStatus,
-  UnauthenticatedStatus
+  UnauthenticatedStatus,
+  NoInternetStatus
 } from 'client/apis/statuses';
 
 class UserViewmodel extends Viewmodel {
@@ -48,12 +49,16 @@ class UserViewmodel extends Viewmodel {
 
     this.loading = true;
     var response = await this.usersManager.deleteUser(this.id);
-    this.loading = false;
 
     if (response.isOk) {
       this.notificationQueue.showSuccessNotification(`Removed ${this.fullName} as a user`);
+    } else if (response.status instanceof NoInternetStatus) {
+      this.notificationQueue.showDangerNotification('No Internet Connection');
+      this.loading = false;
+      return;
     } else if (!(response.status instanceof UnauthenticatedStatus || response.status instanceof UnauthorisedStatus)) {
       this.notificationQueue.showDangerNotification(`Something went wrong when trying to delete ${this.fullName}`);
+      this.loading = false;
       return;
     }
 
@@ -91,6 +96,7 @@ export default class AdminViewmodel extends Viewmodel {
   get loadingProjects() { return this._loadingProjects; }
   set loadingProjects(value) { this._loadingProjects = value; this.changed(); }
 
+  get loading() { return this.loadingUsers || this.loadingProjects; }
 
   constructor(usersManager, projectsManager, adminNavigator, notificationQueue) {
     super();
@@ -134,8 +140,14 @@ export default class AdminViewmodel extends Viewmodel {
     // Unauthenticated and Unauthorised responses already handled by UsersManager
     if (usersResponse.status instanceof UnauthorisedStatus || usersResponse.status instanceof UnauthenticatedStatus) return;
 
+    if (usersResponse.status instanceof NoInternetStatus) {
+      this.notificationQueue.showDangerNotification('No Internet Connection');
+      this.loadingUsers = false;
+      return;
+    }
+
     if (!usersResponse.isOk) {
-      this.notificationQueue.showDangerNotification('Something when wrong when contacting the server');
+      this.notificationQueue.showDangerNotification('Something went wrong when contacting the server');
       this.loadingUsers = false;
       return;
     }
@@ -156,8 +168,14 @@ export default class AdminViewmodel extends Viewmodel {
     // Unauthenticated and Unauthorised responses already handled by ProjectsManager
     if (projectsResponse.status instanceof UnauthorisedStatus || projectsResponse.status instanceof UnauthenticatedStatus) return;
 
+    if (projectsResponse.status instanceof NoInternetStatus) {
+      this.notificationQueue.showDangerNotification('No Internet Connection');
+      this.loadingProjects = false;
+      return;
+    }
+
     if (!projectsResponse.isOk) {
-      this.notificationQueue.showDangerNotification('Something when wrong when contacting the server');
+      this.notificationQueue.showDangerNotification('Something went wrong when contacting the server');
       this.loadingProjects = false;
       return;
     }

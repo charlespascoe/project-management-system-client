@@ -5,7 +5,7 @@ export function defaultStatus(statusCode) {
 
   switch (statusCode) {
     case -1:
-      return new RequestFailedStatus();
+      return new NoInternetStatus();
     case 400:
       return new BadRequestStatus();
     case 401:
@@ -35,7 +35,7 @@ export class FatalErrorStatus extends ErrorStatus { }
 
 export class ConflictErrorStatus extends ErrorStatus { }
 
-export class RequestFailedStatus extends FatalErrorStatus { }
+export class NoInternetStatus extends FatalErrorStatus { }
 
 export class BadRequestStatus extends FatalErrorStatus { }
 

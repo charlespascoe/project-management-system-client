@@ -6,7 +6,8 @@ import User from 'client/models/user';
 import {
   UnauthenticatedStatus,
   UnauthorisedStatus,
-  ConflictErrorStatus
+  ConflictErrorStatus,
+  NoInternetStatus
 } from 'client/apis/statuses';
 
 export default class AddUserDialogueViewmodel extends DialogueViewmodel {
@@ -14,7 +15,7 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
   set firstName(value) {
     this._firstName = value;
     this.firstNameValid = true;
-    this.errorMessage = '';
+    this.clearMessages();
   }
 
   get firstNameValid() { return this._firstNameValid; }
@@ -24,7 +25,7 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
   set otherNames(value) {
     this._otherNames = value;
     this.otherNamesValid = true;
-    this.errorMessage = '';
+    this.clearMessages();
   }
 
   get otherNamesValid() { return this._otherNamesValid; }
@@ -34,7 +35,7 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
   set email(value) {
     this._email = value;
     this.emailValid = true;
-    this.errorMessage = '';
+    this.clearMessages();
   }
 
   get emailValid() { return this._emailValid; }
@@ -49,7 +50,18 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
   }
 
   get errorMessage() { return this._errorMessage; }
-  set errorMessage(value) { this._errorMessage = value; this.changed(); }
+  set errorMessage(value) {
+    if (value) this.clearMessages();
+    this._errorMessage = value;
+    this.changed();
+  }
+
+  get warningMessage() { return this._warningMessage; }
+  set warningMessage(value) {
+    if (value) this.clearMessages();
+    this._warningMessage = value;
+    this.changed();
+  }
 
   get loading() { return this._loading; }
   set loading(value) { this._loading = value; this.changed(); }
@@ -69,6 +81,11 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
     return new AddUserDialogueViewmodel(usersManager, notificationQueue);
   }
 
+  clearMessages() {
+    this.warningMessage = '';
+    this.errorMessage = '';
+  }
+
   firstNameEntered() {
     this.firstNameValid = User.schema.firstName.validate(this.firstName);
   }
@@ -85,7 +102,7 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
     if (!this.allValid || this.loading) return;
 
     this.loading = true;
-    this.errorMessage = '';
+    this.clearMessages();
 
     var response = await this.usersManager.addUser({
       email: this.email.toLowerCase(),
@@ -104,7 +121,9 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
       this.dismiss();
       return;
     } else if (response.status instanceof ConflictErrorStatus) {
-      this.errorMessage = `A user with the email '${this.email}' already exists`;
+      this.warningMessage = `A user with the email '${this.email}' already exists`;
+    } else if (response.status instanceof NoInternetStatus) {
+      this.errorMessage = 'No Internet Connection';
     } else {
       this.errorMessage = 'An unknown error occurred';
     }

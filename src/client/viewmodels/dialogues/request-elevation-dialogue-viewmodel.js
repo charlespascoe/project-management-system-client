@@ -2,7 +2,8 @@ import DialogueViewmodel from 'client/viewmodels/dialogues/dialogue-viewmodel';
 import userManager from 'client/managers/user-manager';
 import {
   UnauthorisedStatus,
-  UnauthenticatedStatus
+  UnauthenticatedStatus,
+  NoInternetStatus
 } from 'client/apis/statuses';
 
 export default class RequestElevationDialogueViewmodel extends DialogueViewmodel {
@@ -47,6 +48,8 @@ export default class RequestElevationDialogueViewmodel extends DialogueViewmodel
       this.dismiss();
     } else if (response.status instanceof UnauthorisedStatus) {
       this.errorMessage = 'Incorrect password';
+    } else if (response.status instanceof NoInternetStatus) {
+      this.errorMessage = 'No Internet Connection';
     } else {
       this.errorMessage = 'Something went wrong - please try again later';
     }

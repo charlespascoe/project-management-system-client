@@ -1,24 +1,43 @@
 
+.icon-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  margin: 0;
+
+  &.absolute-center {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .glyphicon {
+    position: absolute;
+    top: 0;
+    padding: 0;
+  }
+}
+
+
 .alert {
   position: relative;
 
-  .icon-container {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14px;
-    height: 14px;
-    margin: 0;
-
-    .glyphicon {
-      position: absolute;
-      top: 0;
-      padding: 0;
-    }
-  }
-
-
-  div {
+  .message {
     margin-left: 20px;
+  }
+}
+
+.alert-container {
+  border-radius: 5px;
+  overflow: hidden;
+  height: 33px;
+  transition: all 0.5s;
+  margin-bottom: 10px;
+  opacity: 1;
+
+  &.alert-container-collapsed {
+    height: 0;
+    opacity: 0;
   }
 }
