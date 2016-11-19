@@ -44,14 +44,14 @@ export default class NavBar extends Component {
               <span className='icon-bar'></span>
               <span className='icon-bar'></span>
             </div>
-            <a className='navbar-brand'>Jeera</a>
+            <a className='navbar-brand' onClick={() => homeNavigator.goHome()}>Jeera</a>
           </div>
           <div className={'collapse navbar-collapse' + (this.state.menuOpen ? ' visible' : '')} onClick={() => this.setState({menuOpen: false})}>
             <ul className='nav navbar-nav navbar-right'>
               {this.state.user ? <li><p className='navbar-text'>Logged in as {this.state.user.name}</p></li> : ''}
               {this.state.user ? <li><a onClick={this.logout.bind(this)}>Logout</a></li> : ''}
               {this.state.user && this.state.user.sysadmin && !this.state.user.isSysadminElevated ? <li><a onClick={() => this.requestElevation()}>Elevate to Admin</a></li> : ''}
-              {this.state.user && this.state.user.isSysadminElevated ? <li><a onClick={async () => await adminNavtigator.goToAdmin()}>Administration</a></li> : ''}
+              {this.state.user && this.state.user.isSysadminElevated ? <li><a onClick={() => adminNavtigator.goToAdmin()}>Administration</a></li> : ''}
               {this.state.user && this.state.user.isSysadminElevated ? <li><a onClick={() => this.dropElevation()}>Drop Admin Elevation</a></li> : ''}
             </ul>
           </div>
