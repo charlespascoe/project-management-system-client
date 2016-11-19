@@ -1,4 +1,5 @@
 import React from 'react';
+import Utils from 'client/utils'
 import {
   SuccessNotification,
   InfoNotification,
@@ -46,7 +47,7 @@ class NotificationQueue {
     if (this.currentNotification == null) {
       this.currentNotification = notification;
       setTimeout(this.dismissNotification.bind(this), ANIMATION_DURATION + NOTIFICATION_DURATION);
-    } else {
+    } else if (this.currentNotification.elm !== notification.elm || !Utils.shallowEquals(this.currentNotification.props, notification.props))  {
       this.queue.push(notification);
     }
   }
