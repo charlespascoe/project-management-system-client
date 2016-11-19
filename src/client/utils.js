@@ -17,6 +17,18 @@ export default class Utils {
     return btoa(text);
   }
 
+  static shallowEquals(object1, object2) {
+    for (var key in object1) {
+      if (object1[key] !== object2[key]) return false;
+    }
+
+    for (var key in object2) {
+      if (object1[key] !== object2[key]) return false;
+    }
+
+    return true;
+  }
+
   static updateArray(sourceArray, destArray, keyComparator, replaceAction = null) {
     var sourcePos = 0,
         destPos = 0;
