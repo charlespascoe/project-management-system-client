@@ -9,8 +9,10 @@ export default class HomeView extends View {
 
   render() {
     return (
-      <div className='container'>
-        <h1>Home</h1>
+      <div>
+        <div className='container-flex header-bar'>
+          <h1 className='text-center'>Home</h1>
+        </div>
       </div>
     );
   }
