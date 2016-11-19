@@ -2,7 +2,8 @@ import Viewmodel from 'client/viewmodels/viewmodel';
 import userManager from 'client/managers/user-manager';
 import {
   SuccessStatus,
-  UnauthenticatedStatus
+  UnauthenticatedStatus,
+  NoInternetStatus
 } from 'client/apis/statuses';
 
 export default class LoginViewmodel extends Viewmodel {
@@ -69,6 +70,8 @@ export default class LoginViewmodel extends Viewmodel {
 
     if (response.status instanceof UnauthenticatedStatus) {
       this.errorMessage = 'Incorrect username or password';
+    } else if (response.status instanceof NoInternetStatus) {
+      this.errorMessage = 'No Internet Connection';
     } else {
       this.errorMessage = 'Something went wrong - please try again later';
     }
