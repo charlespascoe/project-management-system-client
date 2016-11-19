@@ -32,6 +32,7 @@ export class HomeNavigator {
   }
 
   async goHome() {
+    if (this.userManager.user == null) return;
     await this.router.navigate('home');
   }
 
