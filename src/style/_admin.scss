@@ -31,5 +31,17 @@
 
 .panel-button {
   border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
   width: 100%;
+  background-color: #EEEEEE;
+
+  .glyphicon {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    background-color: darken(#EEEEEE, 10%);
+  }
 }

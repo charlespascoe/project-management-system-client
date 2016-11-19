@@ -1,5 +1,6 @@
 import View from 'client/views/view';
 import React from 'react';
+import Icon from 'client/views/icon';
 import AdminViewmodel from 'client/viewmodels/admin-viewmodel';
 import CollapsiblePanel from 'client/views/collapsible-panel';
 import { LoadingAlert, DangerAlert } from 'client/views/alerts';
@@ -50,49 +51,57 @@ export default class AdminView extends View {
 
   render() {
     return (
-      <div className='container'>
-        <h1>Admin</h1>
-        <CollapsiblePanel title='Users' padding={false}>
-          <table className='admin-users-table table table-striped no-margin'>
-            <colgroup>
-              <col className='name-col' />
-              <col className='email-col' />
-              <col className='delete-col'/>
-            </colgroup>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.viewmodel.users.map(userVm => <UserItem viewmodel={userVm} key={userVm.id} />)}
-            </tbody>
-          </table>
-          <button className='btn btn-primary panel-button' onClick={() => this.viewmodel.addUser()}>Add User</button>
-        </CollapsiblePanel>
+      <div>
+        <div className='container-flex header-bar'>
+          <h1 className='text-center'>Admin</h1>
+        </div>
+        <div className='container'>
+          <CollapsiblePanel title='Users' type='primary' padding={false}>
+            <table className='admin-users-table table table-striped no-margin'>
+              <colgroup>
+                <col className='name-col' />
+                <col className='email-col' />
+                <col className='delete-col'/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.viewmodel.users.map(userVm => <UserItem viewmodel={userVm} key={userVm.id} />)}
+              </tbody>
+            </table>
+            <button className='btn btn-default panel-button' onClick={() => this.viewmodel.addUser()}>
+              <Icon type='plus' />Add User
+            </button>
+          </CollapsiblePanel>
 
-        <CollapsiblePanel title='Projects' padding={false}>
-          <table className='table table-striped no-margin'>
-            <colgroup>
-              <col className='key-col' />
-              <col className='name-col' />
-              <col className='members-col' />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>Project Key</th>
-                <th>Project Name</th>
-                <th># of Members</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.viewmodel.projects.map(projVm => <ProjectItem viewmodel={projVm} key={projVm.id} />)}
-            </tbody>
-          </table>
-          <button className='btn btn-primary panel-button' onClick={() => this.viewmodel.addProject()}>Add Project</button>
-        </CollapsiblePanel>
+          <CollapsiblePanel title='Projects' type='primary' padding={false}>
+            <table className='table table-striped no-margin'>
+              <colgroup>
+                <col className='key-col' />
+                <col className='name-col' />
+                <col className='members-col' />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Project Key</th>
+                  <th>Project Name</th>
+                  <th># of Members</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.viewmodel.projects.map(projVm => <ProjectItem viewmodel={projVm} key={projVm.id} />)}
+              </tbody>
+            </table>
+            <button className='btn btn-default panel-button' onClick={() => this.viewmodel.addProject()}>
+              <Icon type='plus' />Create Project
+            </button>
+          </CollapsiblePanel>
+        </div>
       </div>
     );
   }

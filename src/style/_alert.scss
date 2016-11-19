@@ -1,0 +1,24 @@
+
+.alert {
+  position: relative;
+
+  .icon-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    margin: 0;
+
+    .glyphicon {
+      position: absolute;
+      top: 0;
+      padding: 0;
+    }
+  }
+
+
+  div {
+    margin-left: 20px;
+  }
+}

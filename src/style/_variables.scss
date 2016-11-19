@@ -1,28 +1,28 @@
 $alert-padding: 6px;
 
-$brand-primary: #002366;
-$brand-info: #46C4DB;
+$brand-primary: #2d59ff;
+$brand-info: #4e73ff;
 $brand-success: #009957;
-$brand-warning: yellow;
+$brand-warning: #FFA800;
 $brand-danger: #EB352C;
 
-$state-info-text: $brand-info;
-$state-info-bg: lighten($brand-info, 40%);
+$state-info-text: #FFFFFF;
+$state-info-bg: $brand-info;
 $state-info-border: $brand-info;
 
-$state-success-text: $brand-success;
-$state-success-bg: lighten($brand-success, 40%);
+$state-success-text: #FFFFFF;
+$state-success-bg: $brand-success;
 $state-success-border: $brand-success;
 
-$state-warning-text: $brand-warning;
-$state-warning-bg: lighten($brand-warning, 40%);
+$state-warning-text: #FFFFFF;
+$state-warning-bg: $brand-warning;
 $state-warning-border: $brand-warning;
 
-$state-danger-text: $brand-danger;
-$state-danger-bg: lighten($brand-danger, 40%);
+$state-danger-text: #FFFFFF;
+$state-danger-bg: $brand-danger;
 $state-danger-border: $brand-danger;
 
-$navbar-inverse-bg: $brand-primary;
+$navbar-inverse-bg: #061c7e;
 $navbar-inverse-color: #F2F2F2;
 $navbar-inverse-link-color: #FFFFFF;
 $navbar-inverse-link-hover-bg: lighten($navbar-inverse-bg, 10%);

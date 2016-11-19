@@ -10,17 +10,6 @@ footer {
   bottom: 0;
 }
 
-.alert {
-  .glyphicon {
-    padding: 0;
-    float: left;
-  }
-
-  div {
-    margin-left: 20px;
-  }
-}
-
 .visible {
   display: block;
 }
@@ -61,7 +50,35 @@ footer {
   overflow: hidden;
 }
 
-@media (max-width: $screen-sm-max) {
+h1 {
+  font-size: 30px;
+}
+
+.navbar {
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.header-bar {
+  background-color: #0927b0;
+  padding: 10px;
+  margin-bottom: 30px;
+
+  h1 {
+    margin: 0;
+    color: #FFFFFF;
+  }
+}
+
+.panel-primary .modal-header button {
+  color: #FFF;
+  opacity: 0.75;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+@media (max-width: $screen-xs-max) {
   .panel .panel-heading {
     cursor: pointer;
   }
@@ -79,7 +96,7 @@ footer {
   }
 }
 
-@media (min-width: $screen-md-min) {
+@media (min-width: $screen-sm-min) {
   .panel .toggle-icon {
     display: none;
   }

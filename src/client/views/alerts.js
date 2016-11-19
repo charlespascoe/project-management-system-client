@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import Icon from 'client/views/icon';
 
 class Alert extends Component {
   render() {
     return (
       <div className={`alert alert-${this.type} ${this.props.className || ''}`} role='alert'>
-        <span className={`glyphicon glyphicon-${this.icon}`} aria-hidden='true'></span>
+        <div className='icon-container'>
+          <Icon type={this.icon} />
+        </div>
         <span className='sr-only'>{this.type}:</span>
         <div>{this.props.message}</div>
       </div>

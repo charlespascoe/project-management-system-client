@@ -10,7 +10,9 @@ class Notification extends Component {
   render() {
     return (
       <div className={`notification ${this.props.hide ? ' hidden-notification' : ''}`}>
-        <this.alert message={this.props.message} />
+        <div className='container'>
+          <this.alert message={this.props.message} />
+        </div>
       </div>
     );
   }

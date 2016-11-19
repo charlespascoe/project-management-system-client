@@ -35,7 +35,7 @@ export default class NavBar extends Component {
 
   render() {
     return (
-      <nav className='navbar navbar-default navbar-fixed-top'>
+      <nav className='navbar navbar-inverse navbar-fixed-top'>
         <div className='container'>
           <div className='navbar-header'>
             <div className='navbar-toggle collapsed pull-left' id='toggle-menu' aria-expanded='false' onClick={() => this.toggleMenu()}>
