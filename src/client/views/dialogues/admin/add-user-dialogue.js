@@ -63,7 +63,7 @@ export default class AddUserDialogue extends Dialogue {
         </form>
         {this.viewmodel.loading ? <LoadingAlert message='Creating user...' /> : ''}
         {this.viewmodel.errorMessage ? <DangerAlert message={this.viewmodel.errorMessage} /> : ''}
-        {this.viewmodel.warningMessage ? <WarningAlert message={this.viewmodel.warningMessage} /> : ''}
+        {this.viewmodel.warningMessage ? <WarningAlert htmlMessage={this.viewmodel.warningMessage} /> : ''}
       </div>
     );
   }

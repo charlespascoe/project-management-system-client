@@ -50,7 +50,7 @@ export default class AddProjectDialogue extends Dialogue {
         </form>
         {this.viewmodel.loading ? <LoadingAlert message='Creating project...' /> : ''}
         {this.viewmodel.errorMessage ? <DangerAlert message={this.viewmodel.errorMessage} /> : ''}
-        {this.viewmodel.warningMessage ? <WarningAlert message={this.viewmodel.warningMessage} /> : ''}
+        {this.viewmodel.warningMessage ? <WarningAlert htmlMessage={this.viewmodel.warningMessage} /> : ''}
       </div>
     );
   }

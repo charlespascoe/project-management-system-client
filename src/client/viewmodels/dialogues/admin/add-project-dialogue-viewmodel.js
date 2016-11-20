@@ -2,6 +2,7 @@ import DialogueViewmodel from 'client/viewmodels/dialogues/dialogue-viewmodel';
 import projectsManager from 'client/managers/projects-manager';
 import notificationQueue from 'client/notification-queue';
 import Project from 'client/models/project';
+import Utils from 'client/utils';
 import {
   UnauthenticatedStatus,
   UnauthorisedStatus,
@@ -101,7 +102,7 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
       this.dismiss();
       return;
     } else if (response.status instanceof ConflictErrorStatus) {
-      this.warningMessage = `A project with the ID '${this.projectID}' already exists`;
+      this.warningMessage = `A project with the ID <b>${Utils.escapeHtml(this.projectID)}</b> already exists`;
     } else if (response.status instanceof NoInternetStatus) {
       this.errorMessage = 'No Internet Connection';
     } else {

@@ -2,7 +2,7 @@ import DialogueViewmodel from 'client/viewmodels/dialogues/dialogue-viewmodel';
 import usersManager from 'client/managers/users-manager';
 import notificationQueue from 'client/notification-queue';
 import User from 'client/models/user';
-
+import Utils from 'client/utils';
 import {
   UnauthenticatedStatus,
   UnauthorisedStatus,
@@ -121,7 +121,7 @@ export default class AddUserDialogueViewmodel extends DialogueViewmodel {
       this.dismiss();
       return;
     } else if (response.status instanceof ConflictErrorStatus) {
-      this.warningMessage = `A user with the email '${this.email}' already exists`;
+      this.warningMessage = `A user with the email <b>${Utils.escapeHtml(this.email)}</b> already exists`;
     } else if (response.status instanceof NoInternetStatus) {
       this.errorMessage = 'No Internet Connection';
     } else {
