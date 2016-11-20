@@ -2,6 +2,7 @@ import React from 'react';
 import { bindValue } from 'client/views/bind';
 import Dialogue from 'client/views/dialogues/dialogue';
 import AddProjectDialogueViewmodel from 'client/viewmodels/dialogues/admin/add-project-dialogue-viewmodel';
+import InputLabel from 'client/views/input-label';
 import { LoadingAlert, WarningAlert, DangerAlert } from 'client/views/alerts';
 
 export default class AddProjectDialogue extends Dialogue {
@@ -19,25 +20,25 @@ export default class AddProjectDialogue extends Dialogue {
     return (
       <div className='modal-body'>
         <form onSubmit={this.addProject.bind(this)} className='space-controls'>
-          <label htmlFor='inputProjectID' className='sr-only'>Project ID</label>
+          <InputLabel forId='inputProjectID' label='Project ID' hint='Required, A-Z uppercase only' invalid={!this.viewmodel.projectIDValid} />
           <input
             id='inputProjectID'
             className={`form-control ${this.viewmodel.projectIDValid ? '' : 'invalid'}`}
-            placeholder='Project ID'
+            placeholder='e.g. EXAMPLE'
             required
             autoComplete='off'
             value={this.viewmodel.projectID}
-            maxLength='64'
+            maxLength='16'
             onChange={bindValue(this.viewmodel, 'projectID')}
             onBlur={() => this.viewmodel.projectIDEntered()}
             disabled={this.viewmodel.loading}
             autoFocus
           />
-          <label htmlFor='inputProjectName' className='sr-only'>Project Name</label>
+          <InputLabel forId='inputProjectName' label='Project Name' hint='Required' invalid={!this.viewmodel.projectNameValid} />
           <input
             id='inputProjectName'
             className={`form-control ${this.viewmodel.projectNameValid ? '' : 'invalid'}`}
-            placeholder='Project Name'
+            placeholder='e.g. Example Project'
             required
             autoComplete='off'
             value={this.viewmodel.projectName}

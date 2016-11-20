@@ -2,6 +2,7 @@ import React from 'react';
 import { bindValue } from 'client/views/bind';
 import Dialogue from 'client/views/dialogues/dialogue';
 import AddUserDialogueViewmodel from 'client/viewmodels/dialogues/admin/add-user-dialogue-viewmodel';
+import InputLabel from 'client/views/input-label';
 import { LoadingAlert, WarningAlert, DangerAlert } from 'client/views/alerts';
 
 export default class AddUserDialogue extends Dialogue {
@@ -19,11 +20,11 @@ export default class AddUserDialogue extends Dialogue {
     return (
       <div className='modal-body'>
         <form onSubmit={this.addUser.bind(this)} className='space-controls'>
-          <label htmlFor='inputFirstName' className='sr-only'>First Name</label>
+          <InputLabel forId='inputFirstName' label='First Name' hint='Required' invalid={!this.viewmodel.firstNameValid} />
           <input
             id='inputFirstName'
             className={`form-control ${this.viewmodel.firstNameValid ? '' : 'invalid'}`}
-            placeholder='First Name'
+            placeholder='e.g. Bob'
             required
             autoComplete='off'
             value={this.viewmodel.firstName}
@@ -33,11 +34,11 @@ export default class AddUserDialogue extends Dialogue {
             disabled={this.viewmodel.loading}
             autoFocus
           />
-          <label htmlFor='inputOtherNames' className='sr-only'>Other Names</label>
+          <InputLabel forId='inputOtherNames' label='Other Names' hint='Required' invalid={!this.viewmodel.otherNamesValid} />
           <input
             id='inputOtherNames'
             className={`form-control ${this.viewmodel.otherNamesValid ? '' : 'invalid'}`}
-            placeholder='Other Names'
+            placeholder='e.g. Smith'
             required
             autoComplete='off'
             value={this.viewmodel.otherNames}
@@ -46,11 +47,11 @@ export default class AddUserDialogue extends Dialogue {
             onBlur={() => this.viewmodel.otherNamesEntered()}
             disabled={this.viewmodel.loading}
           />
-          <label htmlFor='inputEmail' className='sr-only'>Email</label>
+          <InputLabel forId='inputEmail' label='Email' hint='Valid email required' invalid={!this.viewmodel.emailValid} />
           <input
             id='inputEmail'
             className={`form-control ${this.viewmodel.emailValid ? '' : 'invalid'}`}
-            placeholder='Email'
+            placeholder='e.g. bob.smith@mail.com'
             required
             autoComplete='off'
             value={this.viewmodel.email}
