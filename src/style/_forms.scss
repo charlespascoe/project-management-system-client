@@ -8,6 +8,18 @@
   }
 }
 
-.invalid {
+.form-control.invalid {
   border-color: $state-danger-border;
+}
+
+label .hint {
+  margin-left: 8px;
+  font-weight: normal;
+  font-style: italic;
+  color: #999;
+  transition: color 0.25s;
+
+  &.invalid {
+    color: $brand-danger;
+  }
 }
