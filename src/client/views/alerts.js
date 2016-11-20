@@ -9,7 +9,8 @@ class Alert extends Component {
           <Icon type={this.icon} />
         </div>
         <span className='sr-only'>{this.type}:</span>
-        <div className='message'>{this.props.message}</div>
+        {this.props.message ? <div className='message'>{this.props.message}</div> : ''}
+        {this.props.htmlMessage ? <div className='message' dangerouslySetInnerHTML={{__html: this.props.htmlMessage}} /> : ''}
       </div>
     );
   }
