@@ -29,6 +29,15 @@ export default class Utils {
     return true;
   }
 
+  static escapeHtml(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
   static updateArray(sourceArray, destArray, keyComparator, replaceAction = null) {
     var sourcePos = 0,
         destPos = 0;
