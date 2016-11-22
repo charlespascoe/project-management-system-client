@@ -105,6 +105,8 @@ export class Router {
   }
 
   async navigate(viewId, navData = null) {
+    if (this.currentNav && this.currentNav.viewId === viewId) return;
+
     if (viewId in this.entryHandlers) {
       await this.entryHandlers[viewId](viewId, this.currentNav, navData);
     } else {
