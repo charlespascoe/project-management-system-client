@@ -8,3 +8,6 @@ viewMap.setView('login', LoginView);
 
 import HomeView from 'client/views/home-view';
 viewMap.setView('home', HomeView);
+
+import ManageProjectView from 'client/views/manage-project-view';
+viewMap.setView('manage-project', ManageProjectView);
