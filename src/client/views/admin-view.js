@@ -53,7 +53,7 @@ export default class AdminView extends View {
     return (
       <div>
         <div className='container-flex header-bar'>
-          <h1 className='text-center'>Admin</h1>
+          <h1 className='text-center'>Administration</h1>
         </div>
         <div className='container'>
           <AlertContainer collapsed={!this.viewmodel.loading}>
