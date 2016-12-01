@@ -2,6 +2,7 @@ import Viewmodel from 'client/viewmodels/viewmodel';
 import userManager from 'client/managers/user-manager';
 import usersManager from 'client/managers/users-manager';
 import projectsManager from 'client/managers/projects-manager';
+import projectNavigator from 'client/navigation/project-navigator';
 import adminNavigator from 'client/navigation/admin-navigator';
 import notificationQueue from 'client/notification-queue';
 import Utils from 'client/utils';
@@ -73,13 +74,18 @@ class ProjectViewmodel extends Viewmodel {
 
   get memberCount() { return 12; }
 
-  constructor(project) {
+  async goToProject() {
+    await this.projectNavigator.manageProject(this.model);
+  }
+
+  constructor(project, projectNavigator) {
     super();
     this.model = project;
+    this.projectNavigator = projectNavigator;
   }
 
   static createDefault(project) {
-    return new ProjectViewmodel(project);
+    return new ProjectViewmodel(project, projectNavigator);
   }
 }
 

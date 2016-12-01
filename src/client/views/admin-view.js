@@ -35,7 +35,7 @@ class ProjectItem extends View {
 
   render() {
     return (
-      <tr>
+      <tr onClick={() => this.viewmodel.goToProject()}>
         <td>{this.viewmodel.id}</td>
         <td>{this.viewmodel.name}</td>
         <td>{this.viewmodel.memberCount}</td>
