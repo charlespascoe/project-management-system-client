@@ -12,18 +12,25 @@ export default class Dialogue extends View {
     };
 
     this.dismiss = this.dismiss.bind(this);
+    this.dismissed = false;
 
     if (this.viewmodel) {
       this.viewmodel.onDismiss = this.dismiss;
     }
 
     setTimeout(function () {
+      if (this.dismissed) return;
       this.setState({visible: true});
-    }.bind(this), 0);
+    }.bind(this), 20);
   }
 
   dismiss(result = null) {
-    if (!this.state.visible) return;
+    this.dismissed = true;
+
+    if (!this.state.visible) {
+      if (this.props.onDismiss) this.props.onDismiss(result);
+      return;
+    }
 
     this.setState({visible: false});
 
