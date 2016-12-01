@@ -13,7 +13,7 @@ export class ProjectsApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = restResponse.data.map(data => new Project(data));
+    if (response.isOk) response.data = restResponse.data.map(data => Project.create(data));
 
     return response;
   }
