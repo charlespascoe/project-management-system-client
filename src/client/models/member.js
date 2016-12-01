@@ -10,7 +10,7 @@ export default class Member {
     this.membersApi = membersApi;
   }
 
-  static createDefault(data) {
+  static create(data) {
     return new Member(data, membersApi);
   }
 

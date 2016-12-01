@@ -15,7 +15,7 @@ export class MembersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = restResponse.data.map(data => new Member(data));
+    if (response.isOk) response.data = restResponse.data.map(data => Member.create(data));
 
     return response;
   }
