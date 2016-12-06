@@ -1,5 +1,6 @@
 import Response from 'client/apis/response';
 import User from 'client/models/user';
+import Member from 'client/models/member';
 import authenticationClient from 'client/auth/authentication-client';
 import {
   defaultStatus
@@ -38,6 +39,16 @@ export class UsersApi {
     var response = new Response(defaultStatus(restResponse.statusCode));
 
     if (response.isOk) response.data = User.create(restResponse.data);
+
+    return response;
+  }
+
+  async getUserAssignments(idOrEmail) {
+    var restResponse = await this.client.get(`/users/${encodeURIComponent(idOrEmail)}/assignments`);
+
+    var response = new Response(defaultStatus(restResponse.statusCode));
+
+    if (response.isOk) response.data = restResponse.data.map(item => Member.create(item));
 
     return response;
   }

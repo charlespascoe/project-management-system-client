@@ -18,6 +18,10 @@ export default class User {
   static create(data) {
     return new User(data, usersApi);
   }
+
+  async getProjectAssignments() {
+    return this.usersApi.getUserAssignments(this.id);
+  }
 }
 
 User.schema = {
