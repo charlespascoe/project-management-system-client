@@ -39,13 +39,19 @@ export class MembersApi {
   }
 
   async addMember(projectId, userId, roleId) {
-    var restResponse = await this.client.post(`/project/${projectId}/members/${userId}`, {roleId: roleId});
+    var restResponse = await this.client.post(`/projects/${projectId}/members/`, {userId: userId, roleId: roleId});
 
     return new Response(defaultStatus(restResponse.statusCode));
   }
 
   async updateMemberRole(projectId, userId, roleId) {
-    var restResponse = await this.client.put(`/project/${projectId}/members/${userId}`, {roleId: roleId});
+    var restResponse = await this.client.put(`/projects/${projectId}/members/${userId}`, {roleId: roleId});
+
+    return new Response(defaultStatus(restResponse.statusCode));
+  }
+
+  async removeMember(projectId, userId) {
+    var restResponse = await this.client.delete(`/projects/${projectId}/members/${userId}`);
 
     return new Response(defaultStatus(restResponse.statusCode));
   }
