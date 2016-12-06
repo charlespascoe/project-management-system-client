@@ -27,7 +27,7 @@ export class UsersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = restResponse.data.map(item => new User(item));
+    if (response.isOk) response.data = restResponse.data.map(item => User.create(item));
 
     return response;
   }
@@ -37,7 +37,7 @@ export class UsersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = new User(restResponse.data);
+    if (response.isOk) response.data = User.create(restResponse.data);
 
     return response;
   }
