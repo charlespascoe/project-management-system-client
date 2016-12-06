@@ -1,6 +1,7 @@
 import React from 'react';
 import View from 'client/views/view';
 import Icon from 'client/views/icon';
+import { bindValue } from 'client/views/bind';
 import ManageProjectViewmodel from 'client/viewmodels/manage-project-viewmodel';
 import { LoadingAlert, AlertContainer } from 'client/views/alerts';
 import CollapsiblePanel from 'client/views/collapsible-panel';
@@ -13,12 +14,29 @@ class MemberItem extends View {
   render() {
     return (
       <tr>
-        <td>{this.viewmodel.name}</td>
-        <td>{this.viewmodel.roleName}</td>
-        {this.viewmodel.isCurrentUser ?
-          <td></td>
+        <td className='table-vertical-middle'>{this.viewmodel.name}</td>
+        <td>
+          <label className='sr-only'>Select Role</label>
+          <select
+            className='form-control'
+            disabled={this.viewmodel.loading}
+            value={this.viewmodel.selectedRoleId}
+            onChange={bindValue(this.viewmodel, 'selectedRoleId')}>
+              {this.viewmodel.roles.map(role => <option value={role.id} key={role.id}>{role.name}</option>)}
+          </select>
+        </td>
+        {this.viewmodel.loading ?
+          <td className='loading'>
+            <div className='icon-container absolute-center'>
+              <span className='sr-only'>Loading, please wait</span>
+              <span className='glyphicon glyphicon-cog rotating'></span>
+            </div>
+          </td>
         :
-          <td>Rm</td>
+          <td className='delete' onClick={() => this.viewmodel.removeMember()}>
+            <span className='sr-only'>Click to remove {this.viewmodel.name} from the project</span>
+            <span className='glyphicon glyphicon-remove absolute-center'></span>
+          </td>
         }
       </tr>
     );
@@ -43,7 +61,7 @@ export default class ManageProjectView extends View {
           <AlertContainer collapsed={!this.viewmodel.loadingMembers}>
             <LoadingAlert message='Loading...' />
           </AlertContainer>
-          <CollapsiblePanel title='Projects' type='primary' padding={false}>
+          <CollapsiblePanel title='Project Members' type='primary' padding={false}>
             <table className='table table-striped no-margin' id='project-members-table'>
               <colgroup>
                 <col className='name-col' />
