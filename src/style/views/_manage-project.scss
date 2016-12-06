@@ -1,0 +1,19 @@
+#manage-project-view {
+  #project-members-table {
+    #name-col {
+      width: 40%;
+    }
+
+    #role-col {
+      width: 60%;
+    }
+
+    #remove-col {
+      width: 1px;
+    }
+
+    .remove:hover {
+      background-color: $brand-danger;
+    }
+  }
+}

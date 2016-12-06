@@ -1,15 +1,19 @@
+.navbar {
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 
-.navbar a {
-  cursor: pointer;
+  a {
+    cursor: pointer;
+  }
+
+  .navbar-toggle {
+    margin-left: 15px;
+    margin-right: 0;
+    cursor: pointer;
+  }
+
+  .navbar-text {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
-.navbar-toggle {
-  margin-left: 15px;
-  margin-right: 0;
-  cursor: pointer;
-}
-
-.navbar-text {
-  padding-left: 15px;
-  padding-right: 15px;
-}

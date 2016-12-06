@@ -1,0 +1,17 @@
+#home-view #user-projects-table {
+  #project-id-col {
+    width: 20%;
+  }
+
+  #project-name-col, #role-col {
+    width: 40%;
+  }
+
+  #view-project-col {
+    width: 1px;
+  }
+
+  .view-project:hover {
+    background: $brand-info;
+  }
+}

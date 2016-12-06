@@ -46,16 +46,8 @@ footer {
   margin: 0;
 }
 
-.panel {
-  overflow: hidden;
-}
-
 h1 {
   font-size: 30px;
-}
-
-.navbar {
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .header-bar {
@@ -66,69 +58,18 @@ h1 {
   h1 {
     margin: 0;
     color: #FFFFFF;
-  }
-}
 
-.panel-primary .modal-header button {
-  color: #FFF;
-  opacity: 0.75;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-@media (max-width: $screen-xs-max) {
-  .panel .panel-heading {
-    cursor: pointer;
-  }
-
-  .panel.panel-collapse {
-    overflow: hidden;
-
-    .panel-heading {
-      border-bottom: none;
-    }
-
-    .panel-body {
-      display: none;
-    }
-  }
-}
-
-@media (min-width: $screen-sm-min) {
-  .panel .toggle-icon {
-    display: none;
-  }
-}
-
-table > tbody > tr > td {
-  &.delete {
-    position: relative;
-    cursor: pointer;
-    color: #666666;
-
-    &:hover {
-      background-color: $brand-danger;
-      color: #FFFFFF;
+    &.project-title {
+      margin-top: 5px;
     }
   }
 
-  &.loading {
-    position: relative;
+  #project-icon {
+    width: 128px;
+    height: 128px;
+    margin: 5px 20px 5px 5px;
+    background-color: rgba(255,255,255,0.2);
+    float: left;
+    border-radius: 5px;
   }
-}
-
-table > tbody > tr > td.table-vertical-middle {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.header-bar #project-icon {
-  width: 128px;
-  height: 128px;
-  margin: 5px 20px 5px 5px;
-  background-color: rgba(255,255,255,0.2);
-  float: left;
-  border-radius: 5px;
 }

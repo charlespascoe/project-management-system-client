@@ -1,9 +1,12 @@
 @import "notifications";
-@import "login";
 @import "misc";
 @import "navbar";
 @import "dialogues";
 @import "forms";
-@import "admin";
-@import "manage-project";
+@import "panels";
+@import "tables";
+@import "views/login";
+@import "views/admin";
+@import "views/manage-project";
+@import "views/home";
 @import "alert";

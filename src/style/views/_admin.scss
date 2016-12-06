@@ -1,0 +1,41 @@
+#admin-view {
+  #users-table {
+    #name-col {
+      width: 40%;
+    }
+
+    #delete-col {
+      width: 1px;
+    }
+
+    .user {
+      .name .you {
+        font-style: italic;
+        color: #666666;
+        margin-left: 5px;
+      }
+    }
+
+    .delete:hover {
+      background-color: $brand-danger;
+    }
+  }
+
+  #projects-table {
+    #id-col {
+      width: 20%;
+    }
+
+    #name-col {
+      width: 80%;
+    }
+
+    #manage-col {
+      width: 1px;
+    }
+
+    .manage:hover {
+      background-color: $brand-info;
+    }
+  }
+}

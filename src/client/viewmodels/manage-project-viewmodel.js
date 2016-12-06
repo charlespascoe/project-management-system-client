@@ -130,6 +130,7 @@ export default class ManageProjectViewmodel extends Viewmodel {
 
   constructor(projectsManager, rolesManager, notificationQueue, projectNavigator, homeNavigator) {
     super();
+    this.members = [];
     this.projectsManager = projectsManager;
     this.rolesManager = rolesManager;
     this.notificationQueue = notificationQueue;

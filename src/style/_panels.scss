@@ -1,0 +1,55 @@
+.panel {
+  overflow: hidden;
+
+  &.panel-primary .modal-header button {
+    color: #FFF;
+    opacity: 0.75;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .panel-button {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    width: 100%;
+    background-color: #EEEEEE;
+
+    .glyphicon {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      background-color: darken(#EEEEEE, 10%);
+    }
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  .panel {
+    .panel-heading {
+      cursor: pointer;
+    }
+
+    &.panel-collapse {
+      overflow: hidden;
+
+      .panel-heading {
+        border-bottom: none;
+      }
+
+      .panel-body {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .panel .toggle-icon {
+    display: none;
+  }
+}

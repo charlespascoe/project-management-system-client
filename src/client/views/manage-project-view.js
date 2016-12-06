@@ -33,7 +33,7 @@ class MemberItem extends View {
             </div>
           </td>
         :
-          <td className='delete' onClick={() => this.viewmodel.removeMember()}>
+          <td className='remove button' onClick={() => this.viewmodel.removeMember()}>
             <span className='sr-only'>Click to remove {this.viewmodel.name} from the project</span>
             <span className='glyphicon glyphicon-remove absolute-center'></span>
           </td>
@@ -50,11 +50,11 @@ export default class ManageProjectView extends View {
 
   render() {
     return (
-      <div>
+      <div id='manage-project-view'>
         <div className='container-flex header-bar'>
           <div className='container' style={{padding: 0}}>
             <img id='project-icon' src={this.viewmodel.iconUrl} alt={`${this.viewmodel.projectName} icon`}></img>
-            <h1 style={{marginTop:'5px'}}>Manage <b>{this.viewmodel.projectName}</b><br /><small>{this.viewmodel.projectId}</small></h1>
+            <h1 className='project-title'>Manage <b>{this.viewmodel.projectName}</b><br /><small>{this.viewmodel.projectId}</small></h1>
           </div>
         </div>
         <div className='container'>
@@ -64,9 +64,9 @@ export default class ManageProjectView extends View {
           <CollapsiblePanel title='Project Members' type='primary' padding={false}>
             <table className='table table-striped no-margin' id='project-members-table'>
               <colgroup>
-                <col className='name-col' />
-                <col className='role-col' />
-                <col className='remove-col' />
+                <col id='name-col' />
+                <col id='role-col' />
+                <col id='remove-col' />
               </colgroup>
               <thead>
                 <tr>
@@ -76,7 +76,7 @@ export default class ManageProjectView extends View {
                 </tr>
               </thead>
               <tbody>
-                {this.viewmodel.members ? this.viewmodel.members.map(memVm => <MemberItem viewmodel={memVm} key={memVm.id} />) : ''}
+                {this.viewmodel.members.map(memVm => <MemberItem viewmodel={memVm} key={memVm.id} />)}
               </tbody>
             </table>
             <button className='btn btn-default panel-button' onClick={() => this.viewmodel.addMember().catch(e => console.error(e))}>

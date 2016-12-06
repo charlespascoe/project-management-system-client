@@ -21,7 +21,7 @@ class UserItem extends View {
             this.viewmodel.loading ?
               <td className='loading'><div className='icon-container absolute-center'><span className='glyphicon glyphicon-cog rotating'></span></div></td>
             :
-              <td className='delete' onClick={() => this.viewmodel.delete()}><span className='glyphicon glyphicon-remove absolute-center'></span></td>
+              <td className='delete button' onClick={() => this.viewmodel.delete()}><span className='glyphicon glyphicon-remove absolute-center'></span></td>
         }
       </tr>
     );
@@ -35,10 +35,10 @@ class ProjectItem extends View {
 
   render() {
     return (
-      <tr onClick={() => this.viewmodel.goToProject()}>
+      <tr>
         <td>{this.viewmodel.id}</td>
         <td>{this.viewmodel.name}</td>
-        <td>{this.viewmodel.memberCount}</td>
+        <td className='manage button' onClick={() => this.viewmodel.goToProject()}><Icon type='chevron-right absolute-center' /></td>
       </tr>
     );
   }
@@ -51,7 +51,7 @@ export default class AdminView extends View {
 
   render() {
     return (
-      <div>
+      <div id='admin-view'>
         <div className='container-flex header-bar'>
           <h1 className='text-center'>Administration</h1>
         </div>
@@ -60,11 +60,11 @@ export default class AdminView extends View {
             <LoadingAlert message='Loading...' />
           </AlertContainer>
           <CollapsiblePanel title='Users' type='primary' padding={false}>
-            <table className='admin-users-table table table-striped no-margin'>
+            <table className='table table-striped no-margin' id='users-table'>
               <colgroup>
-                <col className='name-col' />
-                <col className='email-col' />
-                <col className='delete-col'/>
+                <col id='name-col' />
+                <col id='email-col' />
+                <col id='delete-col'/>
               </colgroup>
               <thead>
                 <tr>
@@ -83,17 +83,17 @@ export default class AdminView extends View {
           </CollapsiblePanel>
 
           <CollapsiblePanel title='Projects' type='primary' padding={false}>
-            <table className='table table-striped no-margin'>
+            <table className='table table-striped no-margin' id='projects-table'>
               <colgroup>
-                <col className='key-col' />
-                <col className='name-col' />
-                <col className='members-col' />
+                <col id='id-col' />
+                <col id='name-col' />
+                <col id='manage-col' />
               </colgroup>
               <thead>
                 <tr>
-                  <th>Project Key</th>
+                  <th>Project ID</th>
                   <th>Project Name</th>
-                  <th># of Members</th>
+                  <th>Manage</th>
                 </tr>
               </thead>
               <tbody>
