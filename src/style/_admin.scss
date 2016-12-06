@@ -14,21 +14,6 @@
       color: #666666;
       margin-left: 5px;
     }
-
-    .delete {
-      position: relative;
-      cursor: pointer;
-      color: #666666;
-
-      &:hover {
-        background-color: $brand-danger;
-        color: #FFFFFF;
-      }
-    }
-
-    .loading {
-      position: relative;
-    }
   }
 }
 

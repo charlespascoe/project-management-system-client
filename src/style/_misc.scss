@@ -101,3 +101,25 @@ h1 {
     display: none;
   }
 }
+
+table > tbody > tr > td {
+  &.delete {
+    position: relative;
+    cursor: pointer;
+    color: #666666;
+
+    &:hover {
+      background-color: $brand-danger;
+      color: #FFFFFF;
+    }
+  }
+
+  &.loading {
+    position: relative;
+  }
+}
+
+table > tbody > tr > td.table-vertical-middle {
+  display: table-cell;
+  vertical-align: middle;
+}
