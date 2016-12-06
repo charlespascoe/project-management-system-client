@@ -140,11 +140,10 @@ export default class AddProjectMemberDialogueViewmodel extends DialogueViewmodel
 
     console.log(nonMembersResult, rolesResult);
 
-    if (nonMembersResult.status instanceof UnauthenticatedStatus ||
-        nonMembersResult.status instanceof UnauthorisedStatus ||
-        rolesResult.status instanceof UnauthenticatedStatus ||
-        rolesResult.status instanceof UnauthorisedStatus) {
+    if (nonMembersResult.isUnauthenticated || rolesResult.isUnauthenticated) {
       // Login expired, or elevation revoked or expired - hide dialogue
+    } else if (nonMembersResult.isUnauthorised || rolesResult.isUnauthorised) {
+      this.notificationQueue.showWarningNotification('You are not authorised to add members to this project');
     } else if (nonMembersResult.status instanceof NoInternetStatus || rolesResult.status instanceof NoInternetStatus) {
       this.notificationQueue.showDangerNotification('No Internet Connection');
     } else {
