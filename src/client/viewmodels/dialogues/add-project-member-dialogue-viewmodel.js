@@ -155,14 +155,23 @@ export default class AddProjectMemberDialogueViewmodel extends DialogueViewmodel
 
   async addMember() {
     if (this.loading || !this.allValid) return;
-
-    this.loading = true;
-
     this.clearMessages();
 
+    this.loading = true;
     var response = await this.project.addMember(this.selectedUser, this.selectedRole);
+    this.loading = false;
 
-    if (response.isUnauthenticated) return;
+    if (response.isOk) {
+      var user = this.nonMembers.find(u => u.id == this.selectedUser);
+      this.notificationQueue.showSuccessNotification(`Successfully added ${user.name} as a member`);
+      this.dismiss();
+    }
+
+    if (response.isUnauthenticated) {
+      this.dismiss();
+      return;
+    }
+
     if (response.isUnauthorised) {
       this.notificationQueue.showWarningNotification('You are not authorised to add a member to this project');
       this.dismiss();
@@ -171,18 +180,10 @@ export default class AddProjectMemberDialogueViewmodel extends DialogueViewmodel
 
     if (response.status instanceof NoInternetStatus) {
       this.errorMessage = 'No Internet Connection';
-      this.loading = false;
       return;
     }
 
-    if (!response.isOk) {
-      this.errorMessage = 'An unknown error occurred';
-      this.loading = false;
-      return;
-    }
-
-    this.notificationQueue.showSuccessNotification(`Successfully added ${this.selectedUser.name} as a member`);
-    this.dismiss();
+    this.errorMessage = 'An unknown error occurred';
   }
 }
 
