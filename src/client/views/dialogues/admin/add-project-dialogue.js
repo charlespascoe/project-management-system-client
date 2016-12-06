@@ -47,6 +47,19 @@ export default class AddProjectDialogue extends Dialogue {
             onBlur={() => this.viewmodel.projectNameEntered()}
             disabled={this.viewmodel.loading}
           />
+          <InputLabel forId='inputIconUrl' label='Icon URL' hint='Valid URL required' invalid={!this.viewmodel.iconUrlValid} />
+          <input
+            id='inputIconUrl'
+            className={`form-control ${this.viewmodel.iconUrlValid ? '' : 'invalid'}`}
+            placeholder='e.g. https://www.example.com/icon.png'
+            required
+            autoComplete='off'
+            value={this.viewmodel.iconUrl}
+            maxLength='256'
+            onChange={bindValue(this.viewmodel, 'iconUrl')}
+            onBlur={() => this.viewmodel.iconUrlEntered()}
+            disabled={this.viewmodel.loading}
+          />
         </form>
         {this.viewmodel.loading ? <LoadingAlert message='Creating project...' /> : ''}
         {this.viewmodel.errorMessage ? <DangerAlert message={this.viewmodel.errorMessage} /> : ''}

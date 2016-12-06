@@ -53,7 +53,7 @@ export default class ManageProjectView extends View {
       <div>
         <div className='container-flex header-bar'>
           <div className='container' style={{padding: 0}}>
-            <div style={{width: '128px', height: '128px', margin: '5px 20px 5px 5px', backgroundColor: 'rgba(255,255,255,0.2)', float:'left'}}></div>
+            <img id='project-icon' src={this.viewmodel.iconUrl}></img>
             <h1 style={{marginTop:'5px'}}>Manage <b>{this.viewmodel.projectName}</b><br /><small>{this.viewmodel.projectId}</small></h1>
           </div>
         </div>

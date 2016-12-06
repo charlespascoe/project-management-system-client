@@ -123,3 +123,12 @@ table > tbody > tr > td.table-vertical-middle {
   display: table-cell;
   vertical-align: middle;
 }
+
+.header-bar #project-icon {
+  width: 128px;
+  height: 128px;
+  margin: 5px 20px 5px 5px;
+  background-color: rgba(255,255,255,0.2);
+  float: left;
+  border-radius: 5px;
+}

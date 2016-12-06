@@ -31,10 +31,21 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
   get projectNameValid() { return this._projectNameValid; }
   set projectNameValid(value) { this._projectNameValid = value; this.changed(); }
 
+  get iconUrl() { return this._iconUrl; }
+  set iconUrl(value) {
+    this._iconUrl = value;
+    this.iconUrlValid = true;
+    this.changed();
+  }
+
+  get iconUrlValid() { return this._iconUrlValid; }
+  set iconUrlValid(value) { this._iconUrlValid = value; this.changed(); }
+
   get allValid() {
     return (
       Project.schema.id.validate(this.projectID) &&
-      Project.schema.name.validate(this.projectName)
+      Project.schema.name.validate(this.projectName) &&
+      Project.schema.iconUrl.validate(this.iconUrl)
     );
   }
 
@@ -61,6 +72,7 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
     this.notificationQueue = notificationQueue;
     this.projectID = '';
     this.projectName = '';
+    this.iconUrl = '';
   }
 
   static createDefault() {
@@ -80,6 +92,10 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
     this.projectNameValid = Project.schema.name.validate(this.projectName);
   }
 
+  iconUrlEntered() {
+    this.iconUrlValid = Project.schema.name.validate(this.iconUrl);
+  }
+
   async addProject() {
     if (!this.allValid || this.loading) return;
 
@@ -88,7 +104,8 @@ export default class AddProjectDialogueViewmodel extends DialogueViewmodel {
 
     var response = await this.projectsManager.createProject({
       id: this.projectID,
-      name: this.projectName
+      name: this.projectName,
+      iconUrl: this.iconUrl
     });
 
     if (response.isOk) {

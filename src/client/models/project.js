@@ -19,6 +19,7 @@ export default class Project {
     this.currentUserPermissions = null;
     this.id = data.id;
     this.name = data.name;
+    this.iconUrl = data.iconUrl;
     this.members = null;
   }
 
@@ -51,5 +52,8 @@ Project.schema = {
   },
   name: {
     validate: (val) => validate(val).isString().minLength(1).maxLength(64).isValid()
+  },
+  iconUrl: {
+    validate: (val) => validate(val).isString().minLength(1).maxLength(256).isValid()
   }
 };

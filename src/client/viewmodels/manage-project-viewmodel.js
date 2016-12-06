@@ -120,6 +120,7 @@ class MemberViewmodel extends Viewmodel {
 export default class ManageProjectViewmodel extends Viewmodel {
   get projectName() { return this.project ? this.project.name : ''; }
   get projectId() { return this.project ? this.project.id : ''; }
+  get iconUrl() { return this.project ? this.project.iconUrl : ''; }
 
   get members() { return this._members; }
   set members(value) { this._members = value; this.changed(); }
