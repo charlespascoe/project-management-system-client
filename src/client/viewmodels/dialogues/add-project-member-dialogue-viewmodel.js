@@ -53,6 +53,7 @@ export default class AddProjectMemberDialogueViewmodel extends DialogueViewmodel
   get selectedUser() { return this._selectedUser; }
   set selectedUser(value) {
     this._selectedUser = value;
+    this.clearMessages();
     this.checkValid();
     this.changed();
   }
@@ -63,6 +64,7 @@ export default class AddProjectMemberDialogueViewmodel extends DialogueViewmodel
   get selectedRole() { return this._selectedRole; }
   set selectedRole(value) {
     this._selectedRole = value;
+    this.clearMessages();
     this.checkValid();
     this.changed();
   }
@@ -115,8 +117,6 @@ export default class AddProjectMemberDialogueViewmodel extends DialogueViewmodel
     this.loading = true;
     this.clearMessages();
 
-    console.log('!!!');
-
     var {
       nonMembersResult,
       rolesResult
@@ -124,8 +124,6 @@ export default class AddProjectMemberDialogueViewmodel extends DialogueViewmodel
       nonMembers: this.project.getNonMembers(),
       roles: this.rolesManager.getRoles()
     });
-
-    console.log('...');
 
     if (nonMembersResult.isOk && rolesResult.isOk) {
       this.nonMembers = nonMembersResult.data
@@ -161,8 +159,9 @@ export default class AddProjectMemberDialogueViewmodel extends DialogueViewmodel
 
     this.loading = true;
 
-    var response = await this.project.addMember(this.selectedUser, this.selectedRole);
+    this.clearMessages();
 
+    var response = await this.project.addMember(this.selectedUser, this.selectedRole);
 
     if (response.isUnauthenticated) return;
     if (response.isUnauthorised) {
