@@ -58,7 +58,7 @@ class Navigation {
     this.prevNav = null;
   }
 
-  back(navData = null) {
+  back(navData) {
     if (this.router.currentNav !== this) return;
     this.router.back(navData);
   }
@@ -96,11 +96,11 @@ export class Router {
     this.changeView(this.currentNav);
   }
 
-  back(navData = null) {
+  back(navData) {
     if (this.currentNav.prevNav == null) return;
 
     this.currentNav = this.currentNav.prevNav;
-    this.currentNav.navData = navData;
+    if (navData !== undefined) this.currentNav.navData = navData;
     this.changeView(this.currentNav);
   }
 
