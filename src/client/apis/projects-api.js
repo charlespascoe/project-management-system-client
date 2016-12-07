@@ -2,10 +2,12 @@ import authClient from 'client/auth/authentication-client';
 import { defaultStatus } from 'client/apis/statuses';
 import Response from 'client/apis/response';
 import Project from 'client/models/project';
+import projectsCache from 'client/apis/projects-cache';
 
 export class ProjectsApi {
-  constructor(client) {
+  constructor(client, projectsCache) {
     this.client = client;
+    this.projectsCache = projectsCache;
   }
 
   async getProjects() {
@@ -13,7 +15,7 @@ export class ProjectsApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = restResponse.data.map(data => Project.create(data));
+    if (response.isOk) response.data = this.projectsCache.allProjects(restResponse.data, Project.create);
 
     return response;
   }
@@ -25,4 +27,4 @@ export class ProjectsApi {
   }
 }
 
-export default new ProjectsApi(authClient);
+export default new ProjectsApi(authClient, projectsCache);

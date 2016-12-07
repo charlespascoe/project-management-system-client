@@ -1,5 +1,4 @@
 import validate from 'client/validation';
-import permissionsManager from 'client/managers/permissions-manager';
 import userManager from 'client/managers/user-manager';
 import projectsApi from 'client/apis/projects-api';
 import Response from 'client/apis/response';
@@ -11,20 +10,26 @@ import {
 } from 'client/apis/statuses';
 
 export default class Project {
-  constructor(data, permissionsManager, userManager, projectsApi, membersApi) {
-    this._permissionsManager = permissionsManager;
+  constructor(userManager, projectsApi, membersApi) {
     this._userManager = userManager;
     this._projectsApi = projectsApi;
     this._membersApi = membersApi;
-    this.currentUserPermissions = null;
-    this.id = data.id;
-    this.name = data.name;
-    this.iconUrl = data.iconUrl;
+    this.id = '';
+    this.name = '';
+    this.iconUrl = '';
     this.members = null;
   }
 
   static create(data) {
-    return new Project(data, permissionsManager, userManager, projectsApi, membersApi);
+    var project = new Project(userManager, projectsApi, membersApi);
+    project.updateAttributes(data);
+    return project;
+  }
+
+  updateAttributes(data) {
+    if (data.id != undefined) this.id = data.id;
+    if (data.name != undefined) this.name = data.name;
+    if (data.iconUrl != undefined) this.iconUrl = data.iconUrl;
   }
 
   async getMembers(forceRefresh = false) {

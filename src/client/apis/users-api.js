@@ -2,14 +2,16 @@ import Response from 'client/apis/response';
 import User from 'client/models/user';
 import Member from 'client/models/member';
 import Project from 'client/models/project';
+import projectsCache from 'client/apis/projects-cache';
 import authenticationClient from 'client/auth/authentication-client';
 import {
   defaultStatus
 } from 'client/apis/statuses';
 
 export class UsersApi {
-  constructor(client) {
+  constructor(client, projectsCache) {
     this.client = client;
+    this.projectsCache = projectsCache;
   }
 
   async addUser(data) {
@@ -49,10 +51,10 @@ export class UsersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = restResponse.data.map(item => Member.create({project: Project.create(item.project), user: item.user, role: item.role}));
+    if (response.isOk) response.data = restResponse.data.map(item => Member.create({project: this.projectsCache.findOrCreate(item.project, Project.create), user: item.user, role: item.role}));
 
     return response;
   }
 }
 
-export default new UsersApi(authenticationClient);
+export default new UsersApi(authenticationClient, projectsCache);
