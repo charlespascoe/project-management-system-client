@@ -15,6 +15,10 @@ export class ProjectNavigator {
     await this.router.navigate('manage-project', {project: project});
   }
 
+  async viewProject(project) {
+    await this.router.navigate('view-project', {project: project});
+  }
+
   async showAddMemberDialogue(project) {
     await this.dialogueManager.showDialogue(AddProjectMemberDialogue, {project: project});
   }
