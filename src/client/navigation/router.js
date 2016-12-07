@@ -22,6 +22,7 @@ class ViewAction {
   // navData -> Optional data to pass to the view
   onEnter(entryHandler) {
     this.router.entryHandlers[this.viewId] = entryHandler;
+    return this;
   }
 
   // doneHandler(nav, navData)
@@ -29,18 +30,21 @@ class ViewAction {
   // navData -> The optional data the view is passing to whatever view is next
   onDone(doneHandler) {
     this.router.doneHandlers[this.viewId] = doneHandler;
+    return this;
   }
 
   onDoneGoTo(viewId) {
     this.router.doneHandlers[this.viewId] = async function (nav, navData) {
       await this.router.navigate(viewId, navData);
     }.bind(this);
+    return this;
   }
 
   onDoneGoBack() {
     this.router.doneHandlers[this.viewId] = async function (nav, navData) {
       this.router.back(navData);
     }.bind(this);
+    return this;
   }
 }
 
@@ -115,7 +119,7 @@ export class Router {
   }
 
   async done(navData = null) {
-    await this.doneHandlers[this.currentNav.viewId](navData);
+    await this.doneHandlers[this.currentNav.viewId](this.currentNav, navData);
   }
 
   validateHandlers(viewMap) {
