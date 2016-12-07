@@ -11,3 +11,6 @@ viewMap.setView('home', HomeView);
 
 import ManageProjectView from 'client/views/manage-project-view';
 viewMap.setView('manage-project', ManageProjectView);
+
+import ViewProjectView from 'client/views/view-project-view';
+viewMap.setView('view-project', ViewProjectView);
