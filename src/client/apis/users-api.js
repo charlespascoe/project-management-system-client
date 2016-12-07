@@ -1,6 +1,7 @@
 import Response from 'client/apis/response';
 import User from 'client/models/user';
 import Member from 'client/models/member';
+import Project from 'client/models/project';
 import authenticationClient from 'client/auth/authentication-client';
 import {
   defaultStatus
@@ -48,7 +49,7 @@ export class UsersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = restResponse.data.map(item => Member.create(item));
+    if (response.isOk) response.data = restResponse.data.map(item => Member.create({project: Project.create(item.project), user: item.user, role: item.role}));
 
     return response;
   }
