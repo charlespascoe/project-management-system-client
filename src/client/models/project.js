@@ -32,9 +32,7 @@ export default class Project {
     if (data.iconUrl != undefined) this.iconUrl = data.iconUrl;
   }
 
-  async getMembers(forceRefresh = false) {
-    if (this.members && !forceRefresh) return new Response(new SuccessStatus(), this.members);
-
+  async getMembers() {
     var response = await this._membersApi.getProjectMembers(this.id);
 
     if (response.isOk) this.members = response.data;
