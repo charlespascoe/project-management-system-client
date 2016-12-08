@@ -7,7 +7,7 @@ export default class Role {
 
   static create(data) {
     var role = new Role();
-    role.undefinedp(data);
+    role.updateAttributes(data);
     return role;
   }
 
