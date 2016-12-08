@@ -30,7 +30,11 @@ class MemberViewmodel extends Viewmodel {
     this.changeRole(value);
   }
 
-  get roleName() { return this.roles.find(role => role.id == this.selectedRoleId).name; }
+  get roleName() {
+    var role = this.roles.find(role => role.id == this.selectedRoleId);
+    if (role != null) return role.name;
+    return `Unknown Role (${this.selectedRoleId})`;
+  }
 
   get loading() { return this._loading; }
   set loading(value) { this._loading = value; this.changed(); }
