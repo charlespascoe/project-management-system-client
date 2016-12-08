@@ -1,13 +1,15 @@
 import Response from 'client/apis/response';
 import Member from 'client/models/member';
 import authenticationClient from 'client/auth/authentication-client';
+import membersCache from 'client/apis/members-cache';
 import {
   defaultStatus
 } from 'client/apis/statuses';
 
 export class MembersApi {
-  constructor(client) {
+  constructor(client, membersCache) {
     this.client = client;
+    this.membersCache = membersCache;
   }
 
   async getProjectMembers(projectId) {
@@ -15,7 +17,7 @@ export class MembersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = restResponse.data.map(data => Member.create(data));
+    if (response.isOk) response.data = this.membersCache.findOrCreateAllInProject(projectId, restResponse.data, Member.create);
 
     return response;
   }
@@ -57,4 +59,4 @@ export class MembersApi {
   }
 }
 
-export default new MembersApi(authenticationClient);
+export default new MembersApi(authenticationClient, membersCache);
