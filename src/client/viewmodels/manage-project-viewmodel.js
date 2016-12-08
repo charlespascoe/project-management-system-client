@@ -6,13 +6,18 @@ import notificationQueue from 'client/notification-queue';
 import projectNavigator from 'client/navigation/project-navigator';
 import homeNavigator from 'client/navigation/home-navigator';
 import AsyncUtils from 'client/async-utils';
+import Utils from 'client/utils';
 import {
   NoInternetStatus
 } from 'client/apis/statuses';
 
 class MemberViewmodel extends Viewmodel {
   get model() { return this._model; }
-  set model(value) { this._model = value; this.changed(); }
+  set model(value) {
+    this._model = value;
+    if (!this.loading) this._selectedRoleId = this.model.role.id;
+    this.changed();
+  }
 
   get isCurrentUser() { return this.id === this.userManager.user.id; }
 
@@ -20,8 +25,7 @@ class MemberViewmodel extends Viewmodel {
 
   get name() { return this.model.user.firstName + ' ' + this.model.user.otherNames; }
 
-  get roles() { return this._roles; }
-  set roles(value) { this._roles = value; this.changed(); }
+  get roles() { return this.rolesManager.roles || []; }
 
   get selectedRoleId() { return this._selectedRoleId; }
   set selectedRoleId(value) {
@@ -30,29 +34,23 @@ class MemberViewmodel extends Viewmodel {
     this.changeRole(value);
   }
 
-  get roleName() {
-    var role = this.roles.find(role => role.id == this.selectedRoleId);
-    if (role != null) return role.name;
-    return `Unknown Role (${this.selectedRoleId})`;
-  }
+  get roleName() { return this.model.role.name || `Unknown Role (${this.selectedRoleId})`; }
 
   get loading() { return this._loading; }
   set loading(value) { this._loading = value; this.changed(); }
 
-  constructor(member, roles, project, onRemoved, userManager, notificationQueue, projectNavigator) {
+  constructor(member, onRemoved, rolesManager, userManager, notificationQueue, projectNavigator) {
     super();
     this.model = member;
-    this.roles = roles;
-    this.project = project;
     this.userManager = userManager;
+    this.rolesManager = rolesManager;
     this.notificationQueue = notificationQueue;
     this.projectNavigator = projectNavigator;
-    this._selectedRoleId = member.role.id;
     this.onRemoved = onRemoved;
   }
 
-  static createDefault(member, roles, project, onRemoved) {
-    return new MemberViewmodel(member, roles, project, onRemoved, userManager, notificationQueue, projectNavigator);
+  static createDefault(member, onRemoved) {
+    return new MemberViewmodel(member, onRemoved, rolesManager, userManager, notificationQueue, projectNavigator);
   }
 
   async changeRole(roleId) {
@@ -73,7 +71,6 @@ class MemberViewmodel extends Viewmodel {
 
     if (!response.isOk) {
       this.selectedRoleId = this.model.role.id;
-      console.log(this.selectedRoleId);
       this.notificationQueue.showDangerNotification('Something went wrong when contacting the server');
       this.loading = false;
       return;
@@ -86,7 +83,7 @@ class MemberViewmodel extends Viewmodel {
   async removeMember() {
     if (this.loading) return;
 
-    var removeMember = await this.projectNavigator.showRemoveMemberDialogue(this.isCurrentUser ? 'yourself' : this.name, this.project.name);
+    var removeMember = await this.projectNavigator.showRemoveMemberDialogue(this.isCurrentUser ? 'yourself' : this.name, this.model.project.name);
 
     if (!removeMember) return;
 
@@ -127,7 +124,7 @@ export default class ManageProjectViewmodel extends Viewmodel {
   get iconUrl() { return this.project ? this.project.iconUrl : ''; }
 
   get members() { return this._members; }
-  set members(value) { this._members = value; this.changed(); }
+  set members(value) { this._members = value; this.changed(); console.log(value); console.trace(); }
 
   get loadingMembers() { return this._loadMembers; }
   set loadingMembers(value) { this._loadMembers = value; this.changed(); }
@@ -150,16 +147,17 @@ export default class ManageProjectViewmodel extends Viewmodel {
     super.onEnter(nav);
     this.project = nav.navData.project;
     this.changed();
+    if (this.project.members && this.rolesManager.roles) this.setMembers(this.project.members);
     this.loadMembers();
   }
 
-  async loadMembers(forceReload = false) {
+  async loadMembers() {
     if (this.loadingMembers) return;
 
     this.loadingMembers = true;
 
     var { membersResult, rolesResult } = await AsyncUtils.whenAllForResult({
-      members: this.project.getMembers(forceReload),
+      members: this.project.getMembers(),
       roles: this.rolesManager.getRoles()
     });
 
@@ -183,17 +181,31 @@ export default class ManageProjectViewmodel extends Viewmodel {
       return;
     }
 
-    this.members = membersResult.data.map(member => MemberViewmodel.createDefault(member, rolesResult.data, this.project, vm => this.memberRemoved(vm)));
+    this.setMembers(membersResult.data);
     this.loadingMembers = false;
+  }
+
+  setMembers(members) {
+    var newViewmodels = members.map(member => MemberViewmodel.createDefault(member, vm => this.memberRemoved(vm)));
+
+    if (this.members.length == 0) {
+      this.members = newViewmodels;
+      console.warn(this.members);
+      return;
+    }
+
+    Utils.updateArray(newViewmodels, this.members, (vm1, vm2) => vm1.id - vm2.id, (newVm, existingVm) => { existingVm.model = newVm.model; return existingVm; });
+    this.changed();
+    console.warn(this.members);
   }
 
   async addMember() {
     await this.projectNavigator.showAddMemberDialogue(this.project);
-    await this.loadMembers(true);
+    await this.loadMembers();
   }
 
   memberRemoved(memberVm) {
     this.members = this.members.filter(vm => vm !== memberVm);
-    this.loadMembers(true);
+    this.loadMembers();
   }
 }
