@@ -124,7 +124,7 @@ export default class ManageProjectViewmodel extends Viewmodel {
   get iconUrl() { return this.project ? this.project.iconUrl : ''; }
 
   get members() { return this._members; }
-  set members(value) { this._members = value; this.changed(); console.log(value); console.trace(); }
+  set members(value) { this._members = value; this.changed(); }
 
   get loadingMembers() { return this._loadMembers; }
   set loadingMembers(value) { this._loadMembers = value; this.changed(); }
@@ -190,13 +190,11 @@ export default class ManageProjectViewmodel extends Viewmodel {
 
     if (this.members.length == 0) {
       this.members = newViewmodels;
-      console.warn(this.members);
       return;
     }
 
     Utils.updateArray(newViewmodels, this.members, (vm1, vm2) => vm1.id - vm2.id, (newVm, existingVm) => { existingVm.model = newVm.model; return existingVm; });
     this.changed();
-    console.warn(this.members);
   }
 
   async addMember() {

@@ -29,7 +29,6 @@ export class MembersCache {
     var projectCache = this.cache[projectId],
         newProjectCache = {};
 
-    console.log(projectCache);
     if (projectCache == undefined) {
       // Cache doesn't exist
       this.cache[projectId] = newProjectCache;
