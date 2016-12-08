@@ -156,10 +156,8 @@ export default class ManageProjectViewmodel extends Viewmodel {
 
     this.loadingMembers = true;
 
-    var { membersResult, rolesResult } = await AsyncUtils.whenAllForResult({
-      members: this.project.getMembers(),
-      roles: this.rolesManager.getRoles()
-    });
+    var rolesResult = await this.rolesManager.getRoles();
+    var membersResult = await this.project.getMembers();
 
     if (membersResult.isUnauthenticated || rolesResult.isUnauthenticated) return;
 

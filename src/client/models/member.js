@@ -34,7 +34,7 @@ export default class Member {
   async updateMemberRole(roleId) {
     var response = await this.membersApi.updateMemberRole(this.project.id, this.user.id, roleId);
 
-    if (response.isOk) this.role = {id: roleId};
+    if (response.isOk) this.role = this.rolesCache.findOrCreate({id: roleId});
 
     return response;
   }
