@@ -13,6 +13,7 @@ export default class User {
     this.sysadmin = false;
     this.sysadminElevationExpires = null;
     this.usersApi = usersApi;
+    this.assignments = null;
   }
 
   static create(data) {
@@ -31,7 +32,11 @@ export default class User {
   }
 
   async getProjectAssignments() {
-    return this.usersApi.getUserAssignments(this.id);
+    var response = await this.usersApi.getUserAssignments(this.id);
+
+    if (response.isOk) this.assignments = response.data;
+
+    return response;
   }
 }
 

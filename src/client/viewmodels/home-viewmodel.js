@@ -11,7 +11,6 @@ class AssignmentViewmodel {
   constructor(member, projectNavigator) {
     this.model = member;
     this.projectNavigator = projectNavigator;
-    console.log(this.model);
   }
 
   static create(member) {
@@ -46,6 +45,7 @@ export default class HomeViewmodel extends Viewmodel {
     super.onEnter(nav);
     this.nav.clearHistory();
     this.nav.viewmodel = this;
+    if (this.userManager.user.assignments) this.assignments = this.userManager.user.assignments.map(member => AssignmentViewmodel.create(member));
     this.loadAssignments();
   }
 
