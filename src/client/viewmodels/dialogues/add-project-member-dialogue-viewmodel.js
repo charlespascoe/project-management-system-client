@@ -138,8 +138,6 @@ export default class AddProjectMemberDialogueViewmodel extends DialogueViewmodel
       return;
     }
 
-    console.log(nonMembersResult, rolesResult);
-
     if (nonMembersResult.isUnauthenticated || rolesResult.isUnauthenticated) {
       // Login expired, or elevation revoked or expired - hide dialogue
     } else if (nonMembersResult.isUnauthorised || rolesResult.isUnauthorised) {
@@ -165,6 +163,7 @@ export default class AddProjectMemberDialogueViewmodel extends DialogueViewmodel
       var user = this.nonMembers.find(u => u.id == this.selectedUser);
       this.notificationQueue.showSuccessNotification(`Successfully added ${user.name} as a member`);
       this.dismiss();
+      return;
     }
 
     if (response.isUnauthenticated) {
