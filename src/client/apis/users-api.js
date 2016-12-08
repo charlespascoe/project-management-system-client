@@ -33,7 +33,7 @@ export class UsersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = this.usersCache.allUsers(restResponse.data, User.create);
+    if (response.isOk) response.data = this.usersCache.findOrCreateAll(restResponse.data, User.create);
 
     return response;
   }

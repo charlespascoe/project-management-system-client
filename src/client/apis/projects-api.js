@@ -15,7 +15,7 @@ export class ProjectsApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = this.projectsCache.allProjects(restResponse.data, Project.create);
+    if (response.isOk) response.data = this.projectsCache.findOrCreateAll(restResponse.data, Project.create);
 
     return response;
   }
