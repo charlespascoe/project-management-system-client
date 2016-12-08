@@ -23,7 +23,7 @@ export default class LoginView extends View {
 
   render() {
     return (
-      <div>
+      <div id='login-view'>
         <div className='container-flex header-bar'>
           <h1 className='text-center'>Login</h1>
         </div>
