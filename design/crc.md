@@ -5,6 +5,102 @@ This is a high-level design of the classes that will be used by the client.
 
 If a class extends another class, it will extend that class in the code, and as a result, inherit the responsibility of the class it extends from.
 
+Data Models
+===========
+
+User
+----
+* Knows
+  * User ID
+  * Email
+  * First Name
+  * Other Names
+  * Whether or not the user is a sysadmin
+  * When the user's sysadmin eleavation expires
+* Does
+  * Updates the user's details
+* Collaborators
+  * Response
+  * UsersApi
+
+Project
+-------
+* Knows
+  * Project ID
+  * Project Name
+  * Project Icon URL
+  * Date of Completion
+  * The project's members
+  * The permissions the current user has in the project
+* Does
+  * Updates the project details
+  * Gets the project's members from the platform
+  * Adds a member to the project
+  * Gets the current user's project permissions
+  * Gets project tasks
+  * Adds a task
+* Collaborators
+  * MembersApi
+  * ProjectsApi
+  * Response
+  * TasksApi
+
+Member
+------
+* Knows
+  * The project
+  * The user
+  * Their role
+* Does
+  * Removes the member from the project
+  * Changes the member's role
+* Collaborators
+  * MembersApi
+  * PermissionsManager
+  * Response
+
+Task
+----
+* Knows
+  * The task's project
+  * Task ID
+  * Summary
+  * Description
+  * Creation Date
+  * Target Completion Date
+  * The task's state (Open, In Progress, and Completed)
+  * When the task was completed
+  * Priority (1-5)
+  * Estimated Effort
+  * The assigned user ID
+* Does
+  * Updates the task details
+  * Gets the task's work log
+  * Adds a work log entry
+* Collaborators
+  * PermissionsManager
+  * Project
+  * Response
+  * TasksApi
+  * WorkLogApi
+
+WorkLogEntry
+------------
+* Knows
+  * The task this work log entry belongs to
+  * Work log entry ID
+  * The user ID the log entry belongs to
+  * Log description
+  * Log effort
+  * Log timestamp
+* Does
+  * Deletes the work log entry
+* Collaborators
+  * PermissionsManager
+  * Response
+  * Task
+  * WorkLogApi
+
 Data Access Classes
 ===================
 
@@ -29,7 +125,7 @@ RestClient
   * Make requests to different URLs
   * Serialise/Deserialise data (just JSON, for now)
 * Collaborators
-  RestResponse
+  * RestResponse
 
 AuthenticationApi
 -----------------
@@ -53,11 +149,20 @@ AuthenticationClient
   * Appends authorisation headers to all requests made through it
   * Automatically refreshes tokens when the access token expires, and retries the request
 * Collaborators
+  * AuthenticationApi
+  * Response
   * RestClient
   * RestResponse
-  * Response
   * Status
-  * AuthenticationApi
+
+UsersCache
+----------
+* Knows
+  * A map of user IDs onto User models
+* Does
+  * Finds a User model or creates a new one
+* Collaborators
+  * User
 
 UsersApi
 --------
@@ -71,10 +176,21 @@ UsersApi
   * Handles requests to get all projects a user is assigned to
   * Handles requests to change user information (except sysadmin status)
 * Collaborators
-  * RestResponse
-  * Response
-  * Status
   * AuthenticationClient
+  * Response
+  * RestResponse
+  * Status
+  * User
+  * UsersCache
+
+ProjectsCache
+-------------
+* Knows
+  * A map of project IDs onto Project models
+* Does
+  * Finds a Project model or creates a new one
+* Collaborators
+  * Project
 
 ProjectsApi
 -----------
@@ -85,10 +201,20 @@ ProjectsApi
   * Handles requests to create a project
   * Handles requests to mark a project as complete
 * Collaborators
-  * RestResponse
-  * Response
-  * Status
   * AuthenticationClient
+  * ProjectsCache
+  * Response
+  * RestResponse
+  * Status
+
+MembersCache
+------------
+* Knows
+  * A map of project ID and user ID pairs onto Member models
+* Does
+  * Finds a Member model or creates a new one
+* Collaborators
+  * Member
 
 MembersApi
 ----------
@@ -98,10 +224,20 @@ MembersApi
   * Handles requests to update a member's role
   * Handles requests to remove a member
 * Collaborators
-  * RestResponse
-  * Response
-  * Status
   * AuthenticationClient
+  * MembersCache
+  * Response
+  * RestResponse
+  * Status
+
+TasksCache
+----------
+* Knows
+  * A map of project ID and task ID pairs onto Task models
+* Does
+  * Finds a Task model or creates a new one
+* Collaborators
+  * Task
 
 TasksApi
 --------
@@ -114,10 +250,11 @@ TasksApi
   * Handles requests to add a work log entry to a task
   * Handles requests to delete a work log entry
 * Collaborators
-  * RestResponse
-  * Response
-  * Status
   * AuthenticationClient
+  * Response
+  * RestResponse
+  * Status
+  * TasksCache
 
 Business Logic Classes
 ======================
@@ -156,9 +293,9 @@ UsersManager
   * Creates a user
   * Deletes a user
 * Collaborators
-  * UsersApi
   * UserManager
     * Used to check sysadmin priviledges
+  * UsersApi
 
 ProjectsManager
 ---------------
@@ -177,102 +314,6 @@ ProjectsManager
   * ProjectsApi
   * Response
 
-
-Data Models
-===========
-
-User
-----
-* Knows
-  * User ID
-  * Email
-  * First Name
-  * Other Names
-  * Whether or not the user is a sysadmin
-  * When the user's sysadmin eleavation expires
-* Does
-  * Updates the user's details
-* Collaborators
-  * UsersApi
-  * Response
-
-Project
--------
-* Knows
-  * Project ID
-  * Project Name
-  * Project Icon URL
-  * Date of Completion
-  * The project's members
-  * The permissions the current user has in the project
-* Does
-  * Updates the project details
-  * Gets the project's members from the platform
-  * Adds a member to the project
-  * Gets the current user's project permissions
-  * Gets project tasks
-  * Adds a task
-* Collaborators
-  * ProjectsApi
-  * MembersApi
-  * TasksApi
-  * Response
-
-Member
-------
-* Knows
-  * The project
-  * The user
-  * Their role
-* Does
-  * Removes the member from the project
-  * Changes the member's role
-* Collaborators
-  * PermissionsManager
-  * MembersApi
-  * Response
-
-Task
-----
-* Knows
-  * The task's project
-  * Task ID
-  * Summary
-  * Description
-  * Creation Date
-  * Target Completion Date
-  * The task's state (Open, In Progress, and Completed)
-  * When the task was completed
-  * Priority (1-5)
-  * Estimated Effort
-  * The assigned user ID
-* Does
-  * Updates the task details
-  * Gets the task's work log
-  * Adds a work log entry
-* Collaborators
-  * PermissionsManager
-  * Project
-  * TasksApi
-  * WorkLogApi
-  * Response
-
-WorkLogEntry
-------------
-* Knows
-  * The task this work log entry belongs to
-  * Work log entry ID
-  * The user ID the log entry belongs to
-  * Log description
-  * Log effort
-  * Log timestamp
-* Does
-  * Deletes the work log entry
-* Collaborators
-  * PermissionsManager
-  * Task
-  * WorkLogApi
-  * Response
 
 Navigation
 ==========
@@ -333,9 +374,9 @@ LoginViewmodel (Extends Viewmodel)
 * Does
   * Initiates a login and informs the user of the result
 * Collaborators
-  * UserManager
   * Response
   * Status
+  * UserManager
 
 Admin Viewmodels
 ================
@@ -351,10 +392,10 @@ UserViewmodel (Extends Viewmodel)
   * Informs the user of the result via a notification
   * Fires 'delete' event
 * Collaborators
-  * User
   * AdminNavigator
-  * UserManager
   * NotificationQueue
+  * User
+  * UserManager
 
 ProjectViewmodel (Extends Viewmodel)
 ------------------------------------
@@ -363,8 +404,8 @@ ProjectViewmodel (Extends Viewmodel)
 * Does
   * Initiates navigation to the View Project page
 * Collaborators
-  * Project
   * AdminNavigator
+  * Project
 
 AdminViewmodel (Extends Viewmodel)
 ----------------------------------
@@ -377,8 +418,8 @@ AdminViewmodel (Extends Viewmodel)
   * Initiates adding a user via the Add User dialogue
   * Initiates adding a project via the Create Project dialogue
 * Collaborators
-  * UserViewmodels
   * ProjectViewmodel
+  * UserViewmodels
 
 Manage Project Page Viewmodels
 =========================
@@ -410,9 +451,9 @@ ManageProjectViewmodel (Extends Viewmodel)
   * Load the project members from the server
   * Triggers the Add Member dialogue
 * Collaborators
-  * Project
   * MemberViewmodel
   * NotificationQueue
+  * Project
   * ProjectNavigator
   * Response
   * Status
@@ -443,11 +484,11 @@ TaskViewmodel (Extends Viewmodel)
   * Navigates to the View Task page
   * Toggles the details panel
 * Collaborators
-  * Task
-  * User
-  * TaskNavigator
   * Response
   * Status
+  * Task
+  * TaskNavigator
+  * User
 
 ViewProjectViewmodel (Extends Viewmodel)
 ----------------------------------------
@@ -461,9 +502,9 @@ ViewProjectViewmodel (Extends Viewmodel)
   * Navigates to the Manage Project page
 * Collaborators
   * PermissionsManager
-  * TaskViewmodel
-  * TaskNavigator
   * ProjectNavigator
+  * TaskNavigator
+  * TaskViewmodel
 
 Dialogue Viewmodels
 ===================
