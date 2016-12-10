@@ -5,11 +5,11 @@ export default class Viewmodel extends Observable {
     this.nav = nav;
   }
 
-  async done(navData = null) {
+  async done(navData) {
     await this.nav.done(navData);
   }
 
-  back(navData = null) {
+  back(navData) {
     this.nav.back(navData);
   }
 }
