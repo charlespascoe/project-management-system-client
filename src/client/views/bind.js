@@ -16,4 +16,9 @@ export function bindSelected(viewmodel, key) {
   }
 }
 
-
+export default function bind(attribute, viewmodel, propertyKey) {
+  var props = {};
+  props[attribute] = viewmodel[propertyKey];
+  props.onChange = (e) => viewmodel[propertyKey] = e.target[attribute];
+  return props;
+};
