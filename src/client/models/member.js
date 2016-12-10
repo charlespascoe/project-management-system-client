@@ -42,4 +42,9 @@ export default class Member {
   async remove() {
     return await this.membersApi.removeMember(this.project.id, this.user.id);
   }
+
+  hasPermission(permission) {
+    if (this.role == null) return false;
+    return this.role.hasPermission(permission);
+  }
 }
