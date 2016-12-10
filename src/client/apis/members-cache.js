@@ -3,7 +3,7 @@ export class MembersCache {
     this.cache = {};
   }
 
-  findOrCreate(data, create) {
+  findOrCreate(data) {
     var project = this.cache[data.project.id];
 
     if (project == undefined) {
@@ -18,14 +18,14 @@ export class MembersCache {
       return member;
     }
 
-    member = create(data);
+    member = this.create(data);
 
     project[member.user.id] = member;
 
     return member;
   }
 
-  findOrCreateAllInProject(projectId, dataSet, create) {
+  findOrCreateAllInProject(projectId, dataSet) {
     var projectCache = this.cache[projectId],
         newProjectCache = {};
 
@@ -34,7 +34,7 @@ export class MembersCache {
       this.cache[projectId] = newProjectCache;
 
       return dataSet.map(data => {
-        var member = create(data);
+        var member = this.create(data);
         newProjectCache[member.user.id] = member;
         return member;
       });
@@ -46,7 +46,7 @@ export class MembersCache {
       if (member) {
         member.updateAttributes(data);
       } else {
-        member = create(data);
+        member = this.create(data);
       }
 
       newProjectCache[member.user.id] = member;

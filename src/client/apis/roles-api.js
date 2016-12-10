@@ -1,7 +1,6 @@
 import authenticationClient from 'client/auth/authentication-client';
 import { defaultStatus } from 'client/apis/statuses';
 import Response from 'client/apis/response';
-import Role from 'client/models/role';
 import rolesCache from 'client/apis/roles-cache';
 
 export class RolesApi {
@@ -15,7 +14,7 @@ export class RolesApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = this.rolesCache.findOrCreateAll(restResponse.data, Role.create);
+    if (response.isOk) response.data = this.rolesCache.findOrCreateAll(restResponse.data);
 
     return response;
   }

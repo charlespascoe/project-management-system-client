@@ -3,7 +3,7 @@ export default class Cache {
     this.cache = {};
   }
 
-  findOrCreate(data, create) {
+  findOrCreate(data) {
     var model = this.cache[this.getIdFromData(data)];
 
     if (model) {
@@ -11,18 +11,18 @@ export default class Cache {
       return model;
     }
 
-    model = create(data);
+    model = this.create(data);
 
     this.cache[this.getId(model)] = model;
 
     return model;
   }
 
-  findOrCreateAll(dataSet, create) {
+  findOrCreateAll(dataSet) {
     var cache = {};
 
     var models = dataSet.map(data => {
-      var model = this.findOrCreate(data, create);
+      var model = this.findOrCreate(data);
       cache[this.getId(model)] = model;
       return model;
     });
@@ -38,5 +38,9 @@ export default class Cache {
 
   getId(model) {
     throw new Error('getId has not be delcared in a subclass of Cache!');
+  }
+
+  create(data) {
+    throw new Error('create has not be delcared in a subclass of Cache!');
   }
 }

@@ -1,7 +1,6 @@
 import authClient from 'client/auth/authentication-client';
 import { defaultStatus } from 'client/apis/statuses';
 import Response from 'client/apis/response';
-import Project from 'client/models/project';
 import projectsCache from 'client/apis/projects-cache';
 
 export class ProjectsApi {
@@ -15,7 +14,7 @@ export class ProjectsApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = this.projectsCache.findOrCreateAll(restResponse.data, Project.create);
+    if (response.isOk) response.data = this.projectsCache.findOrCreateAll(restResponse.data);
 
     return response;
   }

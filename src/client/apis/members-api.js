@@ -1,5 +1,4 @@
 import Response from 'client/apis/response';
-import Member from 'client/models/member';
 import authenticationClient from 'client/auth/authentication-client';
 import membersCache from 'client/apis/members-cache';
 import {
@@ -17,7 +16,7 @@ export class MembersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = this.membersCache.findOrCreateAllInProject(projectId, restResponse.data, Member.create);
+    if (response.isOk) response.data = this.membersCache.findOrCreateAllInProject(projectId, restResponse.data);
 
     return response;
   }

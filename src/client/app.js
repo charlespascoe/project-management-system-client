@@ -1,4 +1,5 @@
 import 'client/views';
+import 'client/apis';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import router from 'client/navigation/router';

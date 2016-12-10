@@ -1,8 +1,4 @@
 import Response from 'client/apis/response';
-import User from 'client/models/user';
-import Member from 'client/models/member';
-import Project from 'client/models/project';
-import projectsCache from 'client/apis/projects-cache';
 import usersCache from 'client/apis/users-cache';
 import membersCache from 'client/apis/members-cache';
 import authenticationClient from 'client/auth/authentication-client';
@@ -11,9 +7,8 @@ import {
 } from 'client/apis/statuses';
 
 export class UsersApi {
-  constructor(client, projectsCache, usersCache, membersCache) {
+  constructor(client, usersCache, membersCache) {
     this.client = client;
-    this.projectsCache = projectsCache;
     this.usersCache = usersCache;
     this.membersCache = membersCache;
   }
@@ -35,7 +30,7 @@ export class UsersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = this.usersCache.findOrCreateAll(restResponse.data, User.create);
+    if (response.isOk) response.data = this.usersCache.findOrCreateAll(restResponse.data);
 
     return response;
   }
@@ -45,7 +40,7 @@ export class UsersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = this.usersCache.findOrCreate(restResponse.data, User.create);
+    if (response.isOk) response.data = this.usersCache.findOrCreate(restResponse.data);
 
     return response;
   }
@@ -55,10 +50,10 @@ export class UsersApi {
 
     var response = new Response(defaultStatus(restResponse.statusCode));
 
-    if (response.isOk) response.data = restResponse.data.map(data => this.membersCache.findOrCreate(data, Member.create));
+    if (response.isOk) response.data = restResponse.data.map(data => this.membersCache.findOrCreate(data));
 
     return response;
   }
 }
 
-export default new UsersApi(authenticationClient, projectsCache, usersCache, membersCache);
+export default new UsersApi(authenticationClient, usersCache, membersCache);
