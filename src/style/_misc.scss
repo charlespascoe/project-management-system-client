@@ -81,3 +81,9 @@ h1 {
     margin-top: 0;
   }
 }
+
+form.space-controls.always-space {
+  .form-control {
+    margin-bottom: 10px;
+  }
+}
