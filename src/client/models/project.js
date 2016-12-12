@@ -3,6 +3,7 @@ import userManager from 'client/managers/user-manager';
 import projectsApi from 'client/apis/projects-api';
 import Response from 'client/apis/response';
 import membersApi from 'client/apis/members-api';
+import tasksApi from 'client/apis/tasks-api';
 import {
   SuccessStatus,
   BadRequestStatus,
@@ -10,10 +11,11 @@ import {
 } from 'client/apis/statuses';
 
 export default class Project {
-  constructor(userManager, projectsApi, membersApi) {
+  constructor(userManager, projectsApi, membersApi, tasksApi) {
     this._userManager = userManager;
     this._projectsApi = projectsApi;
     this._membersApi = membersApi;
+    this.tasksApi = tasksApi;
     this.id = '';
     this.name = '';
     this.iconUrl = '';
@@ -21,7 +23,7 @@ export default class Project {
   }
 
   static create(data) {
-    var project = new Project(userManager, projectsApi, membersApi);
+    var project = new Project(userManager, projectsApi, membersApi, tasksApi);
     project.updateAttributes(data);
     return project;
   }
@@ -46,6 +48,10 @@ export default class Project {
 
   async addMember(userId, roleId) {
     return await this._membersApi.addMember(this.id, userId, roleId);
+  }
+
+  async addTask(data) {
+    return this.tasksApi.addTask(this.id, data);
   }
 }
 
