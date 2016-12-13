@@ -41,7 +41,7 @@ export class TasksCache {
     }
 
     var tasks = dataSet.map(data => {
-      var task = projectCache[data.user.id];
+      var task = projectCache[data.id];
 
       if (task) {
         task.updateAttributes(data);
