@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_PATH=\"$NODE_PATH:.compiled-client/\"; gulp build && gulp start | bunyan",
     "build": "gulp build",
-    "build-production": "gulp build --production"
+    "build-production": "gulp build --production && gulp style --production"
   },
   "repository": {
     "type": "git",
