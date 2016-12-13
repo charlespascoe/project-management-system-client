@@ -9,8 +9,14 @@ export class TasksApi {
     this.tasksCache = tasksCache;
   }
 
-  async getProjectTasks() {
+  async getProjectTasks(projectId) {
+    var restResponse = await this.client.get(`/projects/${projectId}/tasks/`);
 
+    var response = new Response(defaultStatus(restResponse.statusCode));
+
+    if (response.isOk) response.data = this.tasksCache.findOrCreateAllInProject(projectId, restResponse.data);
+
+    return response;
   }
 
   async addTask(projectId, data) {
