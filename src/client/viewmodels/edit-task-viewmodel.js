@@ -88,8 +88,8 @@ export default class EditTaskViewmodel extends Viewmodel {
 
   get errorMessage() { return this._errorMessage; }
   set errorMessage(value) {
-    this._errorMessage = value;
     if (value) this.clearMessages();
+    this._errorMessage = value;
     this.changed();
   }
 

@@ -3,7 +3,7 @@ import View from 'client/views/view';
 import EditTaskViewmodel from 'client/viewmodels/edit-task-viewmodel';
 import InputLabel from 'client/views/input-label';
 import bind from 'client/views/bind';
-import { LoadingAlert } from 'client/views/alerts';
+import { LoadingAlert, DangerAlert } from 'client/views/alerts';
 
 export default class EditTaskView extends View {
   constructor(props) {
@@ -100,6 +100,7 @@ export default class EditTaskView extends View {
               </div>
             </div>
             {this.viewmodel.loading ? <LoadingAlert message='Loading...' /> : ''}
+            {this.viewmodel.errorMessage ? <DangerAlert message={this.viewmodel.errorMessage} /> : ''}
             <div>
               <button type='button' className='btn btn-default' onClick={() => this.viewmodel.back()}>Cancel</button>
               <button
