@@ -20,6 +20,7 @@ export default class Project {
     this.name = '';
     this.iconUrl = '';
     this.members = null;
+    this.tasks = null;
   }
 
   static create(data) {
@@ -52,6 +53,14 @@ export default class Project {
 
   async addTask(data) {
     return this.tasksApi.addTask(this.id, data);
+  }
+
+  async getTasks() {
+    var response = await this.tasksApi.getProjectTasks(this.id);
+
+    if (response.isOk) this.tasks = response.data;
+
+    return response;
   }
 }
 
