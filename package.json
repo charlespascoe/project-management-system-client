@@ -4,10 +4,11 @@
   "description": "Client for the Project Management System",
   "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cucumber-js",
     "start": "NODE_PATH=\"$NODE_PATH:.compiled-client/\"; gulp build && gulp start | bunyan",
     "build": "gulp build",
-    "build-production": "gulp build --production && gulp style --production"
+    "build-production": "gulp build --production && gulp style --production",
+    "test-current": "cucumber-js -t @current"
   },
   "repository": {
     "type": "git",
@@ -25,8 +26,13 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babelify": "^7.3.0",
+    "body-parser": "^1.15.2",
     "browserify": "^13.1.1",
     "bunyan": "^1.8.4",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "chromedriver": "^2.25.3",
+    "cors": "^2.8.1",
     "express": "^4.14.0",
     "glob": "^7.1.1",
     "gulp": "^3.9.1",
@@ -42,6 +48,7 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "rimraf": "^2.5.4",
+    "selenium-webdriver": "^3.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",

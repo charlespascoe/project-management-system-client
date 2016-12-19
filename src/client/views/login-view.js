@@ -67,7 +67,7 @@ export default class LoginView extends View {
               <label htmlFor='remember-me'>Remember Me</label>
             </div>
 
-            <PrimaryButton text='Log in' disabled={!this.viewmodel.isValid || this.viewmodel.loading} onClick={this.login.bind(this)} />
+            <PrimaryButton id='log-in' text='Log in' disabled={!this.viewmodel.isValid || this.viewmodel.loading} onClick={this.login.bind(this)} />
             {this.viewmodel.loading ? <LoadingAlert message='Signing in...' /> : ''}
             {this.viewmodel.errorMessage ? <DangerAlert message={this.viewmodel.errorMessage} /> : ''}
           </form>

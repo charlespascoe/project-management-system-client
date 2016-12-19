@@ -47,6 +47,7 @@ export default class RequestElevationDialogue extends Dialogue {
         <button type='button' className='btn btn-default' onClick={() => this.dismiss()}>Cancel</button>
         <button
           type='button'
+          id='elevate'
           className='btn btn-primary'
           onClick={this.requestElevation.bind(this)}
           disabled={this.viewmodel.loading || !this.viewmodel.password}>

@@ -23,6 +23,7 @@ class Button extends Component {
     return (
       <button
         className={`btn btn-${this.size} btn-${this.type} btn-block`}
+        id={this.props.id}
         onClick={this.onClick.bind(this)}
         disabled={this.props.disabled}>
           {this.icon || ''}{this.props.text}
