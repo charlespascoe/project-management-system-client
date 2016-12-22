@@ -5,9 +5,9 @@
   "main": "server/index.js",
   "scripts": {
     "test": "cucumber-js",
-    "start": "NODE_PATH=\"$NODE_PATH:.compiled-client/\"; gulp build && gulp start | bunyan",
+    "start": "NODE_PATH=\"$NODE_PATH:.compiled-client/\"; cp config/dev.json src/client/config.json && gulp build && gulp start | bunyan",
     "build": "gulp build",
-    "build-production": "gulp build --production && gulp style --production",
+    "build-production": "cp config/deployment.json src/client/config.json && gulp build --production && gulp style --production",
     "test-current": "cucumber-js -t @current"
   },
   "repository": {
