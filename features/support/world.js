@@ -1,5 +1,6 @@
 const server = require('./server');
 const selenium = require('selenium-webdriver');
+const fakeData = require('./fake-data');
 
 const {
   By,
@@ -13,6 +14,8 @@ class World {
       .withCapabilities(selenium.Capabilities.chrome())
       .build();
     this.driver.getWindowHandle();
+    this.fakeData = fakeData;
+    this.fakeData.reset();
   }
 
   enterText(element, text) {
