@@ -3,9 +3,8 @@ Feature: US-4.3
     I want to see all tasks assigned to me
 
     Scenario: Viewing a project
-        Given I am a user with projects
-        And I am logged in
-        When I view a project
+        Given I am logged in
+        When I view the EXAMPLE project
         Then I should be on the "Example Project" page
         And I should see a panel called "Assigned to Me"
         And I should see a panel called "Unassigned"

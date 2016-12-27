@@ -3,10 +3,9 @@ Feature: US-4.10
     I want to change the state of a task
 
     Scenario: Putting an "Open" task into "In Progress"
-        Given I am a user with projects
-        And I am logged in
+        Given I am logged in
         And EXAMPLE-1 is "Open"
-        And I am viewing the EXAMPLE-1 task
+        And I am viewing task EXAMPLE-1
         Then I should see a "button" with the text "Start Progress"
         When I click the "Start Progress" button
         Then I should see an alert saying "Loading..."
@@ -15,10 +14,9 @@ Feature: US-4.10
         And I should see "State: In Progress"
 
     Scenario: Marking an "In Progress" task as "Complete"
-        Given I am a user with projects
-        And I am logged in
+        Given I am logged in
         And EXAMPLE-1 is "In Progress"
-        And I am viewing the EXAMPLE-1 task
+        And I am viewing task EXAMPLE-1
         Then I should see a "button" with the text "Mark as Complete"
         When I click the "Mark as Complete" button
         Then I should see an alert saying "Loading..."

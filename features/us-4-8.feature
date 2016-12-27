@@ -3,9 +3,8 @@ Feature: US-4.8
     I want to edit a task
 
     Scenario: Editing a task
-        Given I am a user with projects
-        And I am logged in
-        And I am viewing EXAMPLE-1 task
+        Given I am logged in
+        And I am viewing task EXAMPLE-1
         Then I should see a "button" with the text "Edit"
         When I click the "Edit" button
         Then I should be on the "Edit EXAMPLE-1" page
