@@ -38,3 +38,4 @@ jspm_packages
 
 # Build directories
 .compiled-client
+src/client/config.json
