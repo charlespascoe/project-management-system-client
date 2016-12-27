@@ -44,6 +44,14 @@ class World {
     return this.driver.findElement(By.xpath(`//${type}[contains(text(), '${text}')]`));
   }
 
+  findPanel(title) {
+    return this.driver.findElement(By.xpath(`//h3[contains(@class, 'panel-title') and contains(text(), '${title}')]`))
+      .then(panelTitle => {
+        if (panelTitle) return panelTitle.findElement(By.xpath('../..'));
+        throw new Error(`Panel not found: ${title}`);
+      });
+  }
+
   findElementByText(text) {
     return this.findElementWithText('*', text);
   }
