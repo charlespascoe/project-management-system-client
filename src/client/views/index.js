@@ -17,3 +17,6 @@ viewMap.setView('view-project', ViewProjectView);
 
 import EditTaskView from 'client/views/edit-task-view';
 viewMap.setView('edit-task', EditTaskView);
+
+import ViewTaskView from 'client/views/view-task-view';
+viewMap.setView('view-task', ViewTaskView);
