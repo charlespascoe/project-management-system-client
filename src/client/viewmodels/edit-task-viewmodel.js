@@ -113,7 +113,7 @@ export default class EditTaskViewmodel extends Viewmodel {
   }
 
   static createDefault() {
-    return new EditTaskViewmodel(notificationQueue, homeNavigator, rolesManager);
+    return new EditTaskViewmodel(notificationQueue, homeNavigator, rolesManager, taskNavigator);
   }
 
   onEnter(nav) {
@@ -212,7 +212,7 @@ export default class EditTaskViewmodel extends Viewmodel {
         var task = this.project.tasks.find(t => t.id == response.data.id);
 
         if (task) {
-          await this.taskNavigator.viewTask({task: task});
+          await this.taskNavigator.viewTask(task);
           return;
         }
       }
