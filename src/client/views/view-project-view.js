@@ -7,6 +7,22 @@ import { LoadingAlert, AlertContainer } from 'client/views/alerts';
 import CollapsiblePanel from 'client/views/collapsible-panel';
 import { ActionsGroup, ActionButton } from 'client/views/actions';
 
+class TaskView extends View {
+  constructor(props) {
+    super(props, props.viewmodel);
+  }
+
+  render() {
+    return (
+      <tr>
+        <td>Test!</td>
+        <td>Test!</td>
+        <td onClick={() => this.viewmodel.viewTask()}>Test!</td>
+      </tr>
+    );
+  }
+}
+
 export default class ViewProjectView extends View {
   constructor(props) {
     super(props, ViewProjectViewmodel.createDefault());
@@ -35,7 +51,23 @@ export default class ViewProjectView extends View {
           </CollapsiblePanel>
 
           <CollapsiblePanel title='Other Tasks' type='primary'>
-
+            <table className='table table-striped no-margin' id='other-tasks-table'>
+              <colgroup>
+                <col id='key-col' />
+                <col id='summary-col' />
+                <col id='view-col' />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>Summary</th>
+                  <th>View</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.viewmodel.otherTasks.map(projVm => <TaskView viewmodel={projVm} key={projVm.id} />)}
+              </tbody>
+            </table>
           </CollapsiblePanel>
 
           <CollapsiblePanel title='Completed Tasks' type='primary'>
