@@ -7,8 +7,9 @@ class TaskViewmodel extends Viewmodel {
   get model() { return this._model; }
   set model(value) { this._model = value; this.changed(); }
 
-  get id () { return this.model.id; }
-  get summary() { return this.model.id; }
+  get id() { return this.model.id; }
+  get key() { return `${this.model.project.id}-${this.model.id}`; }
+  get summary() { return this.model.summary; }
 
   constructor(task, taskNavigator) {
     super();
