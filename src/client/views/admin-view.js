@@ -38,7 +38,7 @@ class ProjectItem extends View {
       <tr>
         <td>{this.viewmodel.id}</td>
         <td>{this.viewmodel.name}</td>
-        <td className='manage button' onClick={() => this.viewmodel.goToProject()}><Icon type='chevron-right absolute-center' /></td>
+        <td className='view button' onClick={() => this.viewmodel.goToProject()}><Icon type='chevron-right absolute-center' /></td>
       </tr>
     );
   }
