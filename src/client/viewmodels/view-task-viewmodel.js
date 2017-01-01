@@ -1,10 +1,30 @@
 import Viewmodel from 'client/viewmodels/viewmodel';
 
 export default class ViewTaskViewmodel extends Viewmodel {
-  get projectIconUrl() { return this.task ? this.task.project.iconUrl : ''; }
-  get projectId() { return this.task ? this.task.project.id : ''; }
-  get taskId() { return this.task ? this.task.id : ''; }
-  get summary() { return this.task ? this.task.summary : ''; }
+  get projectIconUrl() { return this.task.project.iconUrl }
+
+  get projectId() { return this.task.project.id; }
+
+  get projectName() { return this.task.project.name; }
+
+  get taskId() { return this.task.id; }
+
+  get summary() { return this.task.summary; }
+
+  get priority() { return this.task.priority; }
+
+  get assignee() {
+    if (this.task.assignee == null) return 'Unassigned';
+    return this.task.assignee.name;
+  }
+
+  get estEffort() { return 15; }
+
+  get workedEffort() { return 0; }
+
+  get targetDate() { return {toString: () => '28/12/2017'}; }
+
+  get state() { return 'Open'; }
 
   constructor() {
     super();
