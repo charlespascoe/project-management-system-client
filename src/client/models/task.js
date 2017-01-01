@@ -17,12 +17,17 @@ export default class Task {
   }
 
   updateAttributes(data) {
-    if (data.project !== undefined) this.project = this.projectsCache.findOrCreate(data.project);
-    if (data.id !== undefined) this.id = data.id;
-    if (data.summary !== undefined) this.summary = data.summary;
-    if (data.priority !== undefined) this.priority = data.priority;
     if (data.assignee !== undefined) this.assignee = data.assignee ? this.usersCache.findOrCreate(data.assignee) : null;
+    if (data.completed !== undefined) this.completed = data.completed ? moment(data.completed) : null;
+    if (data.created !== undefined) this.created = moment(data.created);
     if (data.description !== undefined) this.description = data.description;
+    if (data.estimatedEffort !== undefiend) this.estimatedEffort = data.estimatedEffort;
+    if (data.id !== undefined) this.id = data.id;
+    if (data.priority !== undefined) this.priority = data.priority;
+    if (data.project !== undefined) this.project = this.projectsCache.findOrCreate(data.project);
+    if (data.state !== undefined) this.state = data.state;
+    if (data.summary !== undefined) this.summary = data.summary;
+    if (data.targetCompletion !== undefined) this.targetCompletionDate = data.targetCompletion ? moment(data.targetCompletion) : null;
   }
 }
 
