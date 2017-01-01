@@ -156,6 +156,7 @@ export default class ManageProjectViewmodel extends Viewmodel {
 
     this.loadingMembers = true;
 
+    // Needs to load roles before loading members, to make sure member roles are correctly resolved
     var rolesResult = await this.rolesManager.getRoles();
     var membersResult = await this.project.getMembers();
 
