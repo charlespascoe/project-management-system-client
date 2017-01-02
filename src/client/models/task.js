@@ -21,7 +21,7 @@ export default class Task {
     if (data.completed !== undefined) this.completed = data.completed ? moment(data.completed) : null;
     if (data.created !== undefined) this.created = moment(data.created);
     if (data.description !== undefined) this.description = data.description;
-    if (data.estimatedEffort !== undefiend) this.estimatedEffort = data.estimatedEffort;
+    if (data.estimatedEffort !== undefined) this.estimatedEffort = data.estimatedEffort;
     if (data.id !== undefined) this.id = data.id;
     if (data.priority !== undefined) this.priority = data.priority;
     if (data.project !== undefined) this.project = this.projectsCache.findOrCreate(data.project);
