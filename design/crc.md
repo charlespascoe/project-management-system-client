@@ -426,7 +426,7 @@ ProjectViewmodel (Extends Viewmodel)
 * Knows
   * The Project data model
 * Does
-  * Initiates navigation to the View Project page
+  * Initiates navigation to the View Project view
 * Collaborators
   * AdminNavigator
   * Project
@@ -445,7 +445,7 @@ AdminViewmodel (Extends Viewmodel)
   * ProjectViewmodel
   * UserViewmodels
 
-Manage Project Page Viewmodels
+Manage Project View Viewmodels
 =========================
 
 MemberViewmodel (Extends Viewmodel)
@@ -482,7 +482,7 @@ ManageProjectViewmodel (Extends Viewmodel)
   * Response
   * Status
 
-View Project Page Viewmodels
+View Project View Viewmodels
 ============================
 
 TaskViewmodel (Extends Viewmodel)
@@ -504,8 +504,8 @@ TaskViewmodel (Extends Viewmodel)
   * Triggers the Log Work dialogue
   * Assign the task to the current user (if it hasn't already been assigned)
   * Change the task's state
-  * Navigates to the Edit Task page
-  * Navigates to the View Task page
+  * Navigates to the Edit Task view
+  * Navigates to the View Task view
   * Toggles the details panel
 * Collaborators
   * Response
@@ -525,8 +525,8 @@ ViewProjectViewmodel (Extends Viewmodel)
   * A list of completed tasks
   * A list of all other tasks
 * Does
-  * Navigates to the Add Task page
-  * Navigates to the Manage Project page
+  * Navigates to the Add Task view
+  * Navigates to the Manage Project view
 * Collaborators
   * PermissionsManager
   * ProjectNavigator
