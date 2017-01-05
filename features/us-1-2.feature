@@ -11,7 +11,6 @@ Feature: US-1.2
         When I wait a bit
         Then I should see an alert saying "Incorrect username or password"
 
-    @current
     Scenario: Correct login credentials
         Given I am on the login page
         When I enter correct login details
