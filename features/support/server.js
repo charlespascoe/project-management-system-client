@@ -38,7 +38,7 @@ app.get('/auth/auth-token', function (req, res) {
     } else {
       res.status(401).end();
     }
-  }, 400);
+  }, 300);
 });
 
 app.get('/users/:idOrEmail', function (req, res) {
