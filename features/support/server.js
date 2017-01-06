@@ -8,6 +8,11 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+app.use(function (req, res, next) {
+  logger.info(`${req.method} ${req.path}`);
+  next();
+});
+
 app.get('/auth/auth-token', function (req, res) {
   logger.info('GET /auth/auth-token', req.headers);
   var pass, auth = req.headers.authorization;
@@ -91,7 +96,7 @@ app.get('/auth/elevation', function (req, res) {
 });
 
 app.use(function (req, res) {
-  logger.error(`Path not found: ${req.path}`);
+  logger.error(`Path not found: ${req.method} ${req.path}`);
   res.status(404).end();
 });
 
