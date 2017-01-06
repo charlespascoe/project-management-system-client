@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('./utils').serverLogger;
 const app = express();
+const fakeData = require('./fake-data');
 
 app.use(bodyParser.json());
 
@@ -61,7 +62,7 @@ app.route('/users/:idOrEmail')
   });
 
 app.get('/users/:idOrEmail/assignments', function (req, res) {
-  res.status(200).json([]);
+  res.status(200).json(fakeData.assignments.map(assignment => assignment.serialise()));
 });
 
 app.get('/users', function (req, res) {

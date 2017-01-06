@@ -5,11 +5,11 @@ module.exports = function () {
     return this.login();
   });
 
-  this.Given('I am a user with no projects', function () {
-    this.fakeData.clearProjects();
+  this.Given('I am a user with no assignments', function () {
+    this.fakeData.clearAssignments();
   });
 
-  this.Given('I am a user with projects', function () {
+  this.Given('I am a user with assignments', function () {
     // Do nothing - defaults to having projects
   });
 
@@ -18,7 +18,7 @@ module.exports = function () {
   });
 
   this.Then(/^I should be on the "([^"]+)" page$/, function (pageName) {
-    return expect(this.driver.findElement(By.css('h1')).getText()).to.eventually.contain(pageName);
+    return expect(wait(100).then(() => this.driver.findElement(By.css('h1')).getText())).to.eventually.contain(pageName);
   });
 
   this.When(/^I wait (\d+) second[s]{0,1}$/, function (duration) {

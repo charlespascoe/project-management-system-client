@@ -34,25 +34,29 @@ export default class HomeView extends View {
             <LoadingAlert message='Loading...' />
           </AlertContainer>
           <CollapsiblePanel title='My Projects' type='primary' padding={false}>
-            <table className='table table-striped no-margin' id='user-projects-table'>
-              <colgroup>
-                <col id='project-id-col' />
-                <col id='project-name-col' />
-                <col id='role-col' />
-                <col id='view-project-col' />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th>Project ID</th>
-                  <th>Project Name</th>
-                  <th>Role</th>
-                  <th>View</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.viewmodel.assignments.map(assignmentVm => <AssignmentView viewmodel={assignmentVm} key={assignmentVm.id} />)}
-              </tbody>
-            </table>
+            {this.viewmodel.assignments.length == 0 ?
+              <div className='text-center padded'>You are not assigned to any projects</div>
+            :
+              <table className='table table-striped no-margin' id='user-projects-table'>
+                <colgroup>
+                  <col id='project-id-col' />
+                  <col id='project-name-col' />
+                  <col id='role-col' />
+                  <col id='view-project-col' />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>Project ID</th>
+                    <th>Project Name</th>
+                    <th>Role</th>
+                    <th>View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.viewmodel.assignments.map(assignmentVm => <AssignmentView viewmodel={assignmentVm} key={assignmentVm.id} />)}
+                </tbody>
+              </table>
+            }
           </CollapsiblePanel>
         </div>
       </div>

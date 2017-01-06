@@ -3,7 +3,7 @@ class FakeTask {
     this.id = id;
     this.summary = summary;
     this.desc = desc;
-    this.state = "OPEN";
+    this.state = 'OPEN';
   }
 
   changeState(newState) {
@@ -27,6 +27,22 @@ class FakeProject {
   }
 }
 
+class FakeAssignment {
+  constructor(user, project, role) {
+    this.user = user;
+    this.project = project;
+    this.role = role;
+  }
+
+  serialise() {
+    return {
+      user: {id: this.user.id},
+      project: {id: this.project.id, name: this.project.name},
+      role: {id: this.role.id, name: this.role.name}
+    };
+  }
+}
+
 class FakeData {
   constructor() {
     this.reset();
@@ -39,13 +55,21 @@ class FakeData {
     exampleProject.addTask(new FakeTask(1, 'Example Task', 'A long(ish) description here'));
 
     this.projects.push(exampleProject);
+
+    this.assignments = [
+      new FakeAssignment({id: 1}, {id: 'EXAMPLE', name: 'Example Project'}, {id: 1, name: 'Project Administrator'})
+    ];
   }
 
   clearProjects() {
     this.projects = [];
   }
 
-  fundProject(projectId) {
+  clearAssignments() {
+    this.assignments = [];
+  }
+
+  findProject(projectId) {
     return this.projects.find(proj => proj.id === projectId);
   }
 }
