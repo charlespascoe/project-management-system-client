@@ -144,6 +144,9 @@ app.get('/projects/:projectId/non-members', function (req, res) {
 app.route('/projects/:projectId/members/:userId')
   .put(function (req, res) {
     setTimeout(() => res.status(200).end(), 400);
+  })
+  .delete(function (req, res) {
+    setTimeout(() => res.status(200).end(), 400);
   });
 
 app.post('/users', function (req, res) {

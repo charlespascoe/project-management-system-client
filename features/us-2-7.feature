@@ -9,8 +9,10 @@ Feature: US-2.7
         When I click on the View Project icon
         Then I should be on the "Manage Example Project" page
         When I click the remove icon
+        And I wait a bit
         Then I should see the "Confirm Remove Member" dialogue
         When I click the "Remove Member" button
+        And I wait a bit
         Then I should see a loading animation
         When I wait a bit
         Then I should see a notification saying "Successfully removed Bob Smith as a member"
