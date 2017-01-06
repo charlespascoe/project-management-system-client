@@ -16,7 +16,7 @@ class MemberItem extends View {
       <tr>
         <td className='table-vertical-middle'>{this.viewmodel.name}</td>
         <td>
-          <label className='sr-only'>Select Role</label>
+          <span className='sr-only'>Select Role</span>
           <select
             className='form-control'
             disabled={this.viewmodel.loading}

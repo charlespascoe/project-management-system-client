@@ -16,7 +16,8 @@ module.exports = function () {
 
   this.When(/^I select "([^"]+)" from the "([^"]+)" dropdown$/, function (optionText, dropdownLabel) {
     return this.findInputForLabel(dropdownLabel)
-      .then(select => select.click().then(() => select.findElement(By.css(`option[title='${optionText}']`))))
+      .then(select => select.click().then(() => select.getAttribute('id')))
+      .then(id => this.driver.findElement(By.xpath(`//select[@id='${id}']/option[contains(text(), '${optionText}')]`)))
       .then(option => option.click());
   });
 

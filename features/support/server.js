@@ -117,12 +117,26 @@ app.get('/roles', function (req, res) {
   ]);
 });
 
-app.get('/projects/:projectId/members', function (req, res) {
+app.route('/projects/:projectId/members')
+  .get(function (req, res) {
+    res.status(200).json([
+      {
+        user: {id: 1},
+        role: {id: 1},
+        project: {id: req.params.projectId}
+      }
+    ]);
+  })
+  .post(function (req, res) {
+    setTimeout(() => res.status(200).end(), 400);
+  });
+
+app.get('/projects/:projectId/non-members', function (req, res) {
   res.status(200).json([
     {
-      user: {id: 1},
-      role: {id: 1},
-      project: {id: req.params.projectId}
+      id: 2,
+      firstName: 'Jane',
+      otherNames: 'Dough'
     }
   ]);
 });
