@@ -70,6 +70,11 @@ module.exports = function () {
       .then(button => button.click());
   });
 
+  this.When(/^I click the "([^"]+)" button in the dialogue$/, function (buttonText) {
+    return this.driver.findElement(By.xpath(`//div[contains(@class, 'modal ')]//button[contains(text(), '${buttonText}')]`))
+      .then(button => button.click());
+  });
+
   this.When('I click the delete icon', function () {
     return this.driver.findElement(By.css('td.delete.button')).click();
   });

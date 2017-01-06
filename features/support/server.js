@@ -83,9 +83,13 @@ app.get('/users', function (req, res) {
   ]);
 });
 
-app.get('/projects', function (req, res) {
-  res.status(200).json([]);
-});
+app.route('/projects')
+  .get(function (req, res) {
+    res.status(200).json([]);
+  })
+  .post(function (req, res) {
+    setTimeout(() => res.status(200).end(), 400);
+  });
 
 app.post('/users', function (req, res) {
   logger.info('POST /users');

@@ -11,7 +11,8 @@ Feature: US-2.4
         When I enter "EXAMPLE" into the "Project ID" field
         And I enter "Example" into the "Project Name" field
         And I enter "http://www.example.com/test.png" into the "Icon URL" field
-        And I click the "Create Project" button
-        Then I should see an alert saying "Loading..."
+        And I click the "Create Project" button in the dialogue
+        And I wait a bit
+        Then I should see an alert saying "Creating project..."
         When I wait a bit
         Then I should see a notification saying "Successfully created Example project"
