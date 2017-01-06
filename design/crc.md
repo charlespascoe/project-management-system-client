@@ -40,10 +40,18 @@ Project
   * Gets project tasks
   * Adds a task
 * Collaborators
+  * UserManager
   * MembersApi
   * ProjectsApi
-  * Response
   * TasksApi
+  * Response
+
+Role
+----
+* Knows
+  * Role ID
+  * Role Name
+  * Role's Permissions
 
 Member
 ------
@@ -55,8 +63,13 @@ Member
   * Removes the member from the project
   * Changes the member's role
 * Collaborators
+  * Project
+  * User
+  * Role
+  * ProjectsCache
+  * UsersCache
+  * RolesCache
   * MembersApi
-  * PermissionsManager
   * Response
 
 Task
@@ -78,11 +91,13 @@ Task
   * Gets the task's work log
   * Adds a work log entry
 * Collaborators
-  * PermissionsManager
   * Project
-  * Response
+  * ProjectsCache
+  * User
+  * UsersCache
   * TasksApi
   * WorkLogApi
+  * Response
 
 WorkLogEntry
 ------------
@@ -96,10 +111,11 @@ WorkLogEntry
 * Does
   * Deletes the work log entry
 * Collaborators
-  * PermissionsManager
-  * Response
   * Task
+  * User
+  * UsersCache
   * WorkLogApi
+  * Response
 
 Data Access Classes
 ===================
@@ -133,12 +149,20 @@ AuthenticationApi
   * The base URL for all authentication requests
 * Does
   * Handle login requests
+  * Handle logout requests
   * Handle token refresh requests
   * Handles requests to trigger a password reset for a user (not the current user)
+  * Handles system administrator elevation requests
 * Collaborators
   * RestClient
   * RestResponse
   * Status
+
+Response
+--------
+* Knows
+  * The status object that represents the nature of the response
+  * The data, if any, returned from the server
 
 AuthenticationClient
 --------------------
@@ -402,7 +426,7 @@ ProjectViewmodel (Extends Viewmodel)
 * Knows
   * The Project data model
 * Does
-  * Initiates navigation to the View Project page
+  * Initiates navigation to the View Project view
 * Collaborators
   * AdminNavigator
   * Project
@@ -421,7 +445,7 @@ AdminViewmodel (Extends Viewmodel)
   * ProjectViewmodel
   * UserViewmodels
 
-Manage Project Page Viewmodels
+Manage Project View Viewmodels
 =========================
 
 MemberViewmodel (Extends Viewmodel)
@@ -458,7 +482,7 @@ ManageProjectViewmodel (Extends Viewmodel)
   * Response
   * Status
 
-View Project Page Viewmodels
+View Project View Viewmodels
 ============================
 
 TaskViewmodel (Extends Viewmodel)
@@ -480,8 +504,8 @@ TaskViewmodel (Extends Viewmodel)
   * Triggers the Log Work dialogue
   * Assign the task to the current user (if it hasn't already been assigned)
   * Change the task's state
-  * Navigates to the Edit Task page
-  * Navigates to the View Task page
+  * Navigates to the Edit Task view
+  * Navigates to the View Task view
   * Toggles the details panel
 * Collaborators
   * Response
@@ -496,10 +520,13 @@ ViewProjectViewmodel (Extends Viewmodel)
   * The project
   * The project's name
   * The project's ID
-  * A list of the project's tasks
+  * A list of tasks assigned to the current user
+  * A list of unassigned tasks
+  * A list of completed tasks
+  * A list of all other tasks
 * Does
-  * Navigates to the Add Task page
-  * Navigates to the Manage Project page
+  * Navigates to the Add Task view
+  * Navigates to the Manage Project view
 * Collaborators
   * PermissionsManager
   * ProjectNavigator
@@ -516,36 +543,69 @@ DialogueViewmodel (Extends Viewmodel)
 * Does
   * Fires the 'dismiss' event handler
 
-
-
-Views
-=====
-
-NotificationQueue
------------------
+AddUserDialogueViewmodel (Extends DialogueViewmodel)
+----------------------------------------------------
 * Knows
-  * A queue of notifications
-  * The currently displayed notification
+  * New user's first name
+  * Whether or not the first name is valid
+  * New user's other names
+  * Whether or not the other names are valid
+  * Email
+  * Whether or not the email is valid
+  * Whether or not the app is contacting the server
+  * An error message
 * Does
-  * Displays a notification
-  * Removes the notification after a set period of time
+  * Initiates the process of adding a new user
 * Collaborators
-  * Notification
+  * UsersManager
+  * User
+  * Response
+  * Status
 
-View
-----
-The base class for all views
+AddProjectViewmodel (Extends DialogueViewmodel)
+-----------------------------------------------
 * Knows
-  * The viewmodel for this view
+  * New project's ID
+  * Whether or not the ID is valid
+  * New project's name
+  * Whether or not the name is valid
+  * New project's icon URL
+  * Whether or not the URL is valid
+  * Whether or not the app is contacting the server
+  * An error message
 * Does
-  * Triggers a view render each time the viewmodel changes
+  * Initiates the process of creating a project
+* Collaborators
+  * ProjectsManager
+  * Project
+  * Response
+  * Status
 
-Dialogue (Extends View)
------------------------
+AppProjectMemberDialogueViewmodel (Extends DialogueViewmodel)
+-------------------------------------------------------------
 * Knows
-  * The 'dismiss' event handler
-  * Whether or not the dialogue is visible
+  * A list of users that aren't already project members
+  * A list of all roles on the system
+  * The selected user
+  * The selected role
+  * Whether or not the app is contacting the server
+  * An error message
 * Does
-  * Renders the HTML for the dialogue frame
-  * Hides the dialogue when dismissed and fires the 'dismiss' event handler
+  * Initiates the process of adding a member
+* Collaborators
+  * Project
+  * Response
+  * Status
 
+RequestElevationDialogueViewmodel (Extends DialogueViewmodel)
+-------------------------------------------------------------
+* Knows
+  * The entered password
+  * Whether or not the app is contacting the server
+* Does
+  * Initiates the process of requeting system administrator elevation
+* Collaborators
+  * UserManager
+  * Response
+  * Status
+  * An error message
