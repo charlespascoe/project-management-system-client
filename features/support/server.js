@@ -46,23 +46,41 @@ app.get('/auth/auth-token', function (req, res) {
   }, 400);
 });
 
-app.get('/users/:idOrEmail', function (req, res) {
-  logger.info('GET /users/:idOrEmail');
-  res.status(200).json({
-    id: 1,
-    firstName: 'Bob',
-    otherNames: 'Smith',
-    email: 'bob@mail.com',
-    sysadmin: true
+app.route('/users/:idOrEmail')
+  .get(function (req, res) {
+    res.status(200).json({
+      id: 1,
+      firstName: 'Bob',
+      otherNames: 'Smith',
+      email: 'bob@mail.com',
+      sysadmin: true
+    });
+  })
+  .delete(function (req, res) {
+    setTimeout(() => res.status(200).end(), 400);
   });
-});
 
 app.get('/users/:idOrEmail/assignments', function (req, res) {
   res.status(200).json([]);
 });
 
 app.get('/users', function (req, res) {
-  res.status(200).json([]);
+  res.status(200).json([
+    {
+      id: 1,
+      firstName: 'Bob',
+      otherNames: 'Smith',
+      email: 'bob@mail.com',
+      sysadmin: true
+    },
+    {
+      id: 2,
+      firstName: 'Jane',
+      otherNames: 'Dough',
+      email: 'jane.dough@mail.com',
+      sysadmin: false
+    }
+  ]);
 });
 
 app.get('/projects', function (req, res) {

@@ -46,11 +46,11 @@ module.exports = function () {
   });
 
   this.Then('I should not see a dialogue', function () {
-    return expect(this.driver.findElement(By.css('.modal-dialog'))).to.eventually.equal(null);
+    return expect(this.driver.findElements(By.css('.modal-dialog')).then((elms) => elms.length)).to.eventually.equal(0);
   });
 
   this.Then('I should see a loading animation', function () {
-    return expect(this.driver.findElement(By.css('.glyphicon .glyphicon-cog rotating'))).to.eventually.not.equal(null);
+    return expect(this.driver.findElement(By.css('.glyphicon.glyphicon-cog.rotating'))).to.eventually.not.equal(null);
   });
 
   this.Then(/^I should see "([^"]+)"$/, function (text) {
