@@ -38,11 +38,11 @@ app.get('/auth/auth-token', function (req, res) {
     } else {
       res.status(401).end();
     }
-  }, 300);
+  }, 400);
 });
 
 app.get('/users/:idOrEmail', function (req, res) {
-  logger.info('GET /user');
+  logger.info('GET /users/:idOrEmail');
   res.status(200).json({
     id: 1,
     firstName: 'Bob',
@@ -50,6 +50,23 @@ app.get('/users/:idOrEmail', function (req, res) {
     email: 'bob@mail.com',
     sysadmin: true
   });
+});
+
+app.get('/users/:idOrEmail/assignments', function (req, res) {
+  res.status(200).json([]);
+});
+
+app.get('/users', function (req, res) {
+  res.status(200).json([]);
+});
+
+app.get('/projects', function (req, res) {
+  res.status(200).json([]);
+});
+
+app.post('/users', function (req, res) {
+  logger.info('POST /users');
+  setTimeout(() => res.status(201).end(), 400);
 });
 
 app.get('/auth/elevation', function (req, res) {

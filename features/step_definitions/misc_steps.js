@@ -58,7 +58,7 @@ module.exports = function () {
   });
 
   this.Then(/^I should see an alert saying "([^"]+)"$/, function (message) {
-    return expect(this.driver.findElement(By.css('.alert')).getText()).to.eventually.contain(message);
+    return expect(this.driver.findElement(By.xpath(`//div[contains(@class, 'alert ')]/div[contains(text(), '${message}')]`)).getText()).to.eventually.contain(message);
   });
 
   this.Then(/^I should see a notification saying "([^"]+)"$/, function (message) {
