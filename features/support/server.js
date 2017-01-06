@@ -85,9 +85,50 @@ app.get('/users', function (req, res) {
 
 app.route('/projects')
   .get(function (req, res) {
-    res.status(200).json([]);
+    res.status(200).json([
+      {
+        id: 'EXAMPLE',
+        name: 'Example Project',
+        iconUrl: '/test.png'
+      }
+    ]);
   })
   .post(function (req, res) {
+    setTimeout(() => res.status(200).end(), 400);
+  });
+
+app.get('/roles', function (req, res) {
+  res.status(200).json([
+    {
+      id: 1,
+      name: 'Project Administrator',
+      permissions: []
+    },
+    {
+      id: 2,
+      name: 'Worker',
+      permissions: []
+    },
+    {
+      id: 3,
+      name: 'Observer',
+      permissions: []
+    }
+  ]);
+});
+
+app.get('/projects/:projectId/members', function (req, res) {
+  res.status(200).json([
+    {
+      user: {id: 1},
+      role: {id: 1},
+      project: {id: req.params.projectId}
+    }
+  ]);
+});
+
+app.route('/projects/:projectId/members/:userId')
+  .put(function (req, res) {
     setTimeout(() => res.status(200).end(), 400);
   });
 

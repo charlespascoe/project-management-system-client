@@ -16,6 +16,6 @@ module.exports = function () {
   });
 
   this.When('I click on the View Project icon', function () {
-    return this.driver.findElement(By.css('.td.manage.button')).click();
+    return this.driver.findElement(By.css('td.view.button')).click();
   });
 };

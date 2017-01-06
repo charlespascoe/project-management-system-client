@@ -18,7 +18,7 @@ module.exports = function () {
   });
 
   this.Then(/^I should be on the "([^"]+)" page$/, function (pageName) {
-    return expect(this.driver.findElement(By.css('h1')).getText()).to.eventually.equal(pageName);
+    return expect(this.driver.findElement(By.css('h1')).getText()).to.eventually.contain(pageName);
   });
 
   this.When(/^I wait (\d+) second[s]{0,1}$/, function (duration) {
