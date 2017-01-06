@@ -11,7 +11,7 @@ function AssignmentView(props) {
       <td>{props.viewmodel.id}</td>
       <td>{props.viewmodel.projectName}</td>
       <td>{props.viewmodel.roleName}</td>
-      <td className='view-project button' onClick={() => props.viewmodel.goToProject()}>
+      <td className='view button' onClick={() => props.viewmodel.goToProject()}>
         <Icon type='chevron-right absolute-center' />
       </td>
     </tr>
