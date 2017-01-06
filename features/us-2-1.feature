@@ -7,6 +7,7 @@ Feature: US-2.1
         And I have been elevated to sysadmin
         And I am on the Administration page
         When I click on "Add User"
+        And I wait a bit
         Then I should see the "Add User" dialogue
         When I enter "bobsmith" into the "Email" field
         And I enter "Bob" into the "First Name" field
