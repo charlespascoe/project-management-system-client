@@ -14,5 +14,5 @@ Feature: US-2.7
         When I click the "Remove Member" button
         And I wait a bit
         Then I should see a loading animation
-        When I wait a bit
+        When I wait 1 second
         Then I should see a notification saying "Successfully removed Bob Smith as a member"
