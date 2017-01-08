@@ -2,6 +2,7 @@ Feature: US-4.8
     As a worker,
     I want to edit a task
 
+    @incomplete
     Scenario: Editing a task
         Given I am logged in
         And I am viewing task EXAMPLE-1

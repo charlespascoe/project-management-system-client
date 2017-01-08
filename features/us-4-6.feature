@@ -2,6 +2,7 @@ Feature: US-4.6
     As a worker,
     I want to view a task within a project
 
+    @incomplete
     Scenario: Navigating to a task from the project
         Given I am logged in
         And I am on the EXAMPLE project page

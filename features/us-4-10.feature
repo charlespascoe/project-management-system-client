@@ -2,6 +2,7 @@ Feature: US-4.10
     As a worker,
     I want to change the state of a task
 
+    @incomplete
     Scenario: Putting an "Open" task into "In Progress"
         Given I am logged in
         And EXAMPLE-1 is "Open"
@@ -13,6 +14,7 @@ Feature: US-4.10
         Then I should see a notification saying "Started progress on EXAMPLE-1"
         And I should see "State: In Progress"
 
+    @incomplete
     Scenario: Marking an "In Progress" task as "Complete"
         Given I am logged in
         And EXAMPLE-1 is "In Progress"
