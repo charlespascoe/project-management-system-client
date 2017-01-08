@@ -7,6 +7,7 @@ Feature: US-2.1
         And I have been elevated to sysadmin
         And I am on the Administration page
         When I click on "Add User"
+        And I wait a bit
         Then I should see the "Add User" dialogue
         When I enter "bobsmith" into the "Email" field
         And I enter "Bob" into the "First Name" field
@@ -25,7 +26,7 @@ Feature: US-2.1
         And I enter "bob.smith@mail.com" into the "Email" field
         And I click the "Create User" button
         And I wait a bit
-        Then I should see an alert saying "Loading..."
+        Then I should see an alert saying "Creating user..."
         When I wait a bit
-        Then I should see a notification saying "Successfully created user"
+        Then I should see a notification saying "Successfully added Bob Smith as a user"
 

@@ -2,6 +2,7 @@ Feature: US-4.7
     As a woker,
     I want to transfer a task to another user by assigning it to them
 
+    @incomplete
     Scenario: Removing the current assignee
         Given I am logged in
         And I am viewing task EXAMPLE-1
@@ -15,6 +16,7 @@ Feature: US-4.7
         And I should see a notification saying "Successfully saved changes to EXAMPLE-1"
         And I should see "Assignee: Unassigned"
 
+    @incomplete
     Scenario: Changing the current assignee
         Given I am logged in
         And I am viewing task EXAMPLE-1

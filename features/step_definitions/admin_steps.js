@@ -11,11 +11,11 @@ module.exports = function () {
     return this.driver.findElement(By.linkText('Administration')).click();
   });
 
-  this.Given('I have been elevated to sysadmin', function () {
-    return this.elevate();
+  this.Given('I have been elevated to sysadmin', {timeout: 10 * 1000}, function () {
+    return this.elevate().then(() => wait(5000));
   });
 
   this.When('I click on the View Project icon', function () {
-    return this.driver.findElement(By.css('.td.manage.button')).click();
+    return this.driver.findElement(By.css('td.view.button')).click();
   });
 };

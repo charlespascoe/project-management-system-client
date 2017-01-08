@@ -8,7 +8,7 @@ import { LoadingAlert, WarningAlert, DangerAlert } from 'client/views/alerts';
 export default class AddUserDialogue extends Dialogue {
   constructor(props) {
     super(props, AddUserDialogueViewmodel.createDefault());
-    this.title = 'Create User';
+    this.title = 'Add User';
   }
 
   addUser(e) {

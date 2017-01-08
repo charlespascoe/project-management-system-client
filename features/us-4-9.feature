@@ -2,6 +2,7 @@ Feature: US-4.9
     As a worker,
     I want to log effort against a task
 
+    @incomplete
     Scenario: Logging work against a task
         Given I am logged in
         And I am viewing task EXAMPLE-1

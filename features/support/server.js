@@ -1,12 +1,18 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { logger } = require('./utils');
+const logger = require('./utils').serverLogger;
 const app = express();
+const fakeData = require('./fake-data');
 
 app.use(bodyParser.json());
 
 app.use(cors());
+
+app.use(function (req, res, next) {
+  logger.info(`${req.method} ${req.path}`);
+  next();
+});
 
 app.get('/auth/auth-token', function (req, res) {
   logger.info('GET /auth/auth-token', req.headers);
@@ -41,15 +47,112 @@ app.get('/auth/auth-token', function (req, res) {
   }, 400);
 });
 
-app.get('/users/:idOrEmail', function (req, res) {
-  logger.info('GET /user');
-  res.status(200).json({
-    id: 1,
-    firstName: 'Bob',
-    otherNames: 'Smith',
-    email: 'bob@mail.com',
-    sysadmin: true
+app.route('/users/:idOrEmail')
+  .get(function (req, res) {
+    res.status(200).json({
+      id: 1,
+      firstName: 'Bob',
+      otherNames: 'Smith',
+      email: 'bob@mail.com',
+      sysadmin: true
+    });
+  })
+  .delete(function (req, res) {
+    setTimeout(() => res.status(200).end(), 400);
   });
+
+app.get('/users/:idOrEmail/assignments', function (req, res) {
+  res.status(200).json(fakeData.assignments.map(assignment => assignment.serialise()));
+});
+
+app.get('/users', function (req, res) {
+  res.status(200).json([
+    {
+      id: 1,
+      firstName: 'Bob',
+      otherNames: 'Smith',
+      email: 'bob@mail.com',
+      sysadmin: true
+    },
+    {
+      id: 2,
+      firstName: 'Jane',
+      otherNames: 'Dough',
+      email: 'jane.dough@mail.com',
+      sysadmin: false
+    }
+  ]);
+});
+
+app.route('/projects')
+  .get(function (req, res) {
+    res.status(200).json([
+      {
+        id: 'EXAMPLE',
+        name: 'Example Project',
+        iconUrl: '/test.png'
+      }
+    ]);
+  })
+  .post(function (req, res) {
+    setTimeout(() => res.status(200).end(), 400);
+  });
+
+app.get('/roles', function (req, res) {
+  res.status(200).json([
+    {
+      id: 1,
+      name: 'Project Administrator',
+      permissions: []
+    },
+    {
+      id: 2,
+      name: 'Worker',
+      permissions: []
+    },
+    {
+      id: 3,
+      name: 'Observer',
+      permissions: []
+    }
+  ]);
+});
+
+app.route('/projects/:projectId/members')
+  .get(function (req, res) {
+    res.status(200).json([
+      {
+        user: {id: 1},
+        role: {id: 1},
+        project: {id: req.params.projectId}
+      }
+    ]);
+  })
+  .post(function (req, res) {
+    setTimeout(() => res.status(200).end(), 400);
+  });
+
+app.get('/projects/:projectId/non-members', function (req, res) {
+  res.status(200).json([
+    {
+      id: 2,
+      firstName: 'Jane',
+      otherNames: 'Dough'
+    }
+  ]);
+});
+
+app.route('/projects/:projectId/members/:userId')
+  .put(function (req, res) {
+    setTimeout(() => res.status(200).end(), 400);
+  })
+  .delete(function (req, res) {
+    setTimeout(() => res.status(200).end(), 400);
+  });
+
+app.post('/users', function (req, res) {
+  logger.info('POST /users');
+  setTimeout(() => res.status(201).end(), 400);
 });
 
 app.get('/auth/elevation', function (req, res) {
@@ -74,7 +177,7 @@ app.get('/auth/elevation', function (req, res) {
 });
 
 app.use(function (req, res) {
-  logger.error(`Path not found: ${req.path}`);
+  logger.error(`Path not found: ${req.method} ${req.path}`);
   res.status(404).end();
 });
 

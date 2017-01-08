@@ -5,11 +5,11 @@ module.exports = function () {
     return this.login();
   });
 
-  this.Given('I am a user with no projects', function () {
-    this.fakeData.clearProjects();
+  this.Given('I am a user with no assignments', function () {
+    this.fakeData.clearAssignments();
   });
 
-  this.Given('I am a user with projects', function () {
+  this.Given('I am a user with assignments', function () {
     // Do nothing - defaults to having projects
   });
 
@@ -18,7 +18,7 @@ module.exports = function () {
   });
 
   this.Then(/^I should be on the "([^"]+)" page$/, function (pageName) {
-    return expect(this.driver.findElement(By.css('h1')).getText()).to.eventually.equal(pageName);
+    return expect(wait(100).then(() => this.driver.findElement(By.css('h1')).getText())).to.eventually.contain(pageName);
   });
 
   this.When(/^I wait (\d+) second[s]{0,1}$/, function (duration) {
@@ -46,11 +46,11 @@ module.exports = function () {
   });
 
   this.Then('I should not see a dialogue', function () {
-    return expect(this.driver.findElement(By.css('.modal-dialog'))).to.eventually.equal(null);
+    return expect(this.driver.findElements(By.css('.modal-dialog')).then((elms) => elms.length)).to.eventually.equal(0);
   });
 
   this.Then('I should see a loading animation', function () {
-    return expect(this.driver.findElement(By.css('.glyphicon .glyphicon-cog rotating'))).to.eventually.not.equal(null);
+    return expect(this.driver.findElement(By.css('.glyphicon.glyphicon-cog.rotating'))).to.eventually.not.equal(null);
   });
 
   this.Then(/^I should see "([^"]+)"$/, function (text) {
@@ -58,7 +58,11 @@ module.exports = function () {
   });
 
   this.Then(/^I should see an alert saying "([^"]+)"$/, function (message) {
-    return expect(this.driver.findElement(By.css('.alert')).getText()).to.eventually.contain(message);
+    return expect(this.driver.findElement(By.xpath(`//div[contains(@class, 'alert ')]/div[contains(text(), '${message}')]`)).getText()).to.eventually.contain(message);
+  });
+
+  this.Then(/^I should see an alert in the dialogue saying "([^"]+)"$/, function (message) {
+    return expect(this.driver.findElement(By.xpath(`//div[contains(@class, 'modal ')]//div[contains(@class, 'alert ')]/div[contains(text(), '${message}')]`)).getText()).to.eventually.contain(message);
   });
 
   this.Then(/^I should see a notification saying "([^"]+)"$/, function (message) {
@@ -67,6 +71,11 @@ module.exports = function () {
 
   this.When(/^I click the "([^"]+)" button$/, function (buttonText) {
     return this.findElementWithText('button', buttonText)
+      .then(button => button.click());
+  });
+
+  this.When(/^I click the "([^"]+)" button in the dialogue$/, function (buttonText) {
+    return this.driver.findElement(By.xpath(`//div[contains(@class, 'modal ')]//button[contains(text(), '${buttonText}')]`))
       .then(button => button.click());
   });
 

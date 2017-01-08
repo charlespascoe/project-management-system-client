@@ -2,6 +2,7 @@ Feature: US-4.5
     As a worker,
     I want to assign an unassigned task to myself
 
+    @incomplete
     Scenario: Assigning an unassigned task from the "View Task" page
         Given I am logged in
         And I am viewing an unassigned task

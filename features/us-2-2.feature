@@ -7,6 +7,7 @@ Feature: US-2.2
         And I have been elevated to sysadmin
         And I am on the Administration page
         When I click the delete icon
+        And I wait a bit
         Then I should see the "Confirm Delete User" dialogue
         When I click the "Cancel" button
         And I wait 1 second
@@ -17,8 +18,10 @@ Feature: US-2.2
         And I have been elevated to sysadmin
         And I am on the Administration page
         When I click the delete icon
+        And I wait a bit
         Then I should see the "Confirm Delete User" dialogue
         When I click the "Delete User" button
+        And I wait a bit
         Then I should see a loading animation
         When I wait a bit
-        Then I should see a notification saying "Removed Bob Smith as a user"
+        Then I should see a notification saying "Removed Jane Dough as a user"
