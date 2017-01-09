@@ -298,15 +298,6 @@ UserManager
   * AuthenticationApi
   * NotificationQueue
 
-PermissionsManager
-------------------
-* Knows
-  * Whether or not the current user is a Sysadmin
-* Does
-  *
-* Collaborators
-  * UserManager
-
 UsersManager
 ------------
 * Knows
