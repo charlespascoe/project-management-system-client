@@ -18,4 +18,13 @@ module.exports = function () {
   this.When('I click on the View Project icon', function () {
     return this.driver.findElement(By.css('td.view.button')).click();
   });
+
+  this.Given(/^I am managing the ([A-Z]{1,16}) project$/, {timeout: 15 * 1000}, function (projectId) {
+    return this.elevate()
+      .then(() => wait(5000))
+      .then(() => this.driver.findElement(By.linkText('Administration')).click())
+      .then(() => wait(100))
+      .then(() => this.driver.findElement(By.css('td.view.button')).click())
+      .then(() => wait(100));
+  });
 };

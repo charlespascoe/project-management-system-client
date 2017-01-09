@@ -6,7 +6,8 @@ Feature: US-2.2
         Given I am logged in
         And I have been elevated to sysadmin
         And I am on the Administration page
-        When I click the delete icon
+        When I wait a bit
+        And I click the delete icon
         And I wait a bit
         Then I should see the "Confirm Delete User" dialogue
         When I click the "Cancel" button
@@ -17,7 +18,8 @@ Feature: US-2.2
         Given I am logged in
         And I have been elevated to sysadmin
         And I am on the Administration page
-        When I click the delete icon
+        When I wait a bit
+        And I click the delete icon
         And I wait a bit
         Then I should see the "Confirm Delete User" dialogue
         When I click the "Delete User" button
