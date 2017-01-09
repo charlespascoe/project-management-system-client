@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- This file was created with the aha Ansi HTML Adapter. https://github.com/theZiz/aha -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xml+xhtml; charset=UTF-8" />
+<title>stdin</title>
+</head>
+<body style="color:white; background-color:black">
+<pre>
+
+&gt; project-management-system-client@0.0.1 test /home/charles/repos/project-management-system-client
+&gt; cucumber-js
+
+Feature: US-1.2
+
+      As a user,
+      I want to log into the system
+
+  Scenario: Invalid login credentials
+  <span style="color:lime;">✔ Given I am on the login page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I enter incorrect login details</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I press the login button</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see an alert saying &quot;Signing in...&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see an alert saying &quot;Incorrect username or password&quot;</span><span style="color:white;">
+
+  Scenario: Correct login credentials
+  </span><span style="color:lime;">✔ Given I am on the login page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I enter correct login details</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I press the login button</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see an alert saying &quot;Signing in...&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should be on the &quot;Home&quot; page</span><span style="color:white;">
+
+Feature: US-2.1
+
+      As a System Administrator,
+      I want to add users to the system
+
+  Scenario: The user tries to create a user with an invalid email address
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I have been elevated to sysadmin</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am on the Administration page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click on &quot;Add User&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see the &quot;Add User&quot; dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I enter &quot;bobsmith&quot; into the &quot;Email&quot; field</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I enter &quot;Bob&quot; into the &quot;First Name&quot; field</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I enter &quot;Smith&quot; into the &quot;Other Names&quot; field</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then the &quot;Email&quot; input field should be invalid</span><span style="color:white;">
+  </span><span style="color:lime;">✔ But the &quot;First Name&quot; input field should be valid</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And the &quot;Other Names&quot; input field should be valid</span><span style="color:white;">
+
+  Scenario: The user adds a new user
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I have been elevated to sysadmin</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am on the Administration page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click on &quot;Add User&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I enter &quot;Bob&quot; into the &quot;First Name&quot; field</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I enter &quot;Smith&quot; into the &quot;Other Names&quot; field</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I enter &quot;bob.smith@mail.com&quot; into the &quot;Email&quot; field</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I click the &quot;Create User&quot; button</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see an alert saying &quot;Creating user...&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a notification saying &quot;Successfully added Bob Smith as a user&quot;</span><span style="color:white;">
+
+Feature: US-2.2
+
+      As a system administrator,
+      I want to deactivate users of the system
+
+  Scenario: Attempting to deactivate a user, but cancelling on the confirmation dialogue
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I have been elevated to sysadmin</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am on the Administration page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I click the delete icon</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see the &quot;Confirm Delete User&quot; dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click the &quot;Cancel&quot; button</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait 1 second</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should not see a dialogue</span><span style="color:white;">
+
+  Scenario: Deactivating a user
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I have been elevated to sysadmin</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am on the Administration page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I click the delete icon</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see the &quot;Confirm Delete User&quot; dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click the &quot;Delete User&quot; button</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a loading animation</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a notification saying &quot;Removed Jane Dough as a user&quot;</span><span style="color:white;">
+
+Feature: US-2.4
+
+      As a system administrator,
+      I want to create a project
+
+  Scenario: Creating a project
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I have been elevated to sysadmin</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am on the Administration page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click on &quot;Create Project&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see the &quot;Create Project&quot; dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I enter &quot;EXAMPLE&quot; into the &quot;Project ID&quot; field</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I enter &quot;Example&quot; into the &quot;Project Name&quot; field</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I enter &quot;http://www.example.com/test.png&quot; into the &quot;Icon URL&quot; field</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I click the &quot;Create Project&quot; button in the dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see an alert saying &quot;Creating project...&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a notification saying &quot;Successfully created Example project&quot;</span><span style="color:white;">
+
+Feature: US-2.5
+
+      As a system administrator,
+      I want to add a user to the list of project members
+
+  Scenario: Adding a user to the list of project members
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I have been elevated to sysadmin</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am on the Administration page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I click on the View Project icon</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should be on the &quot;Manage Example Project&quot; page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click on &quot;Add Member&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see the &quot;Add Project Member&quot; dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I select &quot;Jane Dough&quot; from the &quot;User&quot; dropdown</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I select &quot;Worker&quot; from the &quot;Role&quot; dropdown</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I click the &quot;Add Member&quot; button in the dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see an alert in the dialogue saying &quot;Loading...&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a notification saying &quot;Successfully added Jane Dough as a member&quot;</span><span style="color:white;">
+
+Feature: US-2.6
+
+      As a system administrator,
+      I want to change the role a member has within a project
+
+  Scenario: Change a project member's role
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I have been elevated to sysadmin</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am on the Administration page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I click on the View Project icon</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should be on the &quot;Manage Example Project&quot; page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I select &quot;Worker&quot; from the &quot;Role&quot; dropdown for the first entry in the &quot;Project Members&quot; list</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a loading animation</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a notification saying &quot;Successfully changed the role of Bob Smith to Worker&quot;</span><span style="color:white;">
+
+Feature: US-2.7
+
+      As a system administrator,
+      I want to remove a member from the project
+
+  Scenario: Removing a project member
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I have been elevated to sysadmin</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am on the Administration page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click on the View Project icon</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should be on the &quot;Manage Example Project&quot; page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click the remove icon</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see the &quot;Confirm Remove Member&quot; dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click the &quot;Remove Member&quot; button</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a loading animation</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait 1 second</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a notification saying &quot;Successfully removed Bob Smith as a member&quot;</span><span style="color:white;">
+
+Feature: US-3.1
+
+      As a project administrator,
+      I want to add a user to the list of project members
+
+  Scenario: Adding a user to the list of project members
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am managing the EXAMPLE project</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click on &quot;Add Member&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see the &quot;Add Project Member&quot; dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I select &quot;Jane Dough&quot; from the &quot;User&quot; dropdown</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I select &quot;Worker&quot; from the &quot;Role&quot; dropdown</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I click the &quot;Add Member&quot; button in the dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see an alert in the dialogue saying &quot;Loading...&quot;</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a notification saying &quot;Successfully added Jane Dough as a member&quot;</span><span style="color:white;">
+
+Feature: US-3.2
+
+      As a project administrator,
+      I want to change the role a member has within a project
+
+  Scenario: Change a project member's role
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am managing the EXAMPLE project</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I select &quot;Worker&quot; from the &quot;Role&quot; dropdown for the first entry in the &quot;Project Members&quot; list</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a loading animation</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a notification saying &quot;Successfully changed the role of Bob Smith to Worker&quot;</span><span style="color:white;">
+
+Feature: US-3.3
+
+      As a project administrator,
+      I want to remove a member from the project
+
+  Scenario: Removing a project member
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am managing the EXAMPLE project</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click the remove icon</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see the &quot;Confirm Remove Member&quot; dialogue</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I click the &quot;Remove Member&quot; button</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I wait a bit</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a loading animation</span><span style="color:white;">
+  </span><span style="color:lime;">✔ When I wait 1 second</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should see a notification saying &quot;Successfully removed Bob Smith as a member&quot;</span><span style="color:white;">
+
+Feature: US-3.7
+
+      As a project administrator,
+      I want to view a task within a project
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Navigating to a task from the project
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am on the EXAMPLE project page</span><span style="color:white;">
+  </span><span style="color:yellow;">? When I click to view the &quot;Example Task&quot; task</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;EXAMPLE-1: Example Task&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Details&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Description&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Work Log&quot;</span><span style="color:white;">
+
+Feature: US-3.8
+
+      As a project administrator,
+      I want to transfer a task to another user by assigning it to them
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Removing the current assignee
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing task EXAMPLE-1</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Edit Task&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;Edit EXAMPLE-1&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I select &quot;Unassigned&quot; from the &quot;Assignee&quot; dropdown</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I click the &quot;Save&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Saving...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;EXAMPLE-1&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a notification saying &quot;Successfully saved changes to EXAMPLE-1&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see &quot;Assignee: Unassigned&quot;</span><span style="color:white;">
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Changing the current assignee
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing task EXAMPLE-1</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Edit Task&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;Edit EXAMPLE-1&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I select &quot;Jane Dough&quot; from the &quot;Assignee&quot; dropdown</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I click the &quot;Save&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Saving...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;EXAMPLE-1&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a notification saying &quot;Successfully saved changes to EXAMPLE-1&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see &quot;Assignee: Jane Dough&quot;</span><span style="color:white;">
+
+Feature: US-3.9
+
+      As a project administrator,
+      I want to change the state of a task
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Putting an &quot;Open&quot; task into &quot;In Progress&quot;
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And EXAMPLE-1 is &quot;Open&quot;</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing task EXAMPLE-1</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a &quot;button&quot; with the text &quot;Start Progress&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Start Progress&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Loading...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a notification saying &quot;Started progress on EXAMPLE-1&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see &quot;State: In Progress&quot;</span><span style="color:white;">
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Marking an &quot;In Progress&quot; task as &quot;Complete&quot;
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And EXAMPLE-1 is &quot;In Progress&quot;</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing task EXAMPLE-1</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a &quot;button&quot; with the text &quot;Mark as Complete&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Mark as Complete&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Loading...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a notification saying &quot;Marked EXAMPLE-1 as Complete&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see &quot;State: Complete&quot;</span><span style="color:white;">
+
+Feature: US-4.1
+
+      As a worker,
+      I want to see all projects that I can access
+
+  Scenario: A user with no assignments
+  </span><span style="color:lime;">✔ Given I am a user with no assignments</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should be on the &quot;Home&quot; page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I should see &quot;You are not assigned to any projects&quot;</span><span style="color:white;">
+
+  Scenario: A user with one or more assignments
+  </span><span style="color:lime;">✔ Given I am a user with assignments</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ Then I should be on the &quot;Home&quot; page</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And I should see &quot;Example Project&quot;</span><span style="color:white;">
+
+Feature: US-4.10
+
+      As a worker,
+      I want to change the state of a task
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Putting an &quot;Open&quot; task into &quot;In Progress&quot;
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And EXAMPLE-1 is &quot;Open&quot;</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing task EXAMPLE-1</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a &quot;button&quot; with the text &quot;Start Progress&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Start Progress&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Loading...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a notification saying &quot;Started progress on EXAMPLE-1&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see &quot;State: In Progress&quot;</span><span style="color:white;">
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Marking an &quot;In Progress&quot; task as &quot;Complete&quot;
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:lime;">✔ And EXAMPLE-1 is &quot;In Progress&quot;</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing task EXAMPLE-1</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a &quot;button&quot; with the text &quot;Mark as Complete&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Mark as Complete&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Loading...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a notification saying &quot;Marked EXAMPLE-1 as Complete&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see &quot;State: Complete&quot;</span><span style="color:white;">
+
+Feature: US-4.2
+
+      As a worker,
+      I want to see all tasks within a project that I can access
+
+  Scenario: Viewing a project
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? When I view the EXAMPLE project</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;Example Project&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Assigned to Me&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Unassigned&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Other Tasks&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Completed&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a &quot;table tr&quot; in the &quot;Assigned to Me&quot; panel</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a &quot;table tr&quot; in the &quot;Unassigned&quot; panel</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a &quot;table tr&quot; in the &quot;Other Tasks&quot; panel</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a &quot;table tr&quot; in the &quot;Completed&quot; panel</span><span style="color:white;">
+
+Feature: US-4.3
+
+      As a worker,
+      I want to see all tasks assigned to me
+
+  Scenario: Viewing a project
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? When I view the EXAMPLE project</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;Example Project&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Assigned to Me&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Unassigned&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Other Tasks&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Completed&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see &quot;Assigned Task&quot; in the &quot;Assigned to Me&quot; panel</span><span style="color:white;">
+
+Feature: US-4.4
+
+      As a worker,
+      I want to see unassigned tasks in a project
+
+  Scenario: Viewing a project
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? When I view the EXAMPLE project</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;Example Project&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Assigned to Me&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Unassigned&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Other Tasks&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Completed&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see &quot;Unassigned Task&quot; in the &quot;Unassigned&quot; panel</span><span style="color:white;">
+
+Feature: US-4.5
+
+      As a worker,
+      I want to assign an unassigned task to myself
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Assigning an unassigned task from the &quot;View Task&quot; page
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing an unassigned task</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a &quot;button&quot; with the text &quot;Assign to Me&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Assign to Me&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Loading...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a notification saying &quot;Assigned EXAMPLE-1 to you&quot;</span><span style="color:white;">
+
+Feature: US-4.6
+
+      As a worker,
+      I want to view a task within a project
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Navigating to a task from the project
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am on the EXAMPLE project page</span><span style="color:white;">
+  </span><span style="color:yellow;">? When I click to view the &quot;Example Task&quot; task</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;EXAMPLE-1: Example Task&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Details&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Description&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a panel called &quot;Work Log&quot;</span><span style="color:white;">
+
+Feature: US-4.7
+
+      As a woker,
+      I want to transfer a task to another user by assigning it to them
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Removing the current assignee
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing task EXAMPLE-1</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Edit Task&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;Edit EXAMPLE-1&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I select &quot;Unassigned&quot; from the &quot;Assignee&quot; dropdown</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I click the &quot;Save&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Saving...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;EXAMPLE-1&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a notification saying &quot;Successfully saved changes to EXAMPLE-1&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see &quot;Assignee: Unassigned&quot;</span><span style="color:white;">
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Changing the current assignee
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing task EXAMPLE-1</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Edit Task&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;Edit EXAMPLE-1&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I select &quot;Jane Dough&quot; from the &quot;Assignee&quot; dropdown</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I click the &quot;Save&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Saving...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;EXAMPLE-1&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a notification saying &quot;Successfully saved changes to EXAMPLE-1&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see &quot;Assignee: Jane Dough&quot;</span><span style="color:white;">
+
+Feature: US-4.8
+
+      As a worker,
+      I want to edit a task
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Editing a task
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing task EXAMPLE-1</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a &quot;button&quot; with the text &quot;Edit&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Edit&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;Edit EXAMPLE-1&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I enter &quot;New Summary&quot; into the &quot;Summary&quot; field</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I select &quot;P1&quot; from the &quot;Priority&quot; dropdown</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I click the &quot;Save&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Saving...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should be on the &quot;EXAMPLE-1&quot; page</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I should see a notification saying &quot;Successfully saved changes to EXAMPLE-1&quot;</span><span style="color:white;">
+
+Feature: US-4.9
+
+      As a worker,
+      I want to log effort against a task
+
+  </span><span style="color:aqua;">@incomplete</span><span style="color:white;">
+  Scenario: Logging work against a task
+  </span><span style="color:lime;">✔ Given I am logged in</span><span style="color:white;">
+  </span><span style="color:yellow;">? And I am viewing task EXAMPLE-1</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a &quot;button&quot; with the text &quot;Log Work&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I click the &quot;Log Work&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see the &quot;Log Work&quot; dialogue</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I enter &quot;2h 15m&quot; into the &quot;Effort&quot; field</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I enter &quot;1h&quot; into the &quot;Remaining Effort&quot; field</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I enter &quot;Did some work&quot; into the &quot;Comment&quot; field</span><span style="color:white;">
+  </span><span style="color:aqua;">- And I click the &quot;Submit&quot; button</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see an alert saying &quot;Loading...&quot;</span><span style="color:white;">
+  </span><span style="color:aqua;">- When I wait a bit</span><span style="color:white;">
+  </span><span style="color:aqua;">- Then I should see a notification saying &quot;Logged 2h 15m of work to EXAMPLE-1&quot;</span><span style="color:white;">
+
+Warnings:
+
+1) Scenario: Navigating to a task from the project - features/us-3-7.feature:6
+   Step: And I am on the EXAMPLE project page - features/us-3-7.feature:8
+   Message:
+     </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+       this.Given('I am on the EXAMPLE project page', function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });</span><span style="color:white;font-weight:bold;">
+
+2) Scenario: Navigating to a task from the project - features/us-3-7.feature:6
+   Step: When I click to view the &quot;Example Task&quot; task - features/us-3-7.feature:9
+   Message:
+     </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+       this.When('I click to view the {arg1:stringInDoubleQuotes} task', function (arg1, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });</span><span style="color:white;font-weight:bold;">
+
+3) Scenario: Removing the current assignee - features/us-3-8.feature:6
+   Step: And I am viewing task EXAMPLE-1 - features/us-3-8.feature:8
+   Message:
+     </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+       this.Given('I am viewing task EXAMPLE{arg1:int}', function (arg1, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });</span><span style="color:white;font-weight:bold;">
+
+4) Scenario: Changing the current assignee - features/us-3-8.feature:20
+   Step: And I am viewing task EXAMPLE-1 - features/us-3-8.feature:22
+   Message:
+     </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+       this.Given('I am viewing task EXAMPLE{arg1:int}', function (arg1, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });</span><span style="color:white;font-weight:bold;">
+
+5) Scenario: Putting an &quot;Open&quot; task into &quot;In Progress&quot; - features/us-3-9.feature:6
+   Step: And I am viewing task EXAMPLE-1 - features/us-3-9.feature:9
+   Message:
+     </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+       this.Given('I am viewing task EXAMPLE{arg1:int}', function (arg1, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });</span><span style="color:white;font-weight:bold;">
+
+6) Scenario: Marking an &quot;In Progress&quot; task as &quot;Complete&quot; - features/us-3-9.feature:18
+   Step: And I am viewing task EXAMPLE-1 - features/us-3-9.feature:21
+   Message:
+     </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+       this.Given('I am viewing task EXAMPLE{arg1:int}', function (arg1, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });</span><span style="color:white;font-weight:bold;">
+
+7) Scenario: Putting an &quot;Open&quot; task into &quot;In Progress&quot; - features/us-4-10.feature:6
+   Step: And I am viewing task EXAMPLE-1 - features/us-4-10.feature:9
+   Message:
+     </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+       this.Given('I am viewing task EXAMPLE{arg1:int}', function (arg1, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });</span><span style="color:white;font-weight:bold;">
+
+8) Scenario: Marking an &quot;In Progress&quot; task as &quot;Complete&quot; - features/us-4-10.feature:18
+   Step: And I am viewing task EXAMPLE-1 - features/us-4-10.feature:21
+   Message:
+     </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+       this.Given('I am viewing task EXAMPLE{arg1:int}', function (arg1, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });</span><span style="color:white;font-weight:bold;">
+
+9) Scenario: Viewing a project - features/us-4-2.feature:5
+   Step: When I view the EXAMPLE project - features/us-4-2.feature:7
+   Message:
+     </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+       this.When('I view the EXAMPLE project', function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });</span><span style="color:white;font-weight:bold;">
+
+10) Scenario: Viewing a project - features/us-4-3.feature:5
+    Step: When I view the EXAMPLE project - features/us-4-3.feature:7
+    Message:
+      </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+        this.When('I view the EXAMPLE project', function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });</span><span style="color:white;font-weight:bold;">
+
+11) Scenario: Viewing a project - features/us-4-4.feature:5
+    Step: When I view the EXAMPLE project - features/us-4-4.feature:7
+    Message:
+      </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+        this.When('I view the EXAMPLE project', function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });</span><span style="color:white;font-weight:bold;">
+
+12) Scenario: Assigning an unassigned task from the &quot;View Task&quot; page - features/us-4-5.feature:6
+    Step: And I am viewing an unassigned task - features/us-4-5.feature:8
+    Message:
+      </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+        this.Given('I am viewing an unassigned task', function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });</span><span style="color:white;font-weight:bold;">
+
+13) Scenario: Navigating to a task from the project - features/us-4-6.feature:6
+    Step: And I am on the EXAMPLE project page - features/us-4-6.feature:8
+    Message:
+      </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+        this.Given('I am on the EXAMPLE project page', function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });</span><span style="color:white;font-weight:bold;">
+
+14) Scenario: Navigating to a task from the project - features/us-4-6.feature:6
+    Step: When I click to view the &quot;Example Task&quot; task - features/us-4-6.feature:9
+    Message:
+      </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+        this.When('I click to view the {arg1:stringInDoubleQuotes} task', function (arg1, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });</span><span style="color:white;font-weight:bold;">
+
+15) Scenario: Removing the current assignee - features/us-4-7.feature:6
+    Step: And I am viewing task EXAMPLE-1 - features/us-4-7.feature:8
+    Message:
+      </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+        this.Given('I am viewing task EXAMPLE{arg1:int}', function (arg1, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });</span><span style="color:white;font-weight:bold;">
+
+16) Scenario: Changing the current assignee - features/us-4-7.feature:20
+    Step: And I am viewing task EXAMPLE-1 - features/us-4-7.feature:22
+    Message:
+      </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+        this.Given('I am viewing task EXAMPLE{arg1:int}', function (arg1, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });</span><span style="color:white;font-weight:bold;">
+
+17) Scenario: Editing a task - features/us-4-8.feature:6
+    Step: And I am viewing task EXAMPLE-1 - features/us-4-8.feature:8
+    Message:
+      </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+        this.Given('I am viewing task EXAMPLE{arg1:int}', function (arg1, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });</span><span style="color:white;font-weight:bold;">
+
+18) Scenario: Logging work against a task - features/us-4-9.feature:6
+    Step: And I am viewing task EXAMPLE-1 - features/us-4-9.feature:8
+    Message:
+      </span><span style="color:yellow;font-weight:bold;">Undefined. Implement with the following snippet:
+
+        this.Given('I am viewing task EXAMPLE{arg1:int}', function (arg1, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });</span><span style="color:white;font-weight:bold;">
+
+31 scenarios (</span><span style="color:red;font-weight:bold;">0 failed</span><span style="color:white;font-weight:bold;">, </span><span style="color:yellow;font-weight:bold;">16 undefined</span><span style="color:white;font-weight:bold;">, </span><span style="color:lime;font-weight:bold;">15 passed</span><span style="color:white;font-weight:bold;">)
+302 steps (</span><span style="color:red;font-weight:bold;">0 failed</span><span style="color:white;font-weight:bold;">, </span><span style="color:yellow;font-weight:bold;">18 undefined</span><span style="color:white;font-weight:bold;">, </span><span style="color:aqua;font-weight:bold;">114 skipped</span><span style="color:white;font-weight:bold;">, </span><span style="color:lime;font-weight:bold;">170 passed</span><span style="color:white;font-weight:bold;">)
+2m57.005s
+</span>
+</pre>
+</body>
+</html>
