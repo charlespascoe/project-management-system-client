@@ -3,6 +3,7 @@ import userManager from 'client/managers/user-manager';
 import {
   SuccessStatus,
   UnauthenticatedStatus,
+  UnauthorisedStatus,
   NoInternetStatus
 } from 'client/apis/statuses';
 
@@ -70,6 +71,8 @@ export default class LoginViewmodel extends Viewmodel {
 
     if (response.status instanceof UnauthenticatedStatus) {
       this.errorMessage = 'Incorrect username or password';
+    } else if (response.status instanceof UnauthorisedStatus) {
+      this.errorMessage = 'The server is not accepting login requests at this time. Please try again later.';
     } else if (response.status instanceof NoInternetStatus) {
       this.errorMessage = 'No Internet Connection';
     } else {
