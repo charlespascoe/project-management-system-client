@@ -20,4 +20,6 @@ Running for Development
 Running Tests
 -------------
 
+You will need to run `$ npm start` in another terminal, and then run:
+
 `$ npm test`
