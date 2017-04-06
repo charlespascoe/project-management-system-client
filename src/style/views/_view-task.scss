@@ -1,0 +1,20 @@
+#view-task-view {
+  #details {
+    .key, .value {
+      display: inline-block;
+      padding: 0 6px;
+    }
+
+    .key {
+      width: 40%;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .value {
+      width: 60%;
+    }
+
+
+  }
+}

@@ -24,19 +24,28 @@ export default class ViewTaskView extends View {
           </div>
           }
         </div>
+        {!this.viewmodel.task ? '' :
         <div className='container'>
-          {!this.viewmodel.task ? '' :
-            <CollapsiblePanel title='Details' type='primary'>
-              <p>Project: {this.viewmodel.projectName}</p>
-              <p>Priority: {priorityConverter(this.viewmodel.priority)}</p>
-              <p>Assignee: {this.viewmodel.assignee}</p>
-              <p>Estimate: {durationConverter(this.viewmodel.estEffort)}</p>
-              <p>Worked Effort: {durationConverter(this.viewmodel.workedEffort)}</p>
-              <p>Target Date: {dateFormatter(this.viewmodel.targetDate)}</p>
-              <p>State: {this.viewmodel.state}</p>
-            </CollapsiblePanel>
-          }
+          <div className='row'>
+            <div className='col-md-5'>
+              <CollapsiblePanel id='details' title='Details' type='primary' padding>
+                <p className='key'>Project</p><p className='value'>{this.viewmodel.projectName}</p>
+                <p className='key'>Priority</p><p className='value'>{priorityConverter(this.viewmodel.priority)}</p>
+                <p className='key'>Assignee</p><p className='value'>{this.viewmodel.assignee}</p>
+                <p className='key'>Estimate</p><p className='value'>{durationConverter(this.viewmodel.estEffort)}</p>
+                <p className='key'>Worked Effort</p><p className='value'>{durationConverter(this.viewmodel.workedEffort)}</p>
+                <p className='key'>Target Date</p><p className='value'>{dateFormatter(this.viewmodel.targetDate)}</p>
+                <p className='key'>State</p><p className='value'>{this.viewmodel.state}</p>
+              </CollapsiblePanel>
+            </div>
+            <div className='col-md-7'>
+              <CollapsiblePanel id='description' title='Description' type='primary' padding>
+                <p>{this.viewmodel.description || 'Lorem Ipsum'}</p>
+              </CollapsiblePanel>
+            </div>
+          </div>
         </div>
+        }
       </div>
     );
   }

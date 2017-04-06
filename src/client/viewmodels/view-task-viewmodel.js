@@ -13,6 +13,8 @@ export default class ViewTaskViewmodel extends Viewmodel {
 
   get priority() { return this.task.priority; }
 
+  get description() { return this.task.description; }
+
   get assignee() {
     if (this.task.assignee == null) return 'Unassigned';
     return this.task.assignee.name;
