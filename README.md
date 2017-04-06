@@ -7,6 +7,8 @@ It's built as a demonstration of one possible way of using the MVVM design patte
 
 This is part of a Uni assignment, and while it currently doesn't implement all of the desired functionality, it does demonstrate an interesting implementation of a React.js app.
 
+The requirements and design documents are in the `design` folder, which explain the purpose of the application and the motivation behind certain design choices (both in terms of the UI and the structure of the code).
+
 Setup
 -----
 
